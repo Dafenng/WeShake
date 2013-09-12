@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>80667ACF-7E85-4E1B-A2E2-CA7C91620557</string>
+	<key>IDESourceControlProjectName</key>
+	<string>WeShake</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>D85D759A-6AAE-490C-9409-95BE8A77D567</key>
+		<string>https://github.com/keywind/WeShake.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>WeShake.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>D85D759A-6AAE-490C-9409-95BE8A77D567</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/keywind/WeShake.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>D85D759A-6AAE-490C-9409-95BE8A77D567</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>D85D759A-6AAE-490C-9409-95BE8A77D567</string>
+			<key>IDESourceControlWCCName</key>
+			<string>WeShake</string>
+		</dict>
+	</array>
+</dict>
+</plist>

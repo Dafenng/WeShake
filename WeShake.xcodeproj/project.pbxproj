@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5559A5A8254C4411A9D532DE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3414B20CD0D2432A95F704F1 /* libPods.a */; };
+		BBAF336217E1BF1500FA5378 /* WTSearchMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAF336117E1BF1500FA5378 /* WTSearchMenuViewController.m */; };
+		BBAF336517E1E1E800FA5378 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */; };
+		BBAF336617E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBAF336417E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist */; };
 		D8C68E3B17E0775E002BCFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3A17E0775E002BCFCC /* Foundation.framework */; };
 		D8C68E3D17E0775E002BCFCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */; };
 		D8C68E3F17E0775E002BCFCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3E17E0775E002BCFCC /* UIKit.framework */; };
@@ -69,6 +72,10 @@
 /* Begin PBXFileReference section */
 		3414B20CD0D2432A95F704F1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AADFE6DD0F4336B004DD2A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		BBAF336017E1BF1500FA5378 /* WTSearchMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSearchMenuViewController.h; sourceTree = "<group>"; };
+		BBAF336117E1BF1500FA5378 /* WTSearchMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSearchMenuViewController.m; sourceTree = "<group>"; };
+		BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
+		BBAF336417E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShopTypesAndCuisineTypes.plist; sourceTree = "<group>"; };
 		D8C68E3717E0775E002BCFCC /* WeShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C68E3A17E0775E002BCFCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -204,6 +211,8 @@
 				D8C68E9817E0785F002BCFCC /* WTShopParser.m */,
 				D8C68E9917E0785F002BCFCC /* WTShopViewController.h */,
 				D8C68E9A17E0785F002BCFCC /* WTShopViewController.m */,
+				BBAF336017E1BF1500FA5378 /* WTSearchMenuViewController.h */,
+				BBAF336117E1BF1500FA5378 /* WTSearchMenuViewController.m */,
 				D8C68EB917E09A5E002BCFCC /* WTSearchViewController.h */,
 				D8C68EBA17E09A5E002BCFCC /* WTSearchViewController.m */,
 				D8C68E4917E0775E002BCFCC /* WTAppDelegate.h */,
@@ -212,6 +221,8 @@
 				D8C68E4F17E0775E002BCFCC /* WTMainViewController.h */,
 				D8C68E5017E0775E002BCFCC /* WTMainViewController.m */,
 				D8C68E5217E0775E002BCFCC /* Images.xcassets */,
+				BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */,
+				BBAF336417E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist */,
 				D8C68E7217E0785F002BCFCC /* image */,
 				D8C68E4117E0775E002BCFCC /* Supporting Files */,
 			);
@@ -414,6 +425,7 @@
 				D8C68EA617E0785F002BCFCC /* shop_favor.png in Resources */,
 				D8C68E9F17E0785F002BCFCC /* shop_bar@2x.png in Resources */,
 				D8C68EA417E0785F002BCFCC /* shop_dinnerbar.png in Resources */,
+				BBAF336617E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist in Resources */,
 				D8C68EAB17E0785F002BCFCC /* shop_izakaya@2x.png in Resources */,
 				D8C68EB117E0785F002BCFCC /* shop_location@2x.png in Resources */,
 				D8C68EB017E0785F002BCFCC /* shop_location.png in Resources */,
@@ -424,6 +436,7 @@
 				D8C68E9D17E0785F002BCFCC /* main_shake_button@2x.png in Resources */,
 				D8C68EA517E0785F002BCFCC /* shop_dinnerbar@2x.png in Resources */,
 				D8C68EAE17E0785F002BCFCC /* shop_korean.png in Resources */,
+				BBAF336517E1E1E800FA5378 /* ProvincesAndCities.plist in Resources */,
 				D8C68EA817E0785F002BCFCC /* shop_italian.png in Resources */,
 				D8C68E9C17E0785F002BCFCC /* main_shake_button.png in Resources */,
 			);
@@ -485,6 +498,7 @@
 				D8C68E4B17E0775E002BCFCC /* WTAppDelegate.m in Sources */,
 				D8C68EB217E0785F002BCFCC /* WTShop.m in Sources */,
 				D8C68EB517E0785F002BCFCC /* WTLocationManager.m in Sources */,
+				BBAF336217E1BF1500FA5378 /* WTSearchMenuViewController.m in Sources */,
 				D8C68EB317E0785F002BCFCC /* XMLReader.m in Sources */,
 				D8C68EB617E0785F002BCFCC /* WTShopManager.m in Sources */,
 				D8C68E5117E0775E002BCFCC /* WTMainViewController.m in Sources */,

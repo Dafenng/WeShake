@@ -19,14 +19,14 @@
     return self;
 }
 
-- (void)setSelectedSegmentIndex:(NSInteger)selectedSegmentIndex
-{
-    if (self.selectedSegmentIndex == selectedSegmentIndex) {
-        [super setSelectedSegmentIndex:UISegmentedControlNoSegment];
-    } else {
-        [super setSelectedSegmentIndex:selectedSegmentIndex];
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    NSInteger current = self.selectedSegmentIndex;
+    [super touchesBegan:touches withEvent:event];
+    if (current == self.selectedSegmentIndex) {
+        [self sendActionsForControlEvents:UIControlEventValueChanged];
     }
 }
+
 
 /*
 // Only override drawRect: if you perform custom drawing.

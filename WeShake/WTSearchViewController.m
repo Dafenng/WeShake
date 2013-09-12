@@ -7,8 +7,16 @@
 //
 
 #import "WTSearchViewController.h"
+#import "WTSegmentedControl.h"
 
-@interface WTSearchViewController ()
+@interface WTSearchViewController () {
+    BOOL _isShowingMenu;
+    NSInteger _selectedSegmentIndex;
+}
+
+@property (weak, nonatomic) IBOutlet UIView *shopMenuCategoryContainer;
+@property (weak, nonatomic) IBOutlet WTSegmentedControl *shopMenuSegmentControl;
+@property (strong, nonatomic) WTSearchMenuViewController *menuViewController;
 
 @end
 
@@ -27,6 +35,12 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+    CGRect frame = self.shopMenuSegmentControl.frame;
+    frame.size.height = 28;
+    self.shopMenuSegmentControl.frame = frame;
+    
+    self.menuViewController = [[WTSearchMenuViewController alloc] init];
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,25 +49,72 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)shopTypeSegmentControlValueChanged:(id)sender {
+- (IBAction)shopMenuSegmentControlValueChanged:(id)sender {
     UISegmentedControl *segmentedControl = (UISegmentedControl*) sender;
-    switch ([segmentedControl selectedSegmentIndex]) {
-        case 0:
-            // do something
+    if (_selectedSegmentIndex == [segmentedControl selectedSegmentIndex]) {
+        _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
+    } else {
+        _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex;
+    }
+    
+    switch (_selectedSegmentIndex) {
+        case SHOP_MENU_LOCATION:
+            [self showShopOptionMenu:SHOP_MENU_LOCATION];
             break;
-        case 1:
-            // do something
+        case SHOP_MENU_CUISINE:
+            [self showShopOptionMenu:SHOP_MENU_CUISINE];
             break;
-        case 2:
-            // do something
+        case SHOP_MENU_BUDGET:
+            [self showShopOptionMenu:SHOP_MENU_BUDGET];
             break;
         case UISegmentedControlNoSegment:
-            // do something
+            [self dismissShopOptionMenu];
             break;
         default:
             NSLog(@"No option for: %d", [segmentedControl selectedSegmentIndex]);
     }
 }
+
+- (void)dismissShopOptionMenu
+{
+    if (_isShowingMenu) {
+        [UIView animateWithDuration:0.2f animations:^{
+            self.menuViewController.view.frame = [self frameForHiddenMenuViewController];
+        } completion:^(BOOL finished) {
+            [self.menuViewController willMoveToParentViewController:nil];
+            [self.menuViewController.view removeFromSuperview];
+            [self.menuViewController removeFromParentViewController];
+            _isShowingMenu = NO;
+        }];
+    }
+}
+
+- (CGRect)frameForHiddenMenuViewController
+{
+    CGRect menuCategoryFrame = self.shopMenuCategoryContainer.frame;
+    return CGRectMake(0, menuCategoryFrame.origin.y + menuCategoryFrame.size.height - 300, 320, 300);
+}
+
+- (CGRect)frameForMenuViewController
+{
+    CGRect menuCategoryFrame = self.shopMenuCategoryContainer.frame;
+    return CGRectMake(0, menuCategoryFrame.origin.y + menuCategoryFrame.size.height, 320, 300);
+}
+
+- (void)showShopOptionMenu:(NSInteger)optionType
+{
+    [self addChildViewController:self.menuViewController];
+    self.menuViewController.view.frame = [self frameForHiddenMenuViewController];
+    [self.view insertSubview:self.menuViewController.view belowSubview:self.shopMenuCategoryContainer];
+    [self.menuViewController didMoveToParentViewController:self];
+    
+    [UIView animateWithDuration:0.2f animations:^{
+        self.menuViewController.view.frame = [self frameForMenuViewController];
+    } completion:^(BOOL finished) {
+        _isShowingMenu = YES;
+    }];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -90,5 +151,16 @@
  
  */
 
+#pragma mark - WTSearchMenuViewDelegate
+
+- (void)didSelectNewSearchConditionWithLatitude:(double)latitude longitude:(double)longitude
+{
+    [self dismissShopOptionMenu];
+}
+
+- (void)didSelectNewSearchConditionNotImplemented
+{
+    [self dismissShopOptionMenu];
+}
 
 @end

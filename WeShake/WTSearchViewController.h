@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WTSearchMenuViewController.h"
 
-@interface WTSearchViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface WTSearchViewController : UIViewController
+<UITableViewDataSource, UITableViewDelegate, WTSearchMenuViewDelagate>
 
 @end
