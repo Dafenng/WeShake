@@ -8,6 +8,10 @@
 
 #import "WTSearchViewController.h"
 #import "WTSegmentedControl.h"
+#import "WTSearchViewCell.h"
+#include "WTShopManager.h"
+#import "WTShopViewController.h"
+#import <objc/runtime.h>
 
 @interface WTSearchViewController () {
     BOOL _isShowingMenu;
@@ -16,7 +20,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *shopMenuCategoryContainer;
 @property (weak, nonatomic) IBOutlet WTSegmentedControl *shopMenuSegmentControl;
+@property (weak, nonatomic) IBOutlet UITableView *shopsTableView;
 @property (strong, nonatomic) WTSearchMenuViewController *menuViewController;
+@property (strong, nonatomic) NSArray *shopList;
 
 @end
 
@@ -41,12 +47,30 @@
     self.shopMenuSegmentControl.frame = frame;
     
     self.menuViewController = [[WTSearchMenuViewController alloc] init];
+    self.menuViewController.delegate = self;
+    self.shopList = [NSMutableArray array];
+    
+    //TODO:需要改为默认全部shop
+    [self getSearchShopsWithConditionOfLatitude:35.690415 longitude:139.700211];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)getSearchShopsWithConditionOfLatitude:(double)laittude longitude:(double)longitude
+{
+    [[WTShopManager sharedInstance] getSearchShopsWithConditionOfLatitude:laittude longitude:longitude succsee:^(NSArray *shops) {
+        self.shopList = [NSArray arrayWithArray:shops];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
+        NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+        self.shopList = [NSMutableArray arrayWithArray:[self.shopList sortedArrayUsingDescriptors:sortDescriptors]];
+        [self.shopsTableView reloadData];
+    } failure:^(NSString *error) {
+        NSLog(@"Search error");
+    }];
 }
 
 - (IBAction)shopMenuSegmentControlValueChanged:(id)sender {
@@ -75,6 +99,18 @@
     }
 }
 
+- (CGRect)frameForHiddenMenuViewController
+{
+    CGRect menuCategoryFrame = self.shopMenuCategoryContainer.frame;
+    return CGRectMake(0, menuCategoryFrame.origin.y + menuCategoryFrame.size.height - 300, 320, 300);
+}
+
+- (CGRect)frameForMenuViewController
+{
+    CGRect menuCategoryFrame = self.shopMenuCategoryContainer.frame;
+    return CGRectMake(0, menuCategoryFrame.origin.y + menuCategoryFrame.size.height, 320, 300);
+}
+
 - (void)dismissShopOptionMenu
 {
     if (_isShowingMenu) {
@@ -89,20 +125,9 @@
     }
 }
 
-- (CGRect)frameForHiddenMenuViewController
+- (void)showShopOptionMenu:(NSInteger)menuType
 {
-    CGRect menuCategoryFrame = self.shopMenuCategoryContainer.frame;
-    return CGRectMake(0, menuCategoryFrame.origin.y + menuCategoryFrame.size.height - 300, 320, 300);
-}
-
-- (CGRect)frameForMenuViewController
-{
-    CGRect menuCategoryFrame = self.shopMenuCategoryContainer.frame;
-    return CGRectMake(0, menuCategoryFrame.origin.y + menuCategoryFrame.size.height, 320, 300);
-}
-
-- (void)showShopOptionMenu:(NSInteger)optionType
-{
+    self.menuViewController.menuType = menuType;
     [self addChildViewController:self.menuViewController];
     self.menuViewController.view.frame = [self frameForHiddenMenuViewController];
     [self.view insertSubview:self.menuViewController.view belowSubview:self.shopMenuCategoryContainer];
@@ -117,45 +142,54 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    // Return the number of sections.
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 0;
+    return [self.shopList count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
+    static NSString *CellIdentifier = @"SearchViewCell";
+    WTSearchViewCell *cell = (WTSearchViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    if (cell == nil) {
+        cell = [[WTSearchViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     // Configure the cell...
+    WTShop *shop = [self.shopList objectAtIndex:indexPath.row];
+    [cell setupSearchViewCellWithShop:shop];
     
     return cell;
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- 
- */
+#pragma mark - Table view delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 95;
+}
+
+#pragma mark - Navigation
+
+// In a story board-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+// Get the new view controller using [segue destinationViewController].
+// Pass the selected object to the new view controller.
+    NSIndexPath *selectedRowIndex = [self.shopsTableView indexPathForSelectedRow];
+    WTShopViewController *shopViewController = [segue destinationViewController];
+    shopViewController.shop = [self.shopList objectAtIndex:selectedRowIndex.row];
+}
+
+
 
 #pragma mark - WTSearchMenuViewDelegate
 
 - (void)didSelectNewSearchConditionWithLatitude:(double)latitude longitude:(double)longitude
 {
+    _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     [self dismissShopOptionMenu];
+    [self getSearchShopsWithConditionOfLatitude:latitude longitude:longitude];
 }
 
 - (void)didSelectNewSearchConditionNotImplemented

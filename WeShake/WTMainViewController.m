@@ -52,7 +52,7 @@
     //        [[WTShopManager sharedInstance] setShouldActivateHTTPRequest:YES];
     //    }
     //    [[WTLocationManager sharedInstance] updateCurrentCoordinate];
-    
+    [[WTShopManager sharedInstance] setShouldActivateHTTPRequest:YES];
     [self getShopInfo];
 }
 
@@ -65,9 +65,11 @@
 
 - (void)showShopInfo:(WTShop *)shop
 {
-    WTToastView *toastView = [[WTToastView alloc] initWithMessage:[NSString stringWithFormat:@"Distance: %dm", shop.distance] title:shop.name image:[UIImage imageNamed:@"food.jpg"]];
+    WTToastView *toastView = [WTToastView toastviewFromNib];
+    [toastView setupWithMessage:[NSString stringWithFormat:@"Distance: %dm", shop.distance] title:shop.name image:[UIImage imageNamed:@"shop_toast_image.png"]];
     
     //TODO:需要调整边界情况
+    toastView.frame = CGRectMake(0, 0, 280, 100);
     toastView.center = self.view.center;
     toastView.alpha= .0;
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectShop:)];
@@ -76,7 +78,7 @@
     [toastView addGestureRecognizer:tapGesture];
     [self.view addSubview:toastView];
     
-    [UIView animateWithDuration:CSToastFadeDuration
+    [UIView animateWithDuration:0.5
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseOut
                      animations:^{
@@ -88,29 +90,7 @@
 
 - (void)showNoShop
 {
-    WTToastView *toastView = [[WTToastView alloc]
-                              initWithMessage:@"Sorry, no restaurant found near you in 1 km"
-                              title:nil
-                              image:nil];
-    toastView.center = self.view.center;
-    toastView.alpha = .0;
-    [self.view addSubview:toastView];
     
-    [UIView animateWithDuration:CSToastFadeDuration
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         toastView.alpha = 1.0;
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:CSToastFadeDuration
-                                               delay:CSToastFadeDuration
-                                             options:UIViewAnimationOptionCurveEaseIn
-                                          animations:^{
-                                              toastView.alpha = .0;
-                                          } completion:^(BOOL finished) {
-                                              [toastView removeFromSuperview];
-                                          }];
-                     }];
     
 }
 

@@ -46,7 +46,7 @@
                                     @"バー・カクテル": @"shop_bar.png",
                                     @"カラオケ・パーティ": @"shop_karaok.png",
                                     @"ダイニングバー": @"shop_dinnerbar.png"};
-    self.shop.imageStr = shopImageDict[self.shop.shopType];
+    self.shop.imageStr = shopImageDict[self.shop.shopType] == nil ? @"shop_izakaya.png" : shopImageDict[self.shop.shopType];
     self.frontImageView.image = [UIImage imageNamed:self.shop.imageStr];
 }
 
@@ -103,29 +103,6 @@
 
 - (IBAction)favorButtonClicked:(id)sender {
     
-    WTToastView *toastView = [[WTToastView alloc]
-                              initWithMessage:@"Sorry, no restaurant found near you in 1 km"
-                              title:nil
-                              image:nil];
-    toastView.center = self.view.center;
-    toastView.alpha = .0;
-    [self.view addSubview:toastView];
     
-    [UIView animateWithDuration:CSToastFadeDuration
-                          delay:0.0
-                        options:UIViewAnimationOptionCurveEaseOut
-                     animations:^{
-                         toastView.alpha = 1.0;
-                     } completion:^(BOOL finished) {
-                         [UIView animateWithDuration:CSToastFadeDuration
-                                               delay:CSToastFadeDuration
-                                             options:UIViewAnimationOptionCurveEaseIn
-                                          animations:^{
-                                              toastView.alpha = .0;
-                                          } completion:^(BOOL finished) {
-                                              [toastView removeFromSuperview];
-                                          }];
-                     }];
-
 }
 @end

@@ -14,8 +14,7 @@
 
 @interface WTShopManager ()
 
-@property (assign, nonatomic) double radius;
-@property (strong, nonatomic) NSMutableArray *shopList;
+@property (strong, nonatomic) NSMutableArray *suggestShopList;
 @property (copy, nonatomic) GetShopSucceedBlock getShopSucceedBlock;
 @property (copy, nonatomic) GetShopFailBlock getShopFailBlock;
 
@@ -30,13 +29,23 @@
     
     dispatch_once(&once, ^{
         _sharedInstance = [[WTShopManager alloc] init];
+        
     });
     return _sharedInstance;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
+
 - (NSInteger)getShopCount
 {
-    return self.shopList.count;
+    return self.suggestShopList.count;
 }
 
 - (void)requestShopData
@@ -73,18 +82,18 @@
                                                            error:nil];
     
     //TODO:XML解析的方式要换掉
-    self.shopList = [WTShopParser parseShopFromXML:xmlText];
+    self.suggestShopList = [WTShopParser parseShopFromXML:xmlText];
     
-    if (self.shopList.count > 0) {
-        if (self.shopIndex >= self.shopList.count) {
+    if (self.suggestShopList.count > 0) {
+        if (self.shopIndex >= self.suggestShopList.count) {
             // get a shop from shopList and pass it
-            [self.shopList shuffle];
+            [self.suggestShopList shuffle];
             self.shopIndex = 0;
         }
         
         // if get array for the first time, calculate distance and sort by distance, or other algorithm to determin the sequence of appearence !!!!!
         if (self.shouldActivateHTTPRequest) {
-            for (WTShop *aShop in self.shopList) {
+            for (WTShop *aShop in self.suggestShopList) {
                 aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:[[WTLocationManager sharedInstance] currentCoordinate] to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
             }
             
@@ -98,7 +107,7 @@
         
         self.shopIndex = 0;
         self.shouldActivateHTTPRequest = NO;
-        WTShop *shop = [self.shopList objectAtIndex:self.shopIndex++];
+        WTShop *shop = [self.suggestShopList objectAtIndex:self.shopIndex++];
         self.getShopSucceedBlock(shop);
     } else {
         [WTLocationManager sharedInstance].radius += kBaseRadiusStep;
@@ -118,14 +127,58 @@
     
     if (self.shouldActivateHTTPRequest) {
         [self requestShopData];
-    } else if (self.shopList.count > 0) {
-        WTShop *shop = [self.shopList objectAtIndex:self.shopIndex++];
+    } else if (self.suggestShopList.count > 0) {
+        WTShop *shop = [self.suggestShopList objectAtIndex:self.shopIndex++];
         self.getShopSucceedBlock(shop);
     } else {
         self.getShopFailBlock();
     }
     
     
+}
+
+- (void)getSearchShopsWithConditionOfLatitude:(double)latitude
+                                    longitude:(double)longitude
+                                      succsee:(void (^)(NSArray *shops))successBlock
+                                      failure:(void (^)(NSString *error))failureBlock
+{
+    NSString *url = [NSString stringWithFormat:@"http://jdang.me:3001/restaurants.xml?latitude=%f&longitude=%f&radius=%@", latitude, longitude, @"1.0"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
+        NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
+                                                            encoding:NSUTF8StringEncoding
+                                                               error:nil];
+        NSArray *searchShopList = [WTShopParser parseShopFromXML:xmlText];
+        
+        for (WTShop *aShop in searchShopList) {
+            aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:CLLocationCoordinate2DMake(latitude, longitude) to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
+        }
+        
+        if (searchShopList.count) {
+            for (WTShop *aShop in searchShopList) {
+                aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:CLLocationCoordinate2DMake(latitude, longitude) to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
+            }
+            successBlock(searchShopList);
+        }
+        else {
+            failureBlock(@"No restaurant found! Please try other conditions.");
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        failureBlock(@"Network Error");
+    }];
+    
+    [operation start];
 }
 
 @end

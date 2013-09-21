@@ -40,17 +40,21 @@
 	// Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor redColor];
     
-    self.masterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, self.view.frame.size.height) style:UITableViewStylePlain];
-    self.subTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
+    self.masterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, 300) style:UITableViewStylePlain];
+    self.masterTableView.backgroundColor = [UIColor yellowColor];
+    self.subTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width, 300) style:UITableViewStylePlain];
+    self.subTableView.backgroundColor = [UIColor greenColor];
     self.masterTableView.tag = kMASTERTABLEVIEWTAG;
     self.subTableView.tag = kSUBTABLEVIEWTAG;
     self.masterTableView.dataSource = self;
     self.masterTableView.delegate = self;
     self.subTableView.dataSource = self;
     self.subTableView.delegate = self;
+    [self.view addSubview:self.masterTableView];
+    [self.view addSubview:self.subTableView];
     
-    _locationArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProvinceAndCities" ofType:@"plist"]];
-    _cuisineArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ShopTypesAndCuisineTypes" ofType:@"plist"]];
+    _locationArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProvincesAndCities.plist" ofType:nil]];
+    _cuisineArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ShopTypesAndCuisineTypes.plist" ofType:nil]];
     _budgetArr = @[@"50", @"100", @"150", @"200"];
 }
 
@@ -60,12 +64,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)willMoveToParentViewController:(UIViewController *)parent
+- (void)didMoveToParentViewController:(UIViewController *)parent
 {
     if (self.menuType == SHOP_MENU_BUDGET) {
         self.masterTableView.hidden = YES;
+        [self.subTableView reloadData];
     } else {
         self.masterTableView.hidden = NO;
+        [self.masterTableView reloadData];
+        [self.subTableView reloadData];
     }
 }
 
@@ -106,8 +113,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    static NSString *CellIdentifier = @"MenuCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    }
     
     if (tableView.tag == kMASTERTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {

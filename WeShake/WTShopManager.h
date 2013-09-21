@@ -20,5 +20,9 @@ typedef void (^GetShopFailBlock)();
 + (WTShopManager *)sharedInstance;
 - (void)getOneSuggestShopWithSuccess:(GetShopSucceedBlock)succeedBlock
                              failure:(GetShopFailBlock)failBlock;
+- (void)getSearchShopsWithConditionOfLatitude:(double)latitude
+                                    longitude:(double)longitude
+                                      succsee:(void (^)(NSArray *shops))successBlock
+                                      failure:(void (^)(NSString *error))failureBlock;
 
 @end

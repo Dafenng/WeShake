@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A569" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="x7H-c4-f65">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A569" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="x7H-c4-f65">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -25,20 +25,23 @@
             <objects>
                 <viewController id="qhc-S5-pn6" customClass="WTMainViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2UA-7t-1GE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Press or shake" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qbd-Yc-XQ4">
-                                <rect key="frame" x="103" y="101" width="114" height="21"/>
+                                <rect key="frame" x="103" y="89" width="114" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fZU-Wq-Xzm">
-                                <rect key="frame" x="128" y="151" width="64" height="64"/>
+                                <rect key="frame" x="136" y="138" width="48" height="48"/>
                                 <state key="normal" image="main_shake_button.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="shake:" destination="qhc-S5-pn6" eventType="touchUpInside" id="kbs-YK-PTW"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -46,7 +49,7 @@
                     <navigationItem key="navigationItem" id="u0C-Sb-daW">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="heo-K4-x9N">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sjb-xj-q7D">
-                                <rect key="frame" x="258" y="7" width="46" height="30"/>
+                                <rect key="frame" x="269" y="7" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Search">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -66,37 +69,37 @@
             </objects>
             <point key="canvasLocation" x="-109" y="-82"/>
         </scene>
-        <!--View Controller-->
+        <!--Shop View Controller-->
         <scene sceneID="MPG-Q6-CKR">
             <objects>
-                <viewController id="zfS-uL-shb" sceneMemberID="viewController">
+                <viewController id="zfS-uL-shb" customClass="WTShopViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RfC-5B-wgb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="WFh-0Y-xYq">
-                                <rect key="frame" x="10" y="75" width="300" height="120"/>
+                                <rect key="frame" x="10" y="10" width="300" height="120"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LBW-ZO-kew">
-                                <rect key="frame" x="13" y="197" width="280" height="21"/>
+                                <rect key="frame" x="13" y="174" width="280" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Address" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JaD-fx-eNE">
-                                <rect key="frame" x="13" y="215" width="223" height="33"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="10"/>
+                                <rect key="frame" x="13" y="189" width="223" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Price" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Tw-pO-VIF">
-                                <rect key="frame" x="262" y="221" width="45" height="21"/>
+                                <rect key="frame" x="262" y="195" width="45" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="9"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QbN-Iw-2mi">
-                                <rect key="frame" x="52" y="253" width="50" height="50"/>
+                                <rect key="frame" x="52" y="222" width="50" height="50"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="shop_call.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -105,9 +108,12 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="callButtonClicked:" destination="zfS-uL-shb" eventType="touchUpInside" id="sES-Q4-HJz"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4XG-CS-2Bk">
-                                <rect key="frame" x="135" y="253" width="50" height="50"/>
+                                <rect key="frame" x="135" y="222" width="50" height="50"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="shop_location.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -116,9 +122,12 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="locatButtonClicked:" destination="zfS-uL-shb" eventType="touchUpInside" id="1R9-Oj-7td"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="yI1-lh-Akf">
-                                <rect key="frame" x="220" y="253" width="50" height="50"/>
+                                <rect key="frame" x="220" y="222" width="50" height="50"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" image="shop_favor.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -127,11 +136,20 @@
                                 <state key="highlighted">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="favorButtonClicked:" destination="zfS-uL-shb" eventType="touchUpInside" id="uoD-qm-SVg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="KG6-4o-aDU"/>
+                    <connections>
+                        <outlet property="addrLabel" destination="JaD-fx-eNE" id="EQv-A3-Znp"/>
+                        <outlet property="frontImageView" destination="WFh-0Y-xYq" id="QGS-h5-UPi"/>
+                        <outlet property="nameLabel" destination="LBW-ZO-kew" id="u9r-fB-h8O"/>
+                        <outlet property="priceLabel" destination="9Tw-pO-VIF" id="B26-cr-SIK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgB-Un-dG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -142,13 +160,57 @@
             <objects>
                 <viewController id="7Dh-v6-Jvq" customClass="WTSearchViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eIJ-79-ixb">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="NDT-Gx-N7O">
-                                <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SearchViewCell" rowHeight="95" id="kLv-Tt-3F1" customClass="WTSearchViewCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="95"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kLv-Tt-3F1" id="D6D-xd-sg9">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addr" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="feO-bX-w4p">
+                                                    <rect key="frame" x="11" y="63" width="284" height="27"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="cuisine type" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YDn-PS-qpl">
+                                                    <rect key="frame" x="11" y="35" width="247" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H9N-7n-DPe">
+                                                    <rect key="frame" x="11" y="6" width="200" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="distance" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Ey-e1-169">
+                                                    <rect key="frame" x="266" y="35" width="43" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="shopAddrLabel" destination="feO-bX-w4p" id="5b9-6m-72Q"/>
+                                            <outlet property="shopCuisineLabel" destination="YDn-PS-qpl" id="2HG-11-vaw"/>
+                                            <outlet property="shopDistanceLabel" destination="9Ey-e1-169" id="FVR-Wi-Xdy"/>
+                                            <outlet property="shopNameLabel" destination="H9N-7n-DPe" id="h0b-gZ-wm4"/>
+                                            <segue destination="zfS-uL-shb" kind="push" id="mcl-Pc-M4W"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="7Dh-v6-Jvq" id="67e-1B-PqU"/>
                                     <outlet property="delegate" destination="7Dh-v6-Jvq" id="c7n-df-Rfz"/>
@@ -159,7 +221,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="7TU-7D-EIm" customClass="WTSegmentedControl">
-                                        <rect key="frame" x="20" y="8" width="280" height="29"/>
+                                        <rect key="frame" x="20" y="8" width="280" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <segments>
                                             <segment title="Location"/>
@@ -180,7 +242,7 @@
                     <connections>
                         <outlet property="shopMenuCategoryContainer" destination="MMk-eU-vZX" id="77F-2B-d9E"/>
                         <outlet property="shopMenuSegmentControl" destination="7TU-7D-EIm" id="aRQ-TU-vGp"/>
-                        <segue destination="zfS-uL-shb" kind="push" identifier="SearchViewToShopView" id="n2a-Sa-AwN"/>
+                        <outlet property="shopsTableView" destination="NDT-Gx-N7O" id="6yZ-ty-Lbd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="41I-KO-jUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -200,6 +262,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="n2a-Sa-AwN"/>
+        <segue reference="iNV-fj-0qu"/>
     </inferredMetricsTieBreakers>
 </document>
