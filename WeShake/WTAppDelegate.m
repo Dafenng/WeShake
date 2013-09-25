@@ -7,12 +7,14 @@
 //
 
 #import "WTAppDelegate.h"
+#import <NewRelicAgent/NewRelicAgent.h>
 
 @implementation WTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [NewRelicAgent startWithApplicationToken:@"AAd0f71dfb12c36b8725f1d7dde239886de0a557a2"];
     return YES;
 }
 							
