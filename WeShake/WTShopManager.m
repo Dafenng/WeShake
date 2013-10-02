@@ -55,49 +55,49 @@
     NSString *longitudeStr = [NSString stringWithFormat:@"%.20f", coordinate.longitude];
     
     //TODO: 用与NetPeriod类似的方式统一化网络请求 将URL移出
-    NSString *url = [NSString stringWithFormat:@"http://jdang.me:3001/restaurants.xml?latitude=%@&longitude=%@&radius=%f", latitudeStr, longitudeStr, [[WTLocationManager sharedInstance] radius]];
+    NSString *url = [NSString stringWithFormat:@"http://localhost:3000/shops.json?latitude=%@&longitude=%@&radius=%f", latitudeStr, longitudeStr, [[WTLocationManager sharedInstance] radius]];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedXML.xml"];
-    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedXML.xml"];
+//    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self parseShopData];
+        [self parseShopData:responseObject];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Get xml error");
+        NSLog(@"Get Suggest Error");
     }];
     
     [operation start];
 }
 
-- (void)parseShopData
+- (void)parseShopData:(id)shopData
 {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedXML.xml"];
-    NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
-                                                        encoding:NSUTF8StringEncoding
-                                                           error:nil];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedXML.xml"];
+//    NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
+//                                                        encoding:NSUTF8StringEncoding
+//                                                           error:nil];
     
     //TODO:XML解析的方式要换掉
-    self.suggestShopList = [WTShopParser parseShopFromXML:xmlText];
+    self.suggestShopList = [WTShopParser parseShopFromJSON:shopData];
     
-    if (self.suggestShopList.count > 0) {
+    if ([self.suggestShopList count] > 0) {
         if (self.shopIndex >= self.suggestShopList.count) {
             // get a shop from shopList and pass it
             [self.suggestShopList shuffle];
             self.shopIndex = 0;
         }
         
-        // if get array for the first time, calculate distance and sort by distance, or other algorithm to determin the sequence of appearence !!!!!
         if (self.shouldActivateHTTPRequest) {
             for (WTShop *aShop in self.suggestShopList) {
                 aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:[[WTLocationManager sharedInstance] currentCoordinate] to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
             }
             
-            // sort shop list by distance, optional
+            //商铺按距离排序
             /*
              NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
              NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
@@ -142,22 +142,22 @@
                                       succsee:(void (^)(NSArray *shops))successBlock
                                       failure:(void (^)(NSString *error))failureBlock
 {
-    NSString *url = [NSString stringWithFormat:@"http://jdang.me:3001/restaurants.xml?latitude=%f&longitude=%f&radius=%@", latitude, longitude, @"1.0"];
+    NSString *url = [NSString stringWithFormat:@"http://localhost:3000/shops.json?latitude=%f&longitude=%f&radius=%@", latitude, longitude, @"1.0"];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
-    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
+//    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
     
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
-        NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
-                                                            encoding:NSUTF8StringEncoding
-                                                               error:nil];
-        NSArray *searchShopList = [WTShopParser parseShopFromXML:xmlText];
+//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//        NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
+//        NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
+//                                                            encoding:NSUTF8StringEncoding
+//                                                               error:nil];
+        NSArray *searchShopList = [WTShopParser parseShopFromJSON:responseObject];
         
         for (WTShop *aShop in searchShopList) {
             aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:CLLocationCoordinate2DMake(latitude, longitude) to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];

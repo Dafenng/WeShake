@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		5559A5A8254C4411A9D532DE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3414B20CD0D2432A95F704F1 /* libPods.a */; };
-		BBA0C2E117F27716008F6C4B /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E017F27716008F6C4B /* NewRelicAgent.framework */; };
 		BBA0C2E417F27754008F6C4B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E217F27754008F6C4B /* CoreTelephony.framework */; };
 		BBA0C2E517F27754008F6C4B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E317F27754008F6C4B /* SystemConfiguration.framework */; };
 		BBA0C2E717F2775C008F6C4B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E617F2775C008F6C4B /* libz.dylib */; };
@@ -19,6 +18,7 @@
 		BBE5983217E59AAB00C1A33F /* shop_toast_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983017E59AAB00C1A33F /* shop_toast_image.png */; };
 		BBE5983317E59AAB00C1A33F /* shop_toast_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */; };
 		BBE5983517E59CE200C1A33F /* WTToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983417E59CE200C1A33F /* WTToastView.xib */; };
+		D8BE1C2817F2816B00538999 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */; };
 		D8C68E3B17E0775E002BCFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3A17E0775E002BCFCC /* Foundation.framework */; };
 		D8C68E3D17E0775E002BCFCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */; };
 		D8C68E3F17E0775E002BCFCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3E17E0775E002BCFCC /* UIKit.framework */; };
@@ -80,7 +80,6 @@
 /* Begin PBXFileReference section */
 		3414B20CD0D2432A95F704F1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		65AADFE6DD0F4336B004DD2A /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		BBA0C2E017F27716008F6C4B /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		BBA0C2E217F27754008F6C4B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		BBA0C2E317F27754008F6C4B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BBA0C2E617F2775C008F6C4B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -93,6 +92,7 @@
 		BBE5983017E59AAB00C1A33F /* shop_toast_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_toast_image.png; sourceTree = "<group>"; };
 		BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop_toast_image@2x.png"; sourceTree = "<group>"; };
 		BBE5983417E59CE200C1A33F /* WTToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTToastView.xib; sourceTree = "<group>"; };
+		D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		D8C68E3717E0775E002BCFCC /* WeShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C68E3A17E0775E002BCFCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -164,9 +164,9 @@
 				BBA0C2E717F2775C008F6C4B /* libz.dylib in Frameworks */,
 				BBA0C2E417F27754008F6C4B /* CoreTelephony.framework in Frameworks */,
 				BBA0C2E517F27754008F6C4B /* SystemConfiguration.framework in Frameworks */,
+				D8BE1C2817F2816B00538999 /* NewRelicAgent.framework in Frameworks */,
 				D8C68E3D17E0775E002BCFCC /* CoreGraphics.framework in Frameworks */,
 				D8C68E3F17E0775E002BCFCC /* UIKit.framework in Frameworks */,
-				BBA0C2E117F27716008F6C4B /* NewRelicAgent.framework in Frameworks */,
 				D8C68E3B17E0775E002BCFCC /* Foundation.framework in Frameworks */,
 				5559A5A8254C4411A9D532DE /* libPods.a in Frameworks */,
 			);
@@ -208,10 +208,10 @@
 		D8C68E3917E0775E002BCFCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */,
 				BBA0C2E617F2775C008F6C4B /* libz.dylib */,
 				BBA0C2E217F27754008F6C4B /* CoreTelephony.framework */,
 				BBA0C2E317F27754008F6C4B /* SystemConfiguration.framework */,
-				BBA0C2E017F27716008F6C4B /* NewRelicAgent.framework */,
 				D8C68E3A17E0775E002BCFCC /* Foundation.framework */,
 				D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */,
 				D8C68E3E17E0775E002BCFCC /* UIKit.framework */,
@@ -242,11 +242,11 @@
 				D8C68EBA17E09A5E002BCFCC /* WTSearchViewController.m */,
 				D8C68E4917E0775E002BCFCC /* WTAppDelegate.h */,
 				D8C68E4A17E0775E002BCFCC /* WTAppDelegate.m */,
+				D8C68E4F17E0775E002BCFCC /* WTMainViewController.h */,
+				D8C68E5017E0775E002BCFCC /* WTMainViewController.m */,
 				BBE5982D17E4890200C1A33F /* WTSearchViewCell.h */,
 				BBE5982E17E4890200C1A33F /* WTSearchViewCell.m */,
 				D8C68E4C17E0775E002BCFCC /* Main.storyboard */,
-				D8C68E4F17E0775E002BCFCC /* WTMainViewController.h */,
-				D8C68E5017E0775E002BCFCC /* WTMainViewController.m */,
 				D8C68E5217E0775E002BCFCC /* Images.xcassets */,
 				BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */,
 				BBAF336417E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist */,
@@ -668,6 +668,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/keywind/Documents/WeShake,
+					/Users/jindafeng/Documents/WeShake,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeShake/WeShake-Prefix.pch";
@@ -687,6 +688,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/keywind/Documents/WeShake,
+					/Users/jindafeng/Documents/WeShake,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WeShake/WeShake-Prefix.pch";

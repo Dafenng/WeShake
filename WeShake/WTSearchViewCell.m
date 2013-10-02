@@ -38,7 +38,9 @@
 - (void)setupSearchViewCellWithShop:(WTShop *)shop
 {
     self.shopNameLabel.text = shop.name;
-    self.shopCuisineLabel.text = shop.cuisineType;
+    if (![shop.cuisineType isKindOfClass:[NSNull class]]) {
+        self.shopCuisineLabel.text = shop.cuisineType;
+    }
     self.shopDistanceLabel.text = [NSString stringWithFormat:@"%dm", shop.distance];
     self.shopAddrLabel.text = shop.addr;
 }

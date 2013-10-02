@@ -10,7 +10,7 @@
 
 @interface WTShop : NSObject
 
-@property (copy, nonatomic) NSString *shopID;
+@property (copy, nonatomic) NSString *shopId;
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *addr;
 @property (copy, nonatomic) NSString *imageStr;
@@ -27,15 +27,8 @@
 @property (assign, nonatomic) double rating;
 @property (assign, nonatomic) int distance;
 
-@property (assign, nonatomic) int firstRowInPickerForLocation;
-@property (assign, nonatomic) int secondRowInPickerForLocation;
 
-@property (assign, nonatomic) int firstRowInPickerForCuisine;
-@property (assign, nonatomic) int secondRowInPickerForCuisine;
-
-
-
-- (id)initWithShopID:(NSString *)shopID
+- (id)initWithShopId:(NSString *)shopId
                 name:(NSString *)name
                 addr:(NSString *)addr
                  tel:(NSString *)tel
@@ -50,5 +43,6 @@
            longitude:(double)longitude
               rating:(double)rating;
 
+- (id)initWithDict:(NSDictionary *)dict;
 @end
 

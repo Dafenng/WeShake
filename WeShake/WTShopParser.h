@@ -11,5 +11,6 @@
 @interface WTShopParser : NSObject
 
 + (NSMutableArray *)parseShopFromXML:(NSString *)xmlText;
++ (NSMutableArray *)parseShopFromJSON:(NSString *)jsonText;
 
 @end

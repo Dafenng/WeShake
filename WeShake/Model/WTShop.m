@@ -10,7 +10,7 @@
 
 @implementation WTShop
 
-- (id)initWithShopID:(NSString *)shopID
+- (id)initWithShopId:(NSString *)shopId
                 name:(NSString *)name
                 addr:(NSString *)addr
                  tel:(NSString *)tel
@@ -29,6 +29,7 @@
     
     if(self)
     {
+        self.shopId = shopId;
         self.name = name;
         self.addr = addr;
         self.tel = tel;
@@ -48,9 +49,14 @@
     return self;
 }
 
+- (id)initWithDict:(NSDictionary *)dict
+{
+    return [self initWithShopId:[dict objectForKey:@"shopId"] name:[dict objectForKey:@"name"] addr:[dict objectForKey:@"addr"] tel:[dict objectForKey:@"tel"] region:[dict objectForKey:@"region"] location:[dict objectForKey:@"location"] access:[dict objectForKey:@"access"] budget:[dict objectForKey:@"budget"] shopType:[dict objectForKey:@"shopType"] cuisineType:[dict objectForKey:@"cuisineType"] station:[dict objectForKey:@"station"] latitude:[[dict objectForKey:@"latitude"] doubleValue] longitude:[[dict objectForKey:@"longitude"] doubleValue] rating:[[dict objectForKey:@"rating"] doubleValue]];
+}
+
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"ShopID:%@, Name:%@, Addr:%@, ImageStr:%@, Tel:%@, Region:%@, Location:%@, Access:%@, Budget:%@, Shoptype:%@, Cuisinetype:%@, Station:%@", self.shopID, self.name, self.addr, self.imageStr, self.tel, self.region, self.location, self.access, self.budget, self.shopType, self.cuisineType, self.station];
+    return [NSString stringWithFormat:@"ShopID:%@, Name:%@, Addr:%@, ImageStr:%@, Tel:%@, Region:%@, Location:%@, Access:%@, Budget:%@, Shoptype:%@, Cuisinetype:%@, Station:%@", self.shopId, self.name, self.addr, self.imageStr, self.tel, self.region, self.location, self.access, self.budget, self.shopType, self.cuisineType, self.station];
 }
 
 
