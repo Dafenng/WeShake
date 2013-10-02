@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="13A584" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="x7H-c4-f65">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F37" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" initialViewController="x7H-c4-f65">
     <dependencies>
         <deployment defaultVersion="1536" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
@@ -13,12 +13,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="qhc-S5-pn6" kind="relationship" relationship="rootViewController" id="1kX-XD-p8a"/>
+                        <segue destination="qhc-S5-pn6" kind="relationship" relationship="rootViewController" id="oYN-KW-XwE"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b1Q-E9-z0I" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-639" y="-92"/>
+            <point key="canvasLocation" x="-619" y="-586"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="3DV-NU-13j">
@@ -47,27 +47,41 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="u0C-Sb-daW">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="heo-K4-x9N">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Sjb-xj-q7D">
-                                <rect key="frame" x="269" y="7" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Search">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="search:" destination="qhc-S5-pn6" eventType="touchUpInside" id="tK8-tP-q4K"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="leftBarButtonItem" title="U" id="0QB-gx-M4m">
+                            <connections>
+                                <action selector="userLogin:" destination="qhc-S5-pn6" id="k0B-vo-ABb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="S" id="LYn-1b-PyW">
+                            <connections>
+                                <action selector="search:" destination="qhc-S5-pn6" id="FYj-7s-R4h"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="zfS-uL-shb" kind="push" identifier="MainViewToShopView" id="iNV-fj-0qu"/>
                         <segue destination="7Dh-v6-Jvq" kind="push" identifier="MainViewToSearchView" id="YuM-bV-wP4"/>
+                        <segue destination="1dJ-z2-0dn" kind="modal" identifier="MainToUserLogin" id="E2M-rT-wd0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WLn-T2-KTs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-109" y="-82"/>
+            <point key="canvasLocation" x="591" y="-602"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="uHV-h8-ZJZ">
+            <objects>
+                <viewController id="1dJ-z2-0dn" customClass="WTFBLoginViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Kl-iS-cEs">
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ncj-eS-bcV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YZa-ic-nJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="976" y="-1844"/>
         </scene>
         <!--Shop View Controller-->
         <scene sceneID="MPG-Q6-CKR">
@@ -153,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgB-Un-dG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="979" y="-515"/>
+            <point key="canvasLocation" x="1679" y="-1035"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="KXA-8V-fpo">
@@ -247,7 +261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="41I-KO-jUH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="503" y="682"/>
+            <point key="canvasLocation" x="1203" y="162"/>
         </scene>
     </scenes>
     <resources>

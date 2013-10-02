@@ -13,6 +13,7 @@
 #import "WTToastView.h"
 #import "WTShopViewController.h"
 #import <objc/runtime.h>
+#import <Social/Social.h>
 
 @interface WTMainViewController () {
     
@@ -135,4 +136,7 @@
     [self performSegueWithIdentifier:@"MainViewToSearchView" sender:sender];
 }
 
+- (IBAction)userLogin:(id)sender {
+    [self performSegueWithIdentifier:@"MainToUserLogin" sender:nil];
+}
 @end
