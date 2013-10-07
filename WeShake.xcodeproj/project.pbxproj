@@ -11,15 +11,12 @@
 		BBA0C2E417F27754008F6C4B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E217F27754008F6C4B /* CoreTelephony.framework */; };
 		BBA0C2E517F27754008F6C4B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E317F27754008F6C4B /* SystemConfiguration.framework */; };
 		BBA0C2E717F2775C008F6C4B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BBA0C2E617F2775C008F6C4B /* libz.dylib */; };
-		BBAF336217E1BF1500FA5378 /* WTSearchMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BBAF336117E1BF1500FA5378 /* WTSearchMenuViewController.m */; };
 		BBAF336517E1E1E800FA5378 /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */; };
 		BBAF336617E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBAF336417E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist */; };
 		BBE5982F17E4890200C1A33F /* WTSearchViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = BBE5982E17E4890200C1A33F /* WTSearchViewCell.m */; };
 		BBE5983217E59AAB00C1A33F /* shop_toast_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983017E59AAB00C1A33F /* shop_toast_image.png */; };
 		BBE5983317E59AAB00C1A33F /* shop_toast_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */; };
 		BBE5983517E59CE200C1A33F /* WTToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983417E59CE200C1A33F /* WTToastView.xib */; };
-		D85E0CD117FC47D7001A7BE0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D85E0CD017FC47D7001A7BE0 /* FacebookSDK.framework */; };
-		D85E0CD417FC4DDB001A7BE0 /* WTFBLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D85E0CD317FC4DDB001A7BE0 /* WTFBLoginViewController.m */; };
 		D8BE1C2817F2816B00538999 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */; };
 		D8C2DA0E17FC3D53000C4A0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0D17FC3D53000C4A0C /* Social.framework */; };
 		D8C2DA1017FC430A000C4A0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0F17FC430A000C4A0C /* Accounts.framework */; };
@@ -30,7 +27,6 @@
 		D8C68E4717E0775E002BCFCC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E4617E0775E002BCFCC /* main.m */; };
 		D8C68E4B17E0775E002BCFCC /* WTAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E4A17E0775E002BCFCC /* WTAppDelegate.m */; };
 		D8C68E4E17E0775E002BCFCC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D8C68E4C17E0775E002BCFCC /* Main.storyboard */; };
-		D8C68E5117E0775E002BCFCC /* WTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E5017E0775E002BCFCC /* WTMainViewController.m */; };
 		D8C68E5317E0775E002BCFCC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D8C68E5217E0775E002BCFCC /* Images.xcassets */; };
 		D8C68E5A17E0775E002BCFCC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E5917E0775E002BCFCC /* XCTest.framework */; };
 		D8C68E5B17E0775E002BCFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3A17E0775E002BCFCC /* Foundation.framework */; };
@@ -63,12 +59,20 @@
 		D8C68EB217E0785F002BCFCC /* WTShop.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E8B17E0785F002BCFCC /* WTShop.m */; };
 		D8C68EB317E0785F002BCFCC /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E8F17E0785F002BCFCC /* XMLReader.m */; };
 		D8C68EB417E0785F002BCFCC /* WTToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9217E0785F002BCFCC /* WTToastView.m */; };
-		D8C68EB517E0785F002BCFCC /* WTLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9417E0785F002BCFCC /* WTLocationManager.m */; };
-		D8C68EB617E0785F002BCFCC /* WTShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9617E0785F002BCFCC /* WTShopManager.m */; };
 		D8C68EB717E0785F002BCFCC /* WTShopParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9817E0785F002BCFCC /* WTShopParser.m */; };
-		D8C68EB817E0785F002BCFCC /* WTShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9A17E0785F002BCFCC /* WTShopViewController.m */; };
-		D8C68EBB17E09A5E002BCFCC /* WTSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68EBA17E09A5E002BCFCC /* WTSearchViewController.m */; };
 		D8C68EC117E19E66002BCFCC /* WTSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */; };
+		D8CD93A317FD4A91002D5347 /* WTAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD939E17FD4A91002D5347 /* WTAccountManager.m */; };
+		D8CD93A417FD4A91002D5347 /* WTLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93A017FD4A91002D5347 /* WTLocationManager.m */; };
+		D8CD93A517FD4A91002D5347 /* WTShopManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93A217FD4A91002D5347 /* WTShopManager.m */; };
+		D8CD93B117FD4ACC002D5347 /* WTLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93A817FD4ACC002D5347 /* WTLoginViewController.m */; };
+		D8CD93B217FD4ACC002D5347 /* WTMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93AA17FD4ACC002D5347 /* WTMainViewController.m */; };
+		D8CD93B317FD4ACC002D5347 /* WTSearchMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93AC17FD4ACC002D5347 /* WTSearchMenuViewController.m */; };
+		D8CD93B417FD4ACC002D5347 /* WTSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93AE17FD4ACC002D5347 /* WTSearchViewController.m */; };
+		D8CD93B517FD4ACC002D5347 /* WTShopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93B017FD4ACC002D5347 /* WTShopViewController.m */; };
+		D8CD93B817FD55E3002D5347 /* WTCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93B717FD55E3002D5347 /* WTCaptureViewController.m */; };
+		D8CD93BB17FD5606002D5347 /* WTAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */; };
+		D8D53B4C1801AC8900D67EAF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D53B4B1801AC8900D67EAF /* AVFoundation.framework */; };
+		D8D53B4E1801B4B600D67EAF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D53B4D1801B4B600D67EAF /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,8 +91,6 @@
 		BBA0C2E217F27754008F6C4B /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		BBA0C2E317F27754008F6C4B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		BBA0C2E617F2775C008F6C4B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		BBAF336017E1BF1500FA5378 /* WTSearchMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSearchMenuViewController.h; sourceTree = "<group>"; };
-		BBAF336117E1BF1500FA5378 /* WTSearchMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSearchMenuViewController.m; sourceTree = "<group>"; };
 		BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
 		BBAF336417E1E1E800FA5378 /* ShopTypesAndCuisineTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ShopTypesAndCuisineTypes.plist; sourceTree = "<group>"; };
 		BBE5982D17E4890200C1A33F /* WTSearchViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSearchViewCell.h; sourceTree = "<group>"; };
@@ -96,9 +98,6 @@
 		BBE5983017E59AAB00C1A33F /* shop_toast_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_toast_image.png; sourceTree = "<group>"; };
 		BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop_toast_image@2x.png"; sourceTree = "<group>"; };
 		BBE5983417E59CE200C1A33F /* WTToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTToastView.xib; sourceTree = "<group>"; };
-		D85E0CD017FC47D7001A7BE0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
-		D85E0CD217FC4DDB001A7BE0 /* WTFBLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTFBLoginViewController.h; sourceTree = "<group>"; };
-		D85E0CD317FC4DDB001A7BE0 /* WTFBLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTFBLoginViewController.m; sourceTree = "<group>"; };
 		D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		D8C2DA0D17FC3D53000C4A0C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D8C2DA0F17FC430A000C4A0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -113,8 +112,6 @@
 		D8C68E4917E0775E002BCFCC /* WTAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTAppDelegate.h; sourceTree = "<group>"; };
 		D8C68E4A17E0775E002BCFCC /* WTAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WTAppDelegate.m; sourceTree = "<group>"; };
 		D8C68E4D17E0775E002BCFCC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		D8C68E4F17E0775E002BCFCC /* WTMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WTMainViewController.h; sourceTree = "<group>"; };
-		D8C68E5017E0775E002BCFCC /* WTMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WTMainViewController.m; sourceTree = "<group>"; };
 		D8C68E5217E0775E002BCFCC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		D8C68E5817E0775E002BCFCC /* WeShakeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeShakeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C68E5917E0775E002BCFCC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -151,18 +148,32 @@
 		D8C68E8F17E0785F002BCFCC /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		D8C68E9117E0785F002BCFCC /* WTToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTToastView.h; sourceTree = "<group>"; };
 		D8C68E9217E0785F002BCFCC /* WTToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTToastView.m; sourceTree = "<group>"; };
-		D8C68E9317E0785F002BCFCC /* WTLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTLocationManager.h; sourceTree = "<group>"; };
-		D8C68E9417E0785F002BCFCC /* WTLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTLocationManager.m; sourceTree = "<group>"; };
-		D8C68E9517E0785F002BCFCC /* WTShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTShopManager.h; sourceTree = "<group>"; };
-		D8C68E9617E0785F002BCFCC /* WTShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTShopManager.m; sourceTree = "<group>"; };
 		D8C68E9717E0785F002BCFCC /* WTShopParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTShopParser.h; sourceTree = "<group>"; };
 		D8C68E9817E0785F002BCFCC /* WTShopParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTShopParser.m; sourceTree = "<group>"; };
-		D8C68E9917E0785F002BCFCC /* WTShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTShopViewController.h; sourceTree = "<group>"; };
-		D8C68E9A17E0785F002BCFCC /* WTShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTShopViewController.m; sourceTree = "<group>"; };
-		D8C68EB917E09A5E002BCFCC /* WTSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSearchViewController.h; sourceTree = "<group>"; };
-		D8C68EBA17E09A5E002BCFCC /* WTSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSearchViewController.m; sourceTree = "<group>"; };
 		D8C68EBF17E19E66002BCFCC /* WTSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSegmentedControl.h; sourceTree = "<group>"; };
 		D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSegmentedControl.m; sourceTree = "<group>"; };
+		D8CD939D17FD4A91002D5347 /* WTAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTAccountManager.h; sourceTree = "<group>"; };
+		D8CD939E17FD4A91002D5347 /* WTAccountManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTAccountManager.m; sourceTree = "<group>"; };
+		D8CD939F17FD4A91002D5347 /* WTLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTLocationManager.h; sourceTree = "<group>"; };
+		D8CD93A017FD4A91002D5347 /* WTLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTLocationManager.m; sourceTree = "<group>"; };
+		D8CD93A117FD4A91002D5347 /* WTShopManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTShopManager.h; sourceTree = "<group>"; };
+		D8CD93A217FD4A91002D5347 /* WTShopManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTShopManager.m; sourceTree = "<group>"; };
+		D8CD93A717FD4ACC002D5347 /* WTLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTLoginViewController.h; sourceTree = "<group>"; };
+		D8CD93A817FD4ACC002D5347 /* WTLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTLoginViewController.m; sourceTree = "<group>"; };
+		D8CD93A917FD4ACC002D5347 /* WTMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTMainViewController.h; sourceTree = "<group>"; };
+		D8CD93AA17FD4ACC002D5347 /* WTMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTMainViewController.m; sourceTree = "<group>"; };
+		D8CD93AB17FD4ACC002D5347 /* WTSearchMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSearchMenuViewController.h; sourceTree = "<group>"; };
+		D8CD93AC17FD4ACC002D5347 /* WTSearchMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSearchMenuViewController.m; sourceTree = "<group>"; };
+		D8CD93AD17FD4ACC002D5347 /* WTSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSearchViewController.h; sourceTree = "<group>"; };
+		D8CD93AE17FD4ACC002D5347 /* WTSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSearchViewController.m; sourceTree = "<group>"; };
+		D8CD93AF17FD4ACC002D5347 /* WTShopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTShopViewController.h; sourceTree = "<group>"; };
+		D8CD93B017FD4ACC002D5347 /* WTShopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTShopViewController.m; sourceTree = "<group>"; };
+		D8CD93B617FD55E3002D5347 /* WTCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTCaptureViewController.h; sourceTree = "<group>"; };
+		D8CD93B717FD55E3002D5347 /* WTCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTCaptureViewController.m; sourceTree = "<group>"; };
+		D8CD93B917FD5606002D5347 /* WTAboutMeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTAboutMeViewController.h; sourceTree = "<group>"; };
+		D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTAboutMeViewController.m; sourceTree = "<group>"; };
+		D8D53B4B1801AC8900D67EAF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		D8D53B4D1801B4B600D67EAF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +181,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8D53B4E1801B4B600D67EAF /* AssetsLibrary.framework in Frameworks */,
+				D8D53B4C1801AC8900D67EAF /* AVFoundation.framework in Frameworks */,
 				D8C2DA1017FC430A000C4A0C /* Accounts.framework in Frameworks */,
 				D8C2DA0E17FC3D53000C4A0C /* Social.framework in Frameworks */,
 				BBA0C2E717F2775C008F6C4B /* libz.dylib in Frameworks */,
@@ -178,7 +191,6 @@
 				D8BE1C2817F2816B00538999 /* NewRelicAgent.framework in Frameworks */,
 				D8C68E3D17E0775E002BCFCC /* CoreGraphics.framework in Frameworks */,
 				D8C68E3F17E0775E002BCFCC /* UIKit.framework in Frameworks */,
-				D85E0CD117FC47D7001A7BE0 /* FacebookSDK.framework in Frameworks */,
 				D8C68E3B17E0775E002BCFCC /* Foundation.framework in Frameworks */,
 				5559A5A8254C4411A9D532DE /* libPods.a in Frameworks */,
 			);
@@ -220,7 +232,8 @@
 		D8C68E3917E0775E002BCFCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				D85E0CD017FC47D7001A7BE0 /* FacebookSDK.framework */,
+				D8D53B4D1801B4B600D67EAF /* AssetsLibrary.framework */,
+				D8D53B4B1801AC8900D67EAF /* AVFoundation.framework */,
 				D8C2DA0F17FC430A000C4A0C /* Accounts.framework */,
 				D8C2DA0D17FC3D53000C4A0C /* Social.framework */,
 				D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */,
@@ -239,30 +252,18 @@
 		D8C68E4017E0775E002BCFCC /* WeShake */ = {
 			isa = PBXGroup;
 			children = (
+				D8CD939C17FD4A91002D5347 /* Manager */,
 				D8C68E6F17E0785F002BCFCC /* Category */,
 				D8C68E8917E0785F002BCFCC /* Model */,
 				D8C68E8C17E0785F002BCFCC /* Vendor */,
+				D8CD93A617FD4ACC002D5347 /* ViewController */,
 				D8C68E9017E0785F002BCFCC /* View */,
-				D8C68E9317E0785F002BCFCC /* WTLocationManager.h */,
-				D8C68E9417E0785F002BCFCC /* WTLocationManager.m */,
-				D8C68E9517E0785F002BCFCC /* WTShopManager.h */,
-				D8C68E9617E0785F002BCFCC /* WTShopManager.m */,
 				D8C68E9717E0785F002BCFCC /* WTShopParser.h */,
 				D8C68E9817E0785F002BCFCC /* WTShopParser.m */,
-				D8C68E9917E0785F002BCFCC /* WTShopViewController.h */,
-				D8C68E9A17E0785F002BCFCC /* WTShopViewController.m */,
-				BBAF336017E1BF1500FA5378 /* WTSearchMenuViewController.h */,
-				BBAF336117E1BF1500FA5378 /* WTSearchMenuViewController.m */,
-				D8C68EB917E09A5E002BCFCC /* WTSearchViewController.h */,
-				D8C68EBA17E09A5E002BCFCC /* WTSearchViewController.m */,
 				D8C68E4917E0775E002BCFCC /* WTAppDelegate.h */,
 				D8C68E4A17E0775E002BCFCC /* WTAppDelegate.m */,
-				D8C68E4F17E0775E002BCFCC /* WTMainViewController.h */,
-				D8C68E5017E0775E002BCFCC /* WTMainViewController.m */,
 				BBE5982D17E4890200C1A33F /* WTSearchViewCell.h */,
 				BBE5982E17E4890200C1A33F /* WTSearchViewCell.m */,
-				D85E0CD217FC4DDB001A7BE0 /* WTFBLoginViewController.h */,
-				D85E0CD317FC4DDB001A7BE0 /* WTFBLoginViewController.m */,
 				D8C68E4C17E0775E002BCFCC /* Main.storyboard */,
 				D8C68E5217E0775E002BCFCC /* Images.xcassets */,
 				BBAF336317E1E1E800FA5378 /* ProvincesAndCities.plist */,
@@ -378,6 +379,40 @@
 				D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D8CD939C17FD4A91002D5347 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD939D17FD4A91002D5347 /* WTAccountManager.h */,
+				D8CD939E17FD4A91002D5347 /* WTAccountManager.m */,
+				D8CD939F17FD4A91002D5347 /* WTLocationManager.h */,
+				D8CD93A017FD4A91002D5347 /* WTLocationManager.m */,
+				D8CD93A117FD4A91002D5347 /* WTShopManager.h */,
+				D8CD93A217FD4A91002D5347 /* WTShopManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		D8CD93A617FD4ACC002D5347 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D8CD93A717FD4ACC002D5347 /* WTLoginViewController.h */,
+				D8CD93A817FD4ACC002D5347 /* WTLoginViewController.m */,
+				D8CD93A917FD4ACC002D5347 /* WTMainViewController.h */,
+				D8CD93AA17FD4ACC002D5347 /* WTMainViewController.m */,
+				D8CD93AB17FD4ACC002D5347 /* WTSearchMenuViewController.h */,
+				D8CD93AC17FD4ACC002D5347 /* WTSearchMenuViewController.m */,
+				D8CD93AD17FD4ACC002D5347 /* WTSearchViewController.h */,
+				D8CD93AE17FD4ACC002D5347 /* WTSearchViewController.m */,
+				D8CD93AF17FD4ACC002D5347 /* WTShopViewController.h */,
+				D8CD93B017FD4ACC002D5347 /* WTShopViewController.m */,
+				D8CD93B617FD55E3002D5347 /* WTCaptureViewController.h */,
+				D8CD93B717FD55E3002D5347 /* WTCaptureViewController.m */,
+				D8CD93B917FD5606002D5347 /* WTAboutMeViewController.h */,
+				D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */,
+			);
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -540,22 +575,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8C68EB817E0785F002BCFCC /* WTShopViewController.m in Sources */,
 				D8C68E9B17E0785F002BCFCC /* NSMutableArray+Shuffling.m in Sources */,
 				D8C68EB417E0785F002BCFCC /* WTToastView.m in Sources */,
-				D8C68EBB17E09A5E002BCFCC /* WTSearchViewController.m in Sources */,
+				D8CD93A417FD4A91002D5347 /* WTLocationManager.m in Sources */,
+				D8CD93B317FD4ACC002D5347 /* WTSearchMenuViewController.m in Sources */,
+				D8CD93B117FD4ACC002D5347 /* WTLoginViewController.m in Sources */,
 				D8C68E4717E0775E002BCFCC /* main.m in Sources */,
 				D8C68E4B17E0775E002BCFCC /* WTAppDelegate.m in Sources */,
 				D8C68EB217E0785F002BCFCC /* WTShop.m in Sources */,
-				D8C68EB517E0785F002BCFCC /* WTLocationManager.m in Sources */,
-				BBAF336217E1BF1500FA5378 /* WTSearchMenuViewController.m in Sources */,
+				D8CD93BB17FD5606002D5347 /* WTAboutMeViewController.m in Sources */,
+				D8CD93B217FD4ACC002D5347 /* WTMainViewController.m in Sources */,
+				D8CD93B517FD4ACC002D5347 /* WTShopViewController.m in Sources */,
 				BBE5982F17E4890200C1A33F /* WTSearchViewCell.m in Sources */,
 				D8C68EB317E0785F002BCFCC /* XMLReader.m in Sources */,
-				D8C68EB617E0785F002BCFCC /* WTShopManager.m in Sources */,
-				D8C68E5117E0775E002BCFCC /* WTMainViewController.m in Sources */,
+				D8CD93A517FD4A91002D5347 /* WTShopManager.m in Sources */,
+				D8CD93B417FD4ACC002D5347 /* WTSearchViewController.m in Sources */,
+				D8CD93B817FD55E3002D5347 /* WTCaptureViewController.m in Sources */,
+				D8CD93A317FD4A91002D5347 /* WTAccountManager.m in Sources */,
 				D8C68EC117E19E66002BCFCC /* WTSegmentedControl.m in Sources */,
 				D8C68EB717E0785F002BCFCC /* WTShopParser.m in Sources */,
-				D85E0CD417FC4DDB001A7BE0 /* WTFBLoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

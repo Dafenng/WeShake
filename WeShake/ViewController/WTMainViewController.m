@@ -13,7 +13,7 @@
 #import "WTToastView.h"
 #import "WTShopViewController.h"
 #import <objc/runtime.h>
-#import <Social/Social.h>
+#import "WTAccountManager.h"
 
 @interface WTMainViewController () {
     
@@ -36,6 +36,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [[WTLocationManager sharedInstance] startUpdatingLocation];
+    if (![[WTAccountManager sharedInstance] accountLogged]) {
+        [self performSegueWithIdentifier:@"MainToUserLogin" sender:nil];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -136,7 +139,9 @@
     [self performSegueWithIdentifier:@"MainViewToSearchView" sender:sender];
 }
 
-- (IBAction)userLogin:(id)sender {
-    [self performSegueWithIdentifier:@"MainToUserLogin" sender:nil];
+- (IBAction)capture:(id)sender {
+    
+    [self performSegueWithIdentifier:@"MainToCapture" sender:sender];
 }
+
 @end

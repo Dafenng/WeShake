@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WTFBLoginViewController : UIViewController
+@interface WTLoginViewController : UIViewController
 
 @end

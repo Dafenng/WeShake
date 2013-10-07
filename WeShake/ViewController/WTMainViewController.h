@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WTMainViewController : UIViewController
+@interface WTMainViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end
