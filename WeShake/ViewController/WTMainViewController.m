@@ -144,4 +144,7 @@
     [self performSegueWithIdentifier:@"MainToCapture" sender:sender];
 }
 
+- (IBAction)profile:(id)sender {
+    [self performSegueWithIdentifier:@"MainToAboutMe" sender:sender];
+}
 @end

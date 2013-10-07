@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WTAboutMeViewController : UIViewController
+@interface WTAboutMeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end

@@ -69,6 +69,9 @@
                                 <state key="normal" title="Me">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="profile:" destination="qhc-S5-pn6" eventType="touchUpInside" id="tjg-zS-I3q"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -77,9 +80,10 @@
                         <barButtonItem key="rightBarButtonItem" title="Setting" id="pAs-LM-Zeu"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="shakeButton" destination="fZU-Wq-Xzm" id="tnf-2R-XMn"/>
                         <segue destination="zfS-uL-shb" kind="push" identifier="MainViewToShopView" id="iNV-fj-0qu"/>
                         <segue destination="7Dh-v6-Jvq" kind="push" identifier="MainViewToSearchView" id="YuM-bV-wP4"/>
-                        <segue destination="1dJ-z2-0dn" kind="custom" identifier="MainToUserLogin" id="E2M-rT-wd0"/>
+                        <segue destination="1dJ-z2-0dn" kind="modal" identifier="MainToUserLogin" id="E2M-rT-wd0"/>
                         <segue destination="d0W-ky-ohk" kind="modal" identifier="MainToCapture" id="zvk-a3-FNB"/>
                         <segue destination="0B0-qW-L2F" kind="push" identifier="MainToAboutMe" id="m62-sy-sh9"/>
                     </connections>

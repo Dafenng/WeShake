@@ -73,6 +73,8 @@
 		D8CD93BB17FD5606002D5347 /* WTAboutMeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */; };
 		D8D53B4C1801AC8900D67EAF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D53B4B1801AC8900D67EAF /* AVFoundation.framework */; };
 		D8D53B4E1801B4B600D67EAF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D53B4D1801B4B600D67EAF /* AssetsLibrary.framework */; };
+		D8D53B521802D98C00D67EAF /* avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D53B501802D98C00D67EAF /* avatar@2x.png */; };
+		D8D53B551802D9C300D67EAF /* avatar.png in Resources */ = {isa = PBXBuildFile; fileRef = D8D53B541802D9C300D67EAF /* avatar.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +176,8 @@
 		D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTAboutMeViewController.m; sourceTree = "<group>"; };
 		D8D53B4B1801AC8900D67EAF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D8D53B4D1801B4B600D67EAF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		D8D53B501802D98C00D67EAF /* avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "avatar@2x.png"; sourceTree = "<group>"; };
+		D8D53B541802D9C300D67EAF /* avatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = avatar.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +319,8 @@
 		D8C68E7217E0785F002BCFCC /* image */ = {
 			isa = PBXGroup;
 			children = (
+				D8D53B541802D9C300D67EAF /* avatar.png */,
+				D8D53B501802D98C00D67EAF /* avatar@2x.png */,
 				BBE5983017E59AAB00C1A33F /* shop_toast_image.png */,
 				BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */,
 				D8C68E7317E0785F002BCFCC /* main_shake_button.png */,
@@ -517,10 +523,12 @@
 				D8C68E9E17E0785F002BCFCC /* shop_bar.png in Resources */,
 				BBE5983517E59CE200C1A33F /* WTToastView.xib in Resources */,
 				D8C68EA717E0785F002BCFCC /* shop_favor@2x.png in Resources */,
+				D8D53B521802D98C00D67EAF /* avatar@2x.png in Resources */,
 				D8C68EA017E0785F002BCFCC /* shop_call.png in Resources */,
 				D8C68E9D17E0785F002BCFCC /* main_shake_button@2x.png in Resources */,
 				D8C68EA517E0785F002BCFCC /* shop_dinnerbar@2x.png in Resources */,
 				D8C68EAE17E0785F002BCFCC /* shop_korean.png in Resources */,
+				D8D53B551802D9C300D67EAF /* avatar.png in Resources */,
 				BBAF336517E1E1E800FA5378 /* ProvincesAndCities.plist in Resources */,
 				D8C68EA817E0785F002BCFCC /* shop_italian.png in Resources */,
 				D8C68E9C17E0785F002BCFCC /* main_shake_button.png in Resources */,

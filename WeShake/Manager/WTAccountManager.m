@@ -9,6 +9,7 @@
 #import "WTAccountManager.h"
 #import <Accounts/Accounts.h>
 #import <Social/Social.h>
+#import "AFNetworking.h"
 
 @interface WTAccountManager ()
 
@@ -51,6 +52,8 @@
 
 - (NSString *)userName
 {
+//    [self getFacebookAccountDetail];
+    [self createNewUser];
     return self.account.username;
 }
 
@@ -80,7 +83,7 @@
                                           accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSDictionary *options = @{
                               @"ACFacebookAppIdKey" : @"727920337234915",
-                              @"ACFacebookPermissionsKey" : @[@"user_about_me"],
+                              @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me"],
                               @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
     
     [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
@@ -100,5 +103,42 @@
     }];
 }
 
+- (void)getFacebookAccountDetail
+{
+    NSURL *url = [NSURL URLWithString:@"https://graph.facebook.com/me/picture?redirect=false"];
+    SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:url parameters:nil];
+    
+    request.account = self.account;
+    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
+        NSString *dataString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
+        NSLog(@"Facebook Account Detail: %@", dataString);
+    }];
+}
+
+- (void)createNewUser
+{
+    NSURL *url = [NSURL URLWithString:@"http://localhost:3000"];
+    
+    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:@"default_user", @"name",nil];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
+    NSString *endUrl = [NSString stringWithFormat:@"/users?"];
+    
+    UIImage *image = [UIImage imageNamed:@"avatar.png"];
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:endUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"image" fileName:@"image.jpg" mimeType:@"image/jpg"];
+    }];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        NSLog(@"JSON %@", JSON);
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Error creating photo!");
+        NSLog(@"ERROR %@", error);
+    }];
+    
+    [operation start];
+}
 
 @end
