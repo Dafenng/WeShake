@@ -9,6 +9,9 @@
 #import "WTCaptureViewController.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <AVFoundation/AVFoundation.h>
+#import "AFNetworking.h"
+#import "WTDataDef.h"
+#import "WTUser.h"
 
 @interface WTCaptureViewController ()
 
@@ -177,7 +180,57 @@
     self.sharingView.hidden = YES;
     [self switchToCamera];
 }
+
 - (IBAction)shareImage:(id)sender {
+    [self postWithMessage:@"This shop is excellent" photo:self.sharingImage.image progress:^(CGFloat progress) {
+        ;
+    } completion:^(BOOL success, NSError *error) {
+        ;
+    }];
+}
+
+- (void)postWithMessage:(NSString *)message photo:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success, NSError *error))completionBlock {
+    
+    NSURL *url = [NSURL URLWithString:BaseURL];
+    
+    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
+    
+    NSString *endUrl = [NSString stringWithFormat:@"/api/v1/posts.json?"];
+    NSDictionary *params = @{
+                             @"post[message]" : message,
+                             @"userId"      : [[WTUser sharedInstance] userId]
+                             };
+    
+    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
+    NSURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:endUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        [formData appendPartWithFileData:imageData name:@"post[photo]" fileName:@"photo.jpg" mimeType:@"image/jpg"];
+    }];
+    
+    
+    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
+    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
+        //        CGFloat progress = ((CGFloat)totalBytesWritten) / totalBytesExpectedToWrite;
+        //        progressBlock(progress);
+    }];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (operation.response.statusCode == 200 || operation.response.statusCode == 201) {
+            NSLog(@"Created, %@", responseObject);
+//            NSDictionary *dict = (NSDictionary *)responseObject;
+            
+            //            [self updateFromJSON:updatedLatte];
+            //            [self notifyCreated];
+            //            completionBlock(YES, nil);
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            //            completionBlock(NO, nil);
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //        completionBlock(NO, error);
+    }];
+    
+    [operation start];
+    //    [[BLAPIClient sharedClient] enqueueHTTPRequestOperation:operation];
 }
 
 - (void)dealloc

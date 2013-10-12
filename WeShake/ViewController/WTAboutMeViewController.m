@@ -8,6 +8,8 @@
 
 #import "WTAboutMeViewController.h"
 #import "WTAccountManager.h"
+#import "WTUser.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface WTAboutMeViewController ()
 
@@ -32,7 +34,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.usernameLabel.text = [[WTAccountManager sharedInstance] userName];
+    self.usernameLabel.text = [[WTUser sharedInstance] nickname];
+    [self.avatarImageview setImageWithURL:[NSURL URLWithString:[[WTUser sharedInstance] avatar]] placeholderImage:nil];
 }
 
 - (void)didReceiveMemoryWarning

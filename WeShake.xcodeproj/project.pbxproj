@@ -17,6 +17,10 @@
 		BBE5983217E59AAB00C1A33F /* shop_toast_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983017E59AAB00C1A33F /* shop_toast_image.png */; };
 		BBE5983317E59AAB00C1A33F /* shop_toast_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */; };
 		BBE5983517E59CE200C1A33F /* WTToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983417E59CE200C1A33F /* WTToastView.xib */; };
+		D8BD9DD618052A9A00DC0F07 /* WTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DD518052A9A00DC0F07 /* WTUser.m */; };
+		D8BD9DD918052AB700DC0F07 /* WTSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DD818052AB700DC0F07 /* WTSettingManager.m */; };
+		D8BD9DDE1809381500DC0F07 /* WTDataDef.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DDD1809381500DC0F07 /* WTDataDef.m */; };
+		D8BD9DE11809580700DC0F07 /* WTPost.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DE01809580700DC0F07 /* WTPost.m */; };
 		D8BE1C2817F2816B00538999 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */; };
 		D8C2DA0E17FC3D53000C4A0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0D17FC3D53000C4A0C /* Social.framework */; };
 		D8C2DA1017FC430A000C4A0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0F17FC430A000C4A0C /* Accounts.framework */; };
@@ -100,6 +104,14 @@
 		BBE5983017E59AAB00C1A33F /* shop_toast_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_toast_image.png; sourceTree = "<group>"; };
 		BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop_toast_image@2x.png"; sourceTree = "<group>"; };
 		BBE5983417E59CE200C1A33F /* WTToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTToastView.xib; sourceTree = "<group>"; };
+		D8BD9DD418052A9A00DC0F07 /* WTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTUser.h; sourceTree = "<group>"; };
+		D8BD9DD518052A9A00DC0F07 /* WTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTUser.m; sourceTree = "<group>"; };
+		D8BD9DD718052AB700DC0F07 /* WTSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSettingManager.h; sourceTree = "<group>"; };
+		D8BD9DD818052AB700DC0F07 /* WTSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSettingManager.m; sourceTree = "<group>"; };
+		D8BD9DDC1809381500DC0F07 /* WTDataDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTDataDef.h; sourceTree = "<group>"; };
+		D8BD9DDD1809381500DC0F07 /* WTDataDef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTDataDef.m; sourceTree = "<group>"; };
+		D8BD9DDF1809580700DC0F07 /* WTPost.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTPost.h; sourceTree = "<group>"; };
+		D8BD9DE01809580700DC0F07 /* WTPost.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTPost.m; sourceTree = "<group>"; };
 		D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		D8C2DA0D17FC3D53000C4A0C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D8C2DA0F17FC430A000C4A0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -264,6 +276,8 @@
 				D8C68E9017E0785F002BCFCC /* View */,
 				D8C68E9717E0785F002BCFCC /* WTShopParser.h */,
 				D8C68E9817E0785F002BCFCC /* WTShopParser.m */,
+				D8BD9DDC1809381500DC0F07 /* WTDataDef.h */,
+				D8BD9DDD1809381500DC0F07 /* WTDataDef.m */,
 				D8C68E4917E0775E002BCFCC /* WTAppDelegate.h */,
 				D8C68E4A17E0775E002BCFCC /* WTAppDelegate.m */,
 				BBE5982D17E4890200C1A33F /* WTSearchViewCell.h */,
@@ -354,6 +368,10 @@
 			children = (
 				D8C68E8A17E0785F002BCFCC /* WTShop.h */,
 				D8C68E8B17E0785F002BCFCC /* WTShop.m */,
+				D8BD9DD418052A9A00DC0F07 /* WTUser.h */,
+				D8BD9DD518052A9A00DC0F07 /* WTUser.m */,
+				D8BD9DDF1809580700DC0F07 /* WTPost.h */,
+				D8BD9DE01809580700DC0F07 /* WTPost.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -396,6 +414,8 @@
 				D8CD93A017FD4A91002D5347 /* WTLocationManager.m */,
 				D8CD93A117FD4A91002D5347 /* WTShopManager.h */,
 				D8CD93A217FD4A91002D5347 /* WTShopManager.m */,
+				D8BD9DD718052AB700DC0F07 /* WTSettingManager.h */,
+				D8BD9DD818052AB700DC0F07 /* WTSettingManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -407,8 +427,8 @@
 				D8CD93A817FD4ACC002D5347 /* WTLoginViewController.m */,
 				D8CD93A917FD4ACC002D5347 /* WTMainViewController.h */,
 				D8CD93AA17FD4ACC002D5347 /* WTMainViewController.m */,
-				D8CD93AB17FD4ACC002D5347 /* WTSearchMenuViewController.h */,
 				D8CD93AC17FD4ACC002D5347 /* WTSearchMenuViewController.m */,
+				D8CD93AB17FD4ACC002D5347 /* WTSearchMenuViewController.h */,
 				D8CD93AD17FD4ACC002D5347 /* WTSearchViewController.h */,
 				D8CD93AE17FD4ACC002D5347 /* WTSearchViewController.m */,
 				D8CD93AF17FD4ACC002D5347 /* WTShopViewController.h */,
@@ -585,19 +605,23 @@
 			files = (
 				D8C68E9B17E0785F002BCFCC /* NSMutableArray+Shuffling.m in Sources */,
 				D8C68EB417E0785F002BCFCC /* WTToastView.m in Sources */,
+				D8BD9DD918052AB700DC0F07 /* WTSettingManager.m in Sources */,
 				D8CD93A417FD4A91002D5347 /* WTLocationManager.m in Sources */,
+				D8BD9DDE1809381500DC0F07 /* WTDataDef.m in Sources */,
 				D8CD93B317FD4ACC002D5347 /* WTSearchMenuViewController.m in Sources */,
 				D8CD93B117FD4ACC002D5347 /* WTLoginViewController.m in Sources */,
 				D8C68E4717E0775E002BCFCC /* main.m in Sources */,
 				D8C68E4B17E0775E002BCFCC /* WTAppDelegate.m in Sources */,
 				D8C68EB217E0785F002BCFCC /* WTShop.m in Sources */,
 				D8CD93BB17FD5606002D5347 /* WTAboutMeViewController.m in Sources */,
+				D8BD9DD618052A9A00DC0F07 /* WTUser.m in Sources */,
 				D8CD93B217FD4ACC002D5347 /* WTMainViewController.m in Sources */,
 				D8CD93B517FD4ACC002D5347 /* WTShopViewController.m in Sources */,
 				BBE5982F17E4890200C1A33F /* WTSearchViewCell.m in Sources */,
 				D8C68EB317E0785F002BCFCC /* XMLReader.m in Sources */,
 				D8CD93A517FD4A91002D5347 /* WTShopManager.m in Sources */,
 				D8CD93B417FD4ACC002D5347 /* WTSearchViewController.m in Sources */,
+				D8BD9DE11809580700DC0F07 /* WTPost.m in Sources */,
 				D8CD93B817FD55E3002D5347 /* WTCaptureViewController.m in Sources */,
 				D8CD93A317FD4A91002D5347 /* WTAccountManager.m in Sources */,
 				D8C68EC117E19E66002BCFCC /* WTSegmentedControl.m in Sources */,
