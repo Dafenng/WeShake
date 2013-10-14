@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Mantle.h"
 
-@interface WTShop : NSObject
+@interface WTShop : MTLModel <MTLJSONSerializing>
 
-@property (copy, nonatomic) NSString *shopId;
+@property (copy, nonatomic) NSNumber *shopId;
+@property (copy, nonatomic) NSNumber *externId;
 @property (copy, nonatomic) NSString *name;
 @property (copy, nonatomic) NSString *addr;
-@property (copy, nonatomic) NSString *imageStr;
 @property (copy, nonatomic) NSString *tel;
 @property (copy, nonatomic) NSString *region;
 @property (copy, nonatomic) NSString *location;
@@ -22,27 +23,12 @@
 @property (copy, nonatomic) NSString *shopType;
 @property (copy, nonatomic) NSString *cuisineType;
 @property (copy, nonatomic) NSString *station;
-@property (assign, nonatomic) double latitude;
-@property (assign, nonatomic) double longitude;
-@property (assign, nonatomic) double rating;
+@property (copy, nonatomic) NSString *adjustedAddr;
+@property (copy, nonatomic) NSNumber *latitude;
+@property (copy, nonatomic) NSNumber *longitude;
+@property (copy, nonatomic) NSNumber *rating;
+
 @property (assign, nonatomic) int distance;
 
-
-- (id)initWithShopId:(NSString *)shopId
-                name:(NSString *)name
-                addr:(NSString *)addr
-                 tel:(NSString *)tel
-              region:(NSString *)region
-            location:(NSString *)location
-              access:(NSString *)access
-              budget:(NSString *)budget
-            shopType:(NSString *)shopType
-         cuisineType:(NSString *)cuisineType
-             station:(NSString *)station
-            latitude:(double)latitude
-           longitude:(double)longitude
-              rating:(double)rating;
-
-- (id)initWithDict:(NSDictionary *)dict;
 @end
 

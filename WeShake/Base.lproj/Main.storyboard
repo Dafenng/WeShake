@@ -125,6 +125,7 @@
                     <navigationItem key="navigationItem" id="cLQ-AN-Q62"/>
                     <connections>
                         <outlet property="avatarImageview" destination="KjO-tI-GGN" id="S8A-06-hqe"/>
+                        <outlet property="tableView" destination="NeC-J5-Qj5" id="Owi-zz-ePY"/>
                         <outlet property="usernameLabel" destination="n16-tL-tVu" id="v7A-zg-vHX"/>
                     </connections>
                 </viewController>

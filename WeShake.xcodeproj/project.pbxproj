@@ -24,6 +24,9 @@
 		D8BE1C2817F2816B00538999 /* NewRelicAgent.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */; };
 		D8C2DA0E17FC3D53000C4A0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0D17FC3D53000C4A0C /* Social.framework */; };
 		D8C2DA1017FC430A000C4A0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0F17FC430A000C4A0C /* Accounts.framework */; };
+		D8C61E70180AA6F400E654BF /* WTSharePostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C61E6F180AA6F400E654BF /* WTSharePostCell.m */; };
+		D8C61E72180AA71800E654BF /* WTSharePostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C61E71180AA71800E654BF /* WTSharePostCell.xib */; };
+		D8C61E76180BF37B00E654BF /* WTHttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C61E75180BF37B00E654BF /* WTHttpEngine.m */; };
 		D8C68E3B17E0775E002BCFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3A17E0775E002BCFCC /* Foundation.framework */; };
 		D8C68E3D17E0775E002BCFCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */; };
 		D8C68E3F17E0775E002BCFCC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3E17E0775E002BCFCC /* UIKit.framework */; };
@@ -63,7 +66,6 @@
 		D8C68EB217E0785F002BCFCC /* WTShop.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E8B17E0785F002BCFCC /* WTShop.m */; };
 		D8C68EB317E0785F002BCFCC /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E8F17E0785F002BCFCC /* XMLReader.m */; };
 		D8C68EB417E0785F002BCFCC /* WTToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9217E0785F002BCFCC /* WTToastView.m */; };
-		D8C68EB717E0785F002BCFCC /* WTShopParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68E9817E0785F002BCFCC /* WTShopParser.m */; };
 		D8C68EC117E19E66002BCFCC /* WTSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */; };
 		D8CD93A317FD4A91002D5347 /* WTAccountManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD939E17FD4A91002D5347 /* WTAccountManager.m */; };
 		D8CD93A417FD4A91002D5347 /* WTLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8CD93A017FD4A91002D5347 /* WTLocationManager.m */; };
@@ -115,6 +117,11 @@
 		D8BE1C2717F2816B00538999 /* NewRelicAgent.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = NewRelicAgent.framework; sourceTree = "<group>"; };
 		D8C2DA0D17FC3D53000C4A0C /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		D8C2DA0F17FC430A000C4A0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		D8C61E6E180AA6F400E654BF /* WTSharePostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSharePostCell.h; sourceTree = "<group>"; };
+		D8C61E6F180AA6F400E654BF /* WTSharePostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSharePostCell.m; sourceTree = "<group>"; };
+		D8C61E71180AA71800E654BF /* WTSharePostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTSharePostCell.xib; sourceTree = "<group>"; };
+		D8C61E74180BF37B00E654BF /* WTHttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTHttpEngine.h; sourceTree = "<group>"; };
+		D8C61E75180BF37B00E654BF /* WTHttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTHttpEngine.m; sourceTree = "<group>"; };
 		D8C68E3717E0775E002BCFCC /* WeShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8C68E3A17E0775E002BCFCC /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -162,8 +169,6 @@
 		D8C68E8F17E0785F002BCFCC /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
 		D8C68E9117E0785F002BCFCC /* WTToastView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTToastView.h; sourceTree = "<group>"; };
 		D8C68E9217E0785F002BCFCC /* WTToastView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTToastView.m; sourceTree = "<group>"; };
-		D8C68E9717E0785F002BCFCC /* WTShopParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTShopParser.h; sourceTree = "<group>"; };
-		D8C68E9817E0785F002BCFCC /* WTShopParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTShopParser.m; sourceTree = "<group>"; };
 		D8C68EBF17E19E66002BCFCC /* WTSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSegmentedControl.h; sourceTree = "<group>"; };
 		D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSegmentedControl.m; sourceTree = "<group>"; };
 		D8CD939D17FD4A91002D5347 /* WTAccountManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTAccountManager.h; sourceTree = "<group>"; };
@@ -225,6 +230,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D8C61E73180BF35D00E654BF /* HttpEngine */ = {
+			isa = PBXGroup;
+			children = (
+				D8C61E74180BF37B00E654BF /* WTHttpEngine.h */,
+				D8C61E75180BF37B00E654BF /* WTHttpEngine.m */,
+			);
+			path = HttpEngine;
+			sourceTree = "<group>";
+		};
 		D8C68E2E17E0775E002BCFCC = {
 			isa = PBXGroup;
 			children = (
@@ -268,14 +282,13 @@
 		D8C68E4017E0775E002BCFCC /* WeShake */ = {
 			isa = PBXGroup;
 			children = (
+				D8C61E73180BF35D00E654BF /* HttpEngine */,
 				D8CD939C17FD4A91002D5347 /* Manager */,
 				D8C68E6F17E0785F002BCFCC /* Category */,
 				D8C68E8917E0785F002BCFCC /* Model */,
 				D8C68E8C17E0785F002BCFCC /* Vendor */,
 				D8CD93A617FD4ACC002D5347 /* ViewController */,
 				D8C68E9017E0785F002BCFCC /* View */,
-				D8C68E9717E0785F002BCFCC /* WTShopParser.h */,
-				D8C68E9817E0785F002BCFCC /* WTShopParser.m */,
 				D8BD9DDC1809381500DC0F07 /* WTDataDef.h */,
 				D8BD9DDD1809381500DC0F07 /* WTDataDef.m */,
 				D8C68E4917E0775E002BCFCC /* WTAppDelegate.h */,
@@ -401,6 +414,9 @@
 				BBE5983417E59CE200C1A33F /* WTToastView.xib */,
 				D8C68EBF17E19E66002BCFCC /* WTSegmentedControl.h */,
 				D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */,
+				D8C61E6E180AA6F400E654BF /* WTSharePostCell.h */,
+				D8C61E6F180AA6F400E654BF /* WTSharePostCell.m */,
+				D8C61E71180AA71800E654BF /* WTSharePostCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -521,6 +537,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8C68EAF17E0785F002BCFCC /* shop_korean@2x.png in Resources */,
+				D8C61E72180AA71800E654BF /* WTSharePostCell.xib in Resources */,
 				BBE5983217E59AAB00C1A33F /* shop_toast_image.png in Resources */,
 				D8C68EAD17E0785F002BCFCC /* shop_karaok@2x.png in Resources */,
 				D8C68EA117E0785F002BCFCC /* shop_call@2x.png in Resources */,
@@ -605,6 +622,7 @@
 			files = (
 				D8C68E9B17E0785F002BCFCC /* NSMutableArray+Shuffling.m in Sources */,
 				D8C68EB417E0785F002BCFCC /* WTToastView.m in Sources */,
+				D8C61E76180BF37B00E654BF /* WTHttpEngine.m in Sources */,
 				D8BD9DD918052AB700DC0F07 /* WTSettingManager.m in Sources */,
 				D8CD93A417FD4A91002D5347 /* WTLocationManager.m in Sources */,
 				D8BD9DDE1809381500DC0F07 /* WTDataDef.m in Sources */,
@@ -619,13 +637,13 @@
 				D8CD93B517FD4ACC002D5347 /* WTShopViewController.m in Sources */,
 				BBE5982F17E4890200C1A33F /* WTSearchViewCell.m in Sources */,
 				D8C68EB317E0785F002BCFCC /* XMLReader.m in Sources */,
+				D8C61E70180AA6F400E654BF /* WTSharePostCell.m in Sources */,
 				D8CD93A517FD4A91002D5347 /* WTShopManager.m in Sources */,
 				D8CD93B417FD4ACC002D5347 /* WTSearchViewController.m in Sources */,
 				D8BD9DE11809580700DC0F07 /* WTPost.m in Sources */,
 				D8CD93B817FD55E3002D5347 /* WTCaptureViewController.m in Sources */,
 				D8CD93A317FD4A91002D5347 /* WTAccountManager.m in Sources */,
 				D8C68EC117E19E66002BCFCC /* WTSegmentedControl.m in Sources */,
-				D8C68EB717E0785F002BCFCC /* WTShopParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

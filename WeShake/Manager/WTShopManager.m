@@ -9,8 +9,9 @@
 #import "WTShopManager.h"
 #import "AFNetworking.h"
 #import "WTLocationManager.h"
-#import "WTShopParser.h"
 #import "NSMutableArray+Shuffling.h"
+#import "WTUser.h"
+#import "WTHttpEngine.h"
 
 @interface WTShopManager ()
 
@@ -51,39 +52,33 @@
 - (void)requestShopData
 {
     CLLocationCoordinate2D coordinate = [[WTLocationManager sharedInstance] currentCoordinate];
-    NSString *latitudeStr = [NSString stringWithFormat:@"%.20f", coordinate.latitude];
-    NSString *longitudeStr = [NSString stringWithFormat:@"%.20f", coordinate.longitude];
     
-    //TODO: 用与NetPeriod类似的方式统一化网络请求 将URL移出
-    NSString *url = [NSString stringWithFormat:@"http://localhost:3000/shops.json?latitude=%@&longitude=%@&radius=%f", latitudeStr, longitudeStr, [[WTLocationManager sharedInstance] radius]];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-    
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedXML.xml"];
-//    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
+    NSString *path = [NSString stringWithFormat:@"/api/v1/shops"];
+    NSDictionary *params = @{
+                             @"latitude": @(coordinate.latitude),
+                             @"longitude": @(coordinate.longitude),
+                             @"radius": @([[WTLocationManager sharedInstance] radius])
+    };
     
     
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self parseShopData:responseObject];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (operation.response.statusCode == 200 || operation.response.statusCode == 201)
+        {
+            [self parseShopData:responseObject];
+        }
+    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Get Suggest Error");
     }];
-    
-    [operation start];
+
 }
 
 - (void)parseShopData:(id)shopData
 {
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedXML.xml"];
-//    NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
-//                                                        encoding:NSUTF8StringEncoding
-//                                                           error:nil];
-    
-    //TODO:XML解析的方式要换掉
-    self.suggestShopList = [WTShopParser parseShopFromJSON:shopData];
+    [self.suggestShopList removeAllObjects];
+    [(NSArray *)shopData enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        WTShop *shop = [MTLJSONAdapter modelOfClass:WTShop.class fromJSONDictionary:obj error:nil];
+        [self.suggestShopList addObject:shop];
+    }];
     
     if ([self.suggestShopList count] > 0) {
         if (self.shopIndex >= self.suggestShopList.count) {
@@ -94,7 +89,7 @@
         
         if (self.shouldActivateHTTPRequest) {
             for (WTShop *aShop in self.suggestShopList) {
-                aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:[[WTLocationManager sharedInstance] currentCoordinate] to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
+                aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:[[WTLocationManager sharedInstance] currentCoordinate] to:CLLocationCoordinate2DMake(aShop.latitude.doubleValue, aShop.longitude.doubleValue)];
             }
             
             //商铺按距离排序
@@ -142,43 +137,34 @@
                                       succsee:(void (^)(NSArray *shops))successBlock
                                       failure:(void (^)(NSString *error))failureBlock
 {
-    NSString *url = [NSString stringWithFormat:@"http://localhost:3000/shops.json?latitude=%f&longitude=%f&radius=%@", latitude, longitude, @"1.0"];
+    NSString *path = [NSString stringWithFormat:@"/api/v1/shops"];
+    NSDictionary *params = @{
+                             @"latitude": @(latitude),
+                             @"longitude": @(longitude),
+                             @"radius": @1.0
+                             };
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
     
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *path = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
-//    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:path append:NO];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//        NSString *xmlFilePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"returnedResult.xml"];
-//        NSString *xmlText = [[NSString alloc] initWithContentsOfFile:xmlFilePath
-//                                                            encoding:NSUTF8StringEncoding
-//                                                               error:nil];
-        NSArray *searchShopList = [WTShopParser parseShopFromJSON:responseObject];
-        
-        for (WTShop *aShop in searchShopList) {
-            aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:CLLocationCoordinate2DMake(latitude, longitude) to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
-        }
+    [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSMutableArray *searchShopList = [NSMutableArray array];
+        [(NSArray *)responseObject enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            WTShop *shop = [MTLJSONAdapter modelOfClass:WTShop.class fromJSONDictionary:obj error:nil];
+            [searchShopList addObject:shop];
+        }];
         
         if (searchShopList.count) {
             for (WTShop *aShop in searchShopList) {
-                aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:CLLocationCoordinate2DMake(latitude, longitude) to:CLLocationCoordinate2DMake(aShop.latitude, aShop.longitude)];
+                aShop.distance = [[WTLocationManager sharedInstance] getDistanceFrom:CLLocationCoordinate2DMake(latitude, longitude) to:CLLocationCoordinate2DMake(aShop.latitude.doubleValue, aShop.longitude.doubleValue)];
             }
             successBlock(searchShopList);
         }
         else {
             failureBlock(@"No restaurant found! Please try other conditions.");
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         failureBlock(@"Network Error");
     }];
-    
-    [operation start];
 }
 
 @end

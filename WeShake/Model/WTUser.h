@@ -10,10 +10,12 @@
 
 @interface WTUser : NSObject
 
-@property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *avatar;
-@property (nonatomic, copy) NSString *userId;
+@property (nonatomic, copy) NSNumber *userId;
+@property (nonatomic, copy) NSString *authToken;
 
 + (WTUser *)sharedInstance;
+- (void)initWithUserDic:(NSDictionary *)dic;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "WTUser.h"
+#import "WTDataDef.h"
 
 @implementation WTUser
 
@@ -31,25 +32,44 @@
     return self;
 }
 
-- (NSString *)userId
+- (void)initWithUserDic:(NSDictionary *)dic
+{
+    self.userId = [dic objectForKey:@"id"];
+    self.username = [dic objectForKey:@"username"];
+    self.avatar = [NSString stringWithFormat:@"%@%@", BaseURL, [[dic objectForKey:@"avatar"] objectForKey:@"url"]];
+    self.authToken = [dic objectForKey:@"auth_token"];
+}
+
+- (NSNumber *)userId
 {
     return [[NSUserDefaults standardUserDefaults] objectForKey:@"userId"];
 }
 
-- (void)setUserId:(NSString *)userId
+- (void)setUserId:(NSNumber *)userId
 {
     [[NSUserDefaults standardUserDefaults] setObject:userId forKey:@"userId"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (NSString *)nickname
+- (NSString *)authToken
 {
-    return [[NSUserDefaults standardUserDefaults] objectForKey:@"nickname"];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"authToken"];
 }
 
-- (void)setNickname:(NSString *)nickname
+- (void)setAuthToken:(NSString *)authToken
 {
-    [[NSUserDefaults standardUserDefaults] setObject:nickname forKey:@"nickname"];
+    [[NSUserDefaults standardUserDefaults] setObject:authToken forKey:@"authToken"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)username
+{
+    return [[NSUserDefaults standardUserDefaults] objectForKey:@"username"];
+}
+
+- (void)setUsername:(NSString *)username
+{
+    [[NSUserDefaults standardUserDefaults] setObject:username forKey:@"username"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -7,7 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Mantle.h"
 
-@interface WTPost : NSObject
+@interface WTPost : MTLModel <MTLJSONSerializing>
+
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSDate *createTime;
+@property (nonatomic, copy) NSNumber *postId;
+@property (nonatomic, copy) NSNumber *userId;
+@property (nonatomic, copy) NSString *photo;
+
++ (NSDateFormatter *)dateFormatter;
 
 @end

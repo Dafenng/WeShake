@@ -46,8 +46,8 @@
                                     @"バー・カクテル": @"shop_bar.png",
                                     @"カラオケ・パーティ": @"shop_karaok.png",
                                     @"ダイニングバー": @"shop_dinnerbar.png"};
-    self.shop.imageStr = shopImageDict[self.shop.shopType] == nil ? @"shop_izakaya.png" : shopImageDict[self.shop.shopType];
-    self.frontImageView.image = [UIImage imageNamed:self.shop.imageStr];
+    NSString *imageStr = shopImageDict[self.shop.shopType] == nil ? @"shop_izakaya.png" : shopImageDict[self.shop.shopType];
+    self.frontImageView.image = [UIImage imageNamed:imageStr];
 }
 
 - (void)didReceiveMemoryWarning
@@ -98,7 +98,7 @@
 }
 
 - (IBAction)locatButtonClicked:(id)sender {
-    [self showMapByLatitude:self.shop.latitude longitude:self.shop.longitude];
+    [self showMapByLatitude:self.shop.latitude.doubleValue longitude:self.shop.longitude.doubleValue];
 }
 
 - (IBAction)favorButtonClicked:(id)sender {

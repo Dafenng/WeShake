@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "JSONKit.h"
 #import "WTUser.h"
+#import "WTHttpEngine.h"
 #import "WTDataDef.h"
 
 @interface WTAccountManager ()
@@ -50,6 +51,7 @@
 
 - (BOOL)accountLogged
 {
+//    [self getTwitterAccountDetail];
     return self.account != nil;
 }
 
@@ -171,47 +173,24 @@
 
 - (void)createNewUserWithUserName:(NSString *)username avatarImage:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success, NSError *error))completionBlock {
     
-    NSURL *url = [NSURL URLWithString:BaseURL];
-    
-    AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    
-    NSString *endUrl = [NSString stringWithFormat:@"/api/v1/users.json?"];
+    NSString *path = [NSString stringWithFormat:@"/api/v1/users"];
     NSDictionary *params = @{
-                             @"user[nickname]" : username,
+                             @"user[username]" : username
                              };
     
-    NSData *imageData = UIImageJPEGRepresentation(image, 1.0);
-    NSURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:endUrl parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-        [formData appendPartWithFileData:imageData name:@"user[avatar]" fileName:@"avatar.jpg" mimeType:@"image/jpg"];
-    }];
-
+    NSDictionary *imageDic = @{@"image": image,
+                               @"name": @"user[avatar]",
+                               @"filename": @"avatar.jpg",
+                               @"mimetype": @"image/jpg"
+                               };
     
-    AFJSONRequestOperation *operation = [[AFJSONRequestOperation alloc] initWithRequest:request];
-    [operation setUploadProgressBlock:^(NSUInteger bytesWritten, long long totalBytesWritten, long long totalBytesExpectedToWrite) {
-//        CGFloat progress = ((CGFloat)totalBytesWritten) / totalBytesExpectedToWrite;
-//        progressBlock(progress);
+    [WTHttpEngine startHttpConnectionWithImageDic:imageDic path:path method:@"POST" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"Created, %@", responseObject);
+        WTUser* user = [WTUser sharedInstance];
+        [user initWithUserDic:responseObject];
+    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"用户注册失败");
     }];
-    
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (operation.response.statusCode == 200 || operation.response.statusCode == 201) {
-            NSLog(@"Created, %@", responseObject);
-            NSDictionary *dict = (NSDictionary *)responseObject;
-            WTUser* user = [WTUser sharedInstance];
-            user.userId = [dict objectForKey:@"id"];
-            user.nickname = [dict objectForKey:@"nickname"];
-            user.avatar = [NSString stringWithFormat:@"%@%@", BaseURL, [[dict objectForKey:@"avatar"] objectForKey:@"url"]];
-//            [self updateFromJSON:updatedLatte];
-//            [self notifyCreated];
-//            completionBlock(YES, nil);
-        } else {
-//            completionBlock(NO, nil);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        completionBlock(NO, error);
-    }];
-    
-    [operation start];
-//    [[BLAPIClient sharedClient] enqueueHTTPRequestOperation:operation];
 }
 
 @end
