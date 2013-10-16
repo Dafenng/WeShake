@@ -33,6 +33,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _shopList = [NSMutableArray array];
     }
     return self;
 }
@@ -48,7 +49,6 @@
     
     self.menuViewController = [[WTSearchMenuViewController alloc] init];
     self.menuViewController.delegate = self;
-    self.shopList = [NSMutableArray array];
     
     //TODO:需要改为默认全部shop
     [self getSearchShopsWithConditionOfLatitude:35.690415 longitude:139.700211];

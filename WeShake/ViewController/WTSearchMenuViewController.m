@@ -41,9 +41,9 @@
     self.view.backgroundColor = [UIColor redColor];
     
     self.masterTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width/2, 300) style:UITableViewStylePlain];
-    self.masterTableView.backgroundColor = [UIColor yellowColor];
+//    self.masterTableView.backgroundColor = [UIColor yellowColor];
     self.subTableView = [[UITableView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2, 0, self.view.frame.size.width, 300) style:UITableViewStylePlain];
-    self.subTableView.backgroundColor = [UIColor greenColor];
+//    self.subTableView.backgroundColor = [UIColor greenColor];
     self.masterTableView.tag = kMASTERTABLEVIEWTAG;
     self.subTableView.tag = kSUBTABLEVIEWTAG;
     self.masterTableView.dataSource = self;

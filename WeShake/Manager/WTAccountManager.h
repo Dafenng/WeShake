@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^UserRegisterBlock)(BOOL success);
+
 @interface WTAccountManager : NSObject
 
 + (WTAccountManager *)sharedInstance;
@@ -15,7 +17,7 @@
 
 - (NSString *)userName;
 
-- (void)getTwitterAccountInformationWithCompletion:(void (^)(BOOL success))completion;
-- (void)getFacebookAccountInformationWithCompletion:(void (^)(BOOL success))completion;
+- (void)getTwitterAccountInformationWithCompletion:(UserRegisterBlock)completion;
+- (void)getFacebookAccountInformationWithCompletion:(UserRegisterBlock)completion;
 
 @end

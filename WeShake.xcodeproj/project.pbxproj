@@ -17,6 +17,7 @@
 		BBE5983217E59AAB00C1A33F /* shop_toast_image.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983017E59AAB00C1A33F /* shop_toast_image.png */; };
 		BBE5983317E59AAB00C1A33F /* shop_toast_image@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */; };
 		BBE5983517E59CE200C1A33F /* WTToastView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BBE5983417E59CE200C1A33F /* WTToastView.xib */; };
+		D8381E5D180D6B8A003C3166 /* WTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8381E5C180D6B8A003C3166 /* WTSettingViewController.m */; };
 		D8BD9DD618052A9A00DC0F07 /* WTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DD518052A9A00DC0F07 /* WTUser.m */; };
 		D8BD9DD918052AB700DC0F07 /* WTSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DD818052AB700DC0F07 /* WTSettingManager.m */; };
 		D8BD9DDE1809381500DC0F07 /* WTDataDef.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DDD1809381500DC0F07 /* WTDataDef.m */; };
@@ -25,7 +26,6 @@
 		D8C2DA0E17FC3D53000C4A0C /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0D17FC3D53000C4A0C /* Social.framework */; };
 		D8C2DA1017FC430A000C4A0C /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C2DA0F17FC430A000C4A0C /* Accounts.framework */; };
 		D8C61E70180AA6F400E654BF /* WTSharePostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C61E6F180AA6F400E654BF /* WTSharePostCell.m */; };
-		D8C61E72180AA71800E654BF /* WTSharePostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8C61E71180AA71800E654BF /* WTSharePostCell.xib */; };
 		D8C61E76180BF37B00E654BF /* WTHttpEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = D8C61E75180BF37B00E654BF /* WTHttpEngine.m */; };
 		D8C68E3B17E0775E002BCFCC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3A17E0775E002BCFCC /* Foundation.framework */; };
 		D8C68E3D17E0775E002BCFCC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D8C68E3C17E0775E002BCFCC /* CoreGraphics.framework */; };
@@ -106,6 +106,8 @@
 		BBE5983017E59AAB00C1A33F /* shop_toast_image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_toast_image.png; sourceTree = "<group>"; };
 		BBE5983117E59AAB00C1A33F /* shop_toast_image@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop_toast_image@2x.png"; sourceTree = "<group>"; };
 		BBE5983417E59CE200C1A33F /* WTToastView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTToastView.xib; sourceTree = "<group>"; };
+		D8381E5B180D6B8A003C3166 /* WTSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSettingViewController.h; sourceTree = "<group>"; };
+		D8381E5C180D6B8A003C3166 /* WTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSettingViewController.m; sourceTree = "<group>"; };
 		D8BD9DD418052A9A00DC0F07 /* WTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTUser.h; sourceTree = "<group>"; };
 		D8BD9DD518052A9A00DC0F07 /* WTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTUser.m; sourceTree = "<group>"; };
 		D8BD9DD718052AB700DC0F07 /* WTSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSettingManager.h; sourceTree = "<group>"; };
@@ -119,7 +121,6 @@
 		D8C2DA0F17FC430A000C4A0C /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		D8C61E6E180AA6F400E654BF /* WTSharePostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSharePostCell.h; sourceTree = "<group>"; };
 		D8C61E6F180AA6F400E654BF /* WTSharePostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSharePostCell.m; sourceTree = "<group>"; };
-		D8C61E71180AA71800E654BF /* WTSharePostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WTSharePostCell.xib; sourceTree = "<group>"; };
 		D8C61E74180BF37B00E654BF /* WTHttpEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTHttpEngine.h; sourceTree = "<group>"; };
 		D8C61E75180BF37B00E654BF /* WTHttpEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTHttpEngine.m; sourceTree = "<group>"; };
 		D8C68E3717E0775E002BCFCC /* WeShake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeShake.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -416,7 +417,6 @@
 				D8C68EC017E19E66002BCFCC /* WTSegmentedControl.m */,
 				D8C61E6E180AA6F400E654BF /* WTSharePostCell.h */,
 				D8C61E6F180AA6F400E654BF /* WTSharePostCell.m */,
-				D8C61E71180AA71800E654BF /* WTSharePostCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -453,6 +453,8 @@
 				D8CD93B717FD55E3002D5347 /* WTCaptureViewController.m */,
 				D8CD93B917FD5606002D5347 /* WTAboutMeViewController.h */,
 				D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */,
+				D8381E5B180D6B8A003C3166 /* WTSettingViewController.h */,
+				D8381E5C180D6B8A003C3166 /* WTSettingViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -537,7 +539,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D8C68EAF17E0785F002BCFCC /* shop_korean@2x.png in Resources */,
-				D8C61E72180AA71800E654BF /* WTSharePostCell.xib in Resources */,
 				BBE5983217E59AAB00C1A33F /* shop_toast_image.png in Resources */,
 				D8C68EAD17E0785F002BCFCC /* shop_karaok@2x.png in Resources */,
 				D8C68EA117E0785F002BCFCC /* shop_call@2x.png in Resources */,
@@ -627,6 +628,7 @@
 				D8CD93A417FD4A91002D5347 /* WTLocationManager.m in Sources */,
 				D8BD9DDE1809381500DC0F07 /* WTDataDef.m in Sources */,
 				D8CD93B317FD4ACC002D5347 /* WTSearchMenuViewController.m in Sources */,
+				D8381E5D180D6B8A003C3166 /* WTSettingViewController.m in Sources */,
 				D8CD93B117FD4ACC002D5347 /* WTLoginViewController.m in Sources */,
 				D8C68E4717E0775E002BCFCC /* main.m in Sources */,
 				D8C68E4B17E0775E002BCFCC /* WTAppDelegate.m in Sources */,

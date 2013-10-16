@@ -147,4 +147,9 @@
 - (IBAction)profile:(id)sender {
     [self performSegueWithIdentifier:@"MainToAboutMe" sender:sender];
 }
+
+- (IBAction)setting:(id)sender {
+    [self performSegueWithIdentifier:@"MainToSetting" sender:sender];
+}
+
 @end
