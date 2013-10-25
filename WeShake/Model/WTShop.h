@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Mantle.h"
+#import "WTShopPhoto.h"
 
 @interface WTShop : MTLModel <MTLJSONSerializing>
 
@@ -27,6 +28,7 @@
 @property (copy, nonatomic) NSNumber *latitude;
 @property (copy, nonatomic) NSNumber *longitude;
 @property (copy, nonatomic) NSNumber *rating;
+@property (strong, nonatomic) NSArray *shopPhotos;
 
 @property (assign, nonatomic) int distance;
 

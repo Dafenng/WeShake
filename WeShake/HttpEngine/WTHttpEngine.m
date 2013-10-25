@@ -19,10 +19,10 @@
 {
     
     
-    NSURL *url = [NSURL URLWithString:BaseURL];
+    NSURL *url = [NSURL URLWithString:TestURL];
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    [httpClient setAuthorizationHeaderWithToken:@"6ae1d580123c3955b845ef010e0bbb7a"];
+    [httpClient setAuthorizationHeaderWithToken:ApiKeyTest];
     
     NSURLRequest *request = [httpClient requestWithMethod:method path:path parameters:params];
     
@@ -42,10 +42,10 @@
 {
     
     
-    NSURL *url = [NSURL URLWithString:BaseURL];
+    NSURL *url = [NSURL URLWithString:TestURL];
     
     AFHTTPClient *httpClient = [[AFHTTPClient alloc] initWithBaseURL:url];
-    [httpClient setAuthorizationHeaderWithToken:@"6ae1d580123c3955b845ef010e0bbb7a"];
+    [httpClient setAuthorizationHeaderWithToken:ApiKeyTest];
     
     NSData *imageData = UIImageJPEGRepresentation(imageDic[@"image"], 1.0);
     NSURLRequest *request = [httpClient multipartFormRequestWithMethod:method path:path parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {

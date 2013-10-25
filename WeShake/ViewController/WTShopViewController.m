@@ -8,13 +8,15 @@
 
 #import "WTShopViewController.h"
 #import "WTToastView.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface WTShopViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *addrLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *frontImageView;
+@property (weak, nonatomic) IBOutlet UIScrollView *shopPhotoScrollView;
+
 
 
 @end
@@ -39,15 +41,21 @@
     self.addrLabel.text = [self.shop addr];
     self.priceLabel.text = [self.shop budget];
     
-    NSDictionary *shopImageDict = @{@"居酒屋": @"shop_izakaya.png",
-                                    @"焼肉・韓国料理": @"shop_korean.png",
-                                    @"イタリアン・フレンチ": @"shop_italian.png",
-                                    @"中華": @"shop_chinese.png",
-                                    @"バー・カクテル": @"shop_bar.png",
-                                    @"カラオケ・パーティ": @"shop_karaok.png",
-                                    @"ダイニングバー": @"shop_dinnerbar.png"};
-    NSString *imageStr = shopImageDict[self.shop.shopType] == nil ? @"shop_izakaya.png" : shopImageDict[self.shop.shopType];
-    self.frontImageView.image = [UIImage imageNamed:imageStr];
+    NSInteger shopPhotoCount = [self.shop.shopPhotos count];
+    if (shopPhotoCount > 0) {
+        self.shopPhotoScrollView.contentSize = CGSizeMake(shopPhotoCount * 300, 1);
+        for (NSInteger i = 0; i < shopPhotoCount; i++) {
+            WTShopPhoto *shopPhoto = self.shop.shopPhotos[i];
+            UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * 300, 0, self.shopPhotoScrollView.frame.size.width, self.shopPhotoScrollView.frame.size.height)];
+            [photoImageView setImageWithURL:[NSURL URLWithString:shopPhoto.photoUrl] placeholderImage:[UIImage imageNamed:@"shop_no_photo.png"]];
+            [self.shopPhotoScrollView addSubview:photoImageView];
+        }
+    } else {
+        self.shopPhotoScrollView.contentSize = CGSizeMake(300, 1);
+        UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:self.shopPhotoScrollView.bounds];
+        photoImageView.image = [UIImage imageNamed:@"shop_no_photo.png"];
+        [self.shopPhotoScrollView addSubview:photoImageView];
+    }
 }
 
 - (void)didReceiveMemoryWarning

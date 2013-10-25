@@ -8,21 +8,17 @@
 
 #import <Foundation/Foundation.h>
 #import "WTShop.h"
-
-typedef void (^GetShopSucceedBlock)(WTShop *shop);
-typedef void (^GetShopFailBlock)();
+#import "WTDataDef.h"
 
 @interface WTShopManager : NSObject
 
-@property (assign, nonatomic) NSInteger shopIndex;
-@property (assign, nonatomic) BOOL shouldActivateHTTPRequest;
-
 + (WTShopManager *)sharedInstance;
-- (void)getOneSuggestShopWithSuccess:(GetShopSucceedBlock)succeedBlock
-                             failure:(GetShopFailBlock)failBlock;
-- (void)getSearchShopsWithConditionOfLatitude:(double)latitude
-                                    longitude:(double)longitude
-                                      succsee:(void (^)(NSArray *shops))successBlock
-                                      failure:(void (^)(NSString *error))failureBlock;
+- (void)getSuggestShopWithSuccess:(void (^)(WTShop *shop))successBlock
+                          failure:(void (^)(ErrorType errorCode))failureBlock;
+
+- (void)getSearchShopsFrom:(NSInteger)start
+                     count:(NSInteger)count
+                   success:(void (^)(NSArray *shops))successBlock
+                   failure:(void (^)(ErrorType errorCode))failureBlock;
 
 @end

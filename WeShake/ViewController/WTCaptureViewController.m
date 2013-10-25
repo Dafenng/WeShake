@@ -116,13 +116,13 @@
                                              completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
                                                  if (imageDataSampleBuffer != NULL) {
                                                      NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                                                     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
                                                      
                                                      UIImage *image = [[UIImage alloc] initWithData:imageData];
                                                      self.sharingView.hidden = NO;
                                                      self.sharingImage.image = image;
                                                      
                                                      //暂时关闭保存
+//                                                     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
 //                                                     [library writeImageToSavedPhotosAlbum:[image CGImage]
 //                                                                               orientation:(ALAssetOrientation)[image imageOrientation]
 //                                                                           completionBlock:nil];
@@ -210,7 +210,7 @@
                                };
     
     [WTHttpEngine startHttpConnectionWithImageDic:imageDic path:path method:@"POST" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Created, %@", responseObject);
+        NSLog(@"%@", responseObject);
         [self dismissViewControllerAnimated:YES completion:nil];
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
         ;

@@ -36,7 +36,7 @@
 {
     self.userId = [dic objectForKey:@"id"];
     self.username = [dic objectForKey:@"username"];
-    self.avatar = [NSString stringWithFormat:@"%@%@", BaseURL, [[dic objectForKey:@"avatar"] objectForKey:@"url"]];
+    self.avatar = [dic objectForKey:@"avatar_url"];
     self.authToken = [dic objectForKey:@"auth_token"];
 }
 

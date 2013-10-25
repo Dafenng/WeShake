@@ -11,7 +11,8 @@
 #import "WTSearchViewCell.h"
 #include "WTShopManager.h"
 #import "WTShopViewController.h"
-#import <objc/runtime.h>
+#import "WTLocationManager.h"
+#import "WTLoadMoreCell.h"
 
 @interface WTSearchViewController () {
     BOOL _isShowingMenu;
@@ -22,7 +23,8 @@
 @property (weak, nonatomic) IBOutlet WTSegmentedControl *shopMenuSegmentControl;
 @property (weak, nonatomic) IBOutlet UITableView *shopsTableView;
 @property (strong, nonatomic) WTSearchMenuViewController *menuViewController;
-@property (strong, nonatomic) NSArray *shopList;
+@property (strong, nonatomic) NSMutableArray *shopList;
+@property (assign, nonatomic) BOOL noMoreShops;
 
 @end
 
@@ -33,6 +35,15 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _shopList = [NSMutableArray array];
+    }
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
         _shopList = [NSMutableArray array];
     }
     return self;
@@ -50,8 +61,7 @@
     self.menuViewController = [[WTSearchMenuViewController alloc] init];
     self.menuViewController.delegate = self;
     
-    //TODO:需要改为默认全部shop
-    [self getSearchShopsWithConditionOfLatitude:35.690415 longitude:139.700211];
+    [self getSearchShops];
 }
 
 - (void)didReceiveMemoryWarning
@@ -60,17 +70,63 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)getSearchShopsWithConditionOfLatitude:(double)laittude longitude:(double)longitude
+- (void)getSearchShops
 {
-    [[WTShopManager sharedInstance] getSearchShopsWithConditionOfLatitude:laittude longitude:longitude succsee:^(NSArray *shops) {
-        self.shopList = [NSArray arrayWithArray:shops];
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
-        NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-        self.shopList = [NSMutableArray arrayWithArray:[self.shopList sortedArrayUsingDescriptors:sortDescriptors]];
-        [self.shopsTableView reloadData];
-    } failure:^(NSString *error) {
-        NSLog(@"Search error");
+    [[WTShopManager sharedInstance] getSearchShopsFrom:[self.shopList count] count:CountPerRequest success:^(NSArray *shops) {
+//        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
+//        NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+//        self.shopList = [NSMutableArray arrayWithArray:[shops sortedArrayUsingDescriptors:sortDescriptors]];
+        if ([shops count] == 0) {
+            if ([self.shopList count] == 0) {
+                //当前半径太小，用更大半径尝试
+                if ([[WTLocationManager sharedInstance] increaseRadius]) {
+                    [self getSearchShops];
+                } else {
+                    [self showNoShops];
+                }
+            } else {
+                //刚好加载完所有
+                self.noMoreShops = YES;
+                [self.shopsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.shopList count] inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            }
+        } else {
+            if ([self.shopList count] == 0) {
+                [self.shopList addObjectsFromArray:shops];
+                [self.shopsTableView reloadData];
+            } else {
+                if ([shops count] < CountPerRequest) {
+                    self.noMoreShops = YES;
+                }
+                [self.shopList addObjectsFromArray:shops];
+                NSMutableArray *insertIndexPaths = [NSMutableArray array];
+                for (NSInteger i = [self.shopList count] - [shops count]; i < [self.shopList count]; i++) {
+                    [insertIndexPaths addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+                }
+                
+                [self.shopsTableView beginUpdates];
+                [self.shopsTableView insertRowsAtIndexPaths:insertIndexPaths withRowAnimation:UITableViewRowAnimationFade];
+                [self.shopsTableView endUpdates];
+            }
+        }
+    } failure:^(ErrorType errorCode) {
+        switch (errorCode) {
+            case NetworkError:
+                [self showNetworkError];
+                break;
+            default:
+                break;
+        }
     }];
+}
+
+- (void)showNoShops
+{
+    
+}
+
+- (void)showNetworkError
+{
+    
 }
 
 - (IBAction)shopMenuSegmentControlValueChanged:(id)sender {
@@ -145,19 +201,41 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.shopList count];
+    return [self.shopList count] == 0 ? 0 : [self.shopList count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"SearchViewCell";
-    WTSearchViewCell *cell = (WTSearchViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    if (cell == nil) {
-        cell = [[WTSearchViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+    static NSString *LoadMoreIdentifier = @"LoadMoreCell";
+    
+    UITableViewCell *cell = nil;
+    
+    if (indexPath.row == [self.shopList count]) {
+        cell = (WTLoadMoreCell *)[tableView dequeueReusableCellWithIdentifier:LoadMoreIdentifier];
+        if (cell == nil) {
+            cell = [WTLoadMoreCell loadMoreCellFromNib];
+        }
+        
+        if (self.noMoreShops) {
+            ((WTLoadMoreCell *)cell).indicator.hidden = YES;
+            [((WTLoadMoreCell *)cell).indicator stopAnimating];
+            ((WTLoadMoreCell *)cell).status.text = @"No More";
+        } else {
+            ((WTLoadMoreCell *)cell).indicator.hidden = NO;
+            [((WTLoadMoreCell *)cell).indicator startAnimating];
+            ((WTLoadMoreCell *)cell).status.text = @"Loading";
+            [self getSearchShops];
+        }
+    } else {
+        cell = (WTSearchViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+        if (cell == nil) {
+            cell = [[WTSearchViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        }
+
+        WTShop *shop = [self.shopList objectAtIndex:indexPath.row];
+        [(WTSearchViewCell *)cell setupSearchViewCellWithShop:shop];
     }
-    // Configure the cell...
-    WTShop *shop = [self.shopList objectAtIndex:indexPath.row];
-    [cell setupSearchViewCellWithShop:shop];
     
     return cell;
 }
@@ -166,7 +244,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 95;
+    return indexPath.row == [self.shopList count] ? 44 : 95;
 }
 
 #pragma mark - Navigation
@@ -189,7 +267,9 @@
 {
     _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     [self dismissShopOptionMenu];
-    [self getSearchShopsWithConditionOfLatitude:latitude longitude:longitude];
+    [self.shopList removeAllObjects];
+    self.noMoreShops = YES;
+    [self getSearchShops];
 }
 
 - (void)didSelectNewSearchConditionNotImplemented

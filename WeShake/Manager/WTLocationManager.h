@@ -19,13 +19,18 @@
 
 @interface WTLocationManager : NSObject <CLLocationManagerDelegate>
 
-@property (assign, nonatomic) CLLocationCoordinate2D currentCoordinate;
-@property (assign, nonatomic) double radius;
-
 + (WTLocationManager *)sharedInstance;
+
+- (double)latitude;
+- (double)longitude;
+- (double)radius;
+- (CLLocationCoordinate2D)coordinate;
+- (BOOL)increaseRadius;
+
 - (void)setupWithBaseSettings;
 - (void)startUpdatingLocation;
 - (void)updateCurrentCoordinate;
 - (int)getDistanceFromCurrentLocationToLocationManager;
+- (int)getDistanceTo:(CLLocationCoordinate2D)coordinate;
 - (int)getDistanceFrom:(CLLocationCoordinate2D)coordinate1  to:(CLLocationCoordinate2D)coordinate2;
 @end

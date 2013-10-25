@@ -11,6 +11,8 @@
 @interface WTLocationManager ()
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (assign, nonatomic) CLLocationCoordinate2D currentCoordinate;
+@property (assign, nonatomic) double radius;
 
 @end
 
@@ -26,6 +28,26 @@
         [_sharedInstance setupWithBaseSettings];
     });
     return _sharedInstance;
+}
+
+- (double)latitude
+{
+    return _currentCoordinate.latitude;
+}
+
+- (double)longitude
+{
+    return _currentCoordinate.longitude;
+}
+
+- (double)radius
+{
+    return _radius;
+}
+
+- (CLLocationCoordinate2D)coordinate
+{
+    return _currentCoordinate;
 }
 
 - (void)setupWithBaseSettings
@@ -49,6 +71,17 @@
     self.locationManager.delegate = nil;
 }
 
+- (BOOL)increaseRadius
+{
+    if ([[WTLocationManager sharedInstance] radius] > 4.0) {
+        return NO;
+    }
+    
+    [[WTLocationManager sharedInstance] increaseRadius];
+    return YES;
+
+}
+
 /**
  *  更新currentCoordinate到locationManager最新定位数据
  */
@@ -65,6 +98,11 @@
 - (int)getDistanceFromCurrentLocationToLocationManager
 {
     return [self getDistanceFrom:self.currentCoordinate to:self.locationManager.location.coordinate];
+}
+
+- (int)getDistanceTo:(CLLocationCoordinate2D)coordinate
+{
+    return [self getDistanceFrom:self.currentCoordinate to:coordinate];
 }
 
 - (int)getDistanceFrom:(CLLocationCoordinate2D)coordinate1  to:(CLLocationCoordinate2D)coordinate2 {

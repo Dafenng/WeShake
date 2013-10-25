@@ -13,6 +13,8 @@
 
 @interface WTSharePostCell ()
 
+@property (strong, nonatomic) NSDateFormatter *dateFormatter;
+
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -46,12 +48,22 @@
 	return [nibs objectAtIndex:0];
 }
 
+- (NSDateFormatter *)dateFormatter
+{
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[NSDateFormatter alloc] init];
+        [_dateFormatter setDateFormat:@"MM-dd-yyyy h:mm a"];
+    }
+    
+    return _dateFormatter;
+}
+
 - (void)initWithPost:(WTPost *)post
 {
     [self.headImageView setImageWithURL:[NSURL URLWithString:[[WTUser sharedInstance] avatar]] placeholderImage:nil];
     self.nameLabel.text = [[WTUser sharedInstance] username];
-    self.dateLabel.text = [[WTPost dateFormatter] stringFromDate:post.createTime];
+    self.dateLabel.text = [self.dateFormatter stringFromDate:post.createTime];
     self.messageLabel.text = post.message;
-    [self.shareShopImageView setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", BaseURL, post.photo]] placeholderImage:nil];
+    [self.shareShopImageView setImageWithURL:[NSURL URLWithString:post.photo] placeholderImage:nil];
 }
 @end

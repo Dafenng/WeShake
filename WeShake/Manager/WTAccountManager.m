@@ -18,7 +18,8 @@
 @interface WTAccountManager ()
 
 @property (strong, nonatomic) ACAccountStore *accountStore;
-@property (copy, nonatomic) NSString *accountType;
+@property (copy, nonatomic) NSString *accountTypeIdentifier;
+@property (copy, nonatomic) NSString *accountTypeId;
 @property (strong, nonatomic) ACAccount *account;
 @property (copy, nonatomic) UserRegisterBlock userRegisterBlock;
 
@@ -44,7 +45,8 @@
     if (self) {
         _accountStore = [[ACAccountStore alloc] init];
         if ([_accountStore.accounts count] > 0) {
-            _account = [_accountStore.accounts firstObject];
+            _accountTypeIdentifier = [[NSUserDefaults standardUserDefaults] objectForKey:@"accountType"];
+            _account = [_accountStore accountWithIdentifier:_accountTypeIdentifier];
         }
     }
     return self;
@@ -52,14 +54,18 @@
 
 - (BOOL)accountLogged
 {
-//    [self getTwitterAccountDetail];
     return self.account != nil;
+//    return NO;
 }
 
 - (NSString *)userName
 {
     if ([self.account.accountType.identifier isEqualToString:ACAccountTypeIdentifierFacebook]) {
-        return [self.account valueForKeyPath:@"properties.ACPropertyFullName"];
+        if (OS7) {
+            [self.account valueForKeyPath:@"properties.ACPropertyFullName"];
+        } else {
+            return [self.account valueForKeyPath:@"properties.fullname"];
+        }
     }
     return self.account.username;
 }
@@ -74,7 +80,8 @@
             NSArray *accountsArray = [self.accountStore accountsWithAccountType:twitterAccountType];
             if ([accountsArray count] > 0) {
                 self.account = [accountsArray objectAtIndex:0];
-                self.accountType = ACAccountTypeIdentifierTwitter;
+                self.accountTypeIdentifier = self.account.identifier;
+                self.accountTypeId = [self.account valueForKeyPath:@"properties.user_id"];
                 [self getTwitterAccountDetail];
             } else {
                 self.userRegisterBlock(NO);
@@ -101,7 +108,8 @@
             
             if ([accountsArray count] > 0) {
                 self.account = [accountsArray objectAtIndex:0];
-                self.accountType = ACAccountTypeIdentifierFacebook;
+                self.accountTypeIdentifier = self.account.identifier;
+                self.accountTypeId = [self.account valueForKeyPath:@"properties.uid"];
                 [self getFacebookAccountDetail];
             } else {
                 self.userRegisterBlock(NO);
@@ -114,23 +122,7 @@
 
 - (void)getFacebookAccountDetail
 {
-    SLRequest *request = [SLRequest requestForServiceType:SLServiceTypeFacebook requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture", [self.account valueForKeyPath:@"properties.uid"]]] parameters:@{@"width": [NSNumber numberWithInt:128], @"height": [NSNumber numberWithInt:128]} ];
-    
-    request.account = self.account;
-    [request performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
-        
-        if (error) {
-            NSLog(@"Error: %@", error.localizedDescription);
-            return;
-        }
-        if (responseData) {
-            [self createNewUserWithUserName:[self userName] avatarImage:[UIImage imageWithData:responseData] progress:^(CGFloat progress) {
-                ;
-            } completion:^(BOOL success, NSError *error) {
-                ;
-            }];
-        }
-    }];
+    [self getProfileImage:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=128&height=128", [self.account valueForKeyPath:@"properties.uid"]]];
 }
 
 - (void)getTwitterAccountDetail
@@ -176,9 +168,18 @@
 
 - (void)createNewUserWithUserName:(NSString *)username avatarImage:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success, NSError *error))completionBlock {
     
+    NSString *accountType = @"";
+    if ([self.account.accountType.identifier isEqualToString:ACAccountTypeIdentifierTwitter]) {
+        accountType = @"Twitter";
+    } else if ([self.account.accountType.identifier isEqualToString:ACAccountTypeIdentifierFacebook]){
+        accountType = @"Facebook";
+    }
+    
     NSString *path = [NSString stringWithFormat:@"/api/v1/users"];
     NSDictionary *params = @{
-                             @"user[username]" : username
+                             @"user[username]" : username,
+                             @"user[user_type]" : accountType,
+                             @"user[type_id]" : self.accountTypeId
                              };
     
     NSDictionary *imageDic = @{@"image": image,
@@ -188,10 +189,16 @@
                                };
     
     [WTHttpEngine startHttpConnectionWithImageDic:imageDic path:path method:@"POST" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Created, %@", responseObject);
+        NSLog(@"%@", responseObject);
+        
         WTUser* user = [WTUser sharedInstance];
-        [user initWithUserDic:responseObject];
-        self.userRegisterBlock(NO);
+        [user initWithUserDic:[responseObject objectForKey:@"user"]];
+        
+        [[NSUserDefaults standardUserDefaults] setObject:self.accountTypeIdentifier forKey:@"accountType"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        if (self.userRegisterBlock) {
+            self.userRegisterBlock(YES);
+        }
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"用户注册失败");
     }];

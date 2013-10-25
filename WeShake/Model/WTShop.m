@@ -16,7 +16,14 @@
              @"externId": @"extern_id",
              @"shopType": @"shop_type",
              @"cuisineType": @"cuisine_type",
-             @"adjustedAddr": @"adjusted_addr"};
+             @"adjustedAddr": @"adjusted_addr",
+             @"shopPhotos": @"shop_photos"
+             };
+}
+
++ (NSValueTransformer *)shopPhotosJSONTransformer
+{
+    return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:WTShopPhoto.class];
 }
 
 - (NSString *)description

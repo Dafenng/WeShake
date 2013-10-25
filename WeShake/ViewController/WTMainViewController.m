@@ -56,8 +56,7 @@
     //        [[WTShopManager sharedInstance] setShouldActivateHTTPRequest:YES];
     //    }
     //    [[WTLocationManager sharedInstance] updateCurrentCoordinate];
-    [[WTShopManager sharedInstance] setShouldActivateHTTPRequest:YES];
-    [self getShopInfo];
+    [self getSuggestShop];
 }
 
 - (void)setUpSubviews
@@ -98,6 +97,11 @@
     
 }
 
+- (void)showNetworkError
+{
+    
+}
+
 - (void)selectShop:(UITapGestureRecognizer *)tapGesture
 {
     UIView *toast = tapGesture.view;
@@ -109,15 +113,39 @@
     [self performSegueWithIdentifier:@"MainViewToShopView" sender:shop];
 }
 
-- (void)getShopInfo
+- (void)getSuggestShop
 {
     [self.indicatorView startAnimating];
-    [[WTShopManager sharedInstance] getOneSuggestShopWithSuccess:^(WTShop *shop) {
+    [[WTShopManager sharedInstance] getSuggestShopWithSuccess:^(WTShop *shop) {
         [self.indicatorView stopAnimating];
         [self showShopInfo:shop];
-    } failure:^{
+    } failure:^(ErrorType errorCode) {
         [self.indicatorView stopAnimating];
-        [self showNoShop];
+        
+        switch (errorCode) {
+            case ZeroCountError:
+                if ([[WTLocationManager sharedInstance] increaseRadius]) {
+                    [self getSuggestShop];
+                } else {
+                    [self showNoShop];
+                }
+                break;
+            case TotalUsedError:
+                if ([[WTLocationManager sharedInstance] increaseRadius]) {
+                    [self getSuggestShop];
+                } else {
+                    [self showNoShop];
+                }
+                break;
+            case PreSameError:
+                [self getSuggestShop];
+                break;
+            case NetworkError:
+                [self showNetworkError];
+                break;
+            default:
+                break;
+        }
     }];
 }
 
@@ -131,7 +159,7 @@
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
     if (event.subtype == UIEventSubtypeMotionShake) {
-        [self getShopInfo];
+        [self getSuggestShop];
     }
 }
 
