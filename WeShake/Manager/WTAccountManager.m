@@ -7,7 +7,6 @@
 //
 
 #import "WTAccountManager.h"
-#import <Accounts/Accounts.h>
 #import <Social/Social.h>
 #import "AFNetworking.h"
 #import "JSONKit.h"
@@ -56,6 +55,11 @@
 {
     return self.account != nil;
 //    return NO;
+}
+
+- (ACAccountStore *)accountStore
+{
+    return _accountStore;
 }
 
 - (NSString *)userName

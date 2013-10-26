@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Accounts/Accounts.h>
 
 typedef void (^UserRegisterBlock)(BOOL success);
 
@@ -14,8 +15,9 @@ typedef void (^UserRegisterBlock)(BOOL success);
 
 + (WTAccountManager *)sharedInstance;
 - (BOOL)accountLogged;
-
+- (ACAccountStore *)accountStore;
 - (NSString *)userName;
+
 
 - (void)getTwitterAccountInformationWithCompletion:(UserRegisterBlock)completion;
 - (void)getFacebookAccountInformationWithCompletion:(UserRegisterBlock)completion;

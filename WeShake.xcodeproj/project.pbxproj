@@ -23,6 +23,7 @@
 		D8381E5D180D6B8A003C3166 /* WTSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8381E5C180D6B8A003C3166 /* WTSettingViewController.m */; };
 		D883BDA4181A490000EC725D /* shop_no_photo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D883BDA2181A490000EC725D /* shop_no_photo@2x.png */; };
 		D883BDA5181A490000EC725D /* shop_no_photo.png in Resources */ = {isa = PBXBuildFile; fileRef = D883BDA3181A490000EC725D /* shop_no_photo.png */; };
+		D883BDA8181AA4A900EC725D /* WTSharePostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D883BDA7181AA4A900EC725D /* WTSharePostViewController.m */; };
 		D8BD9DD618052A9A00DC0F07 /* WTUser.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DD518052A9A00DC0F07 /* WTUser.m */; };
 		D8BD9DD918052AB700DC0F07 /* WTSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DD818052AB700DC0F07 /* WTSettingManager.m */; };
 		D8BD9DDE1809381500DC0F07 /* WTDataDef.m in Sources */ = {isa = PBXBuildFile; fileRef = D8BD9DDD1809381500DC0F07 /* WTDataDef.m */; };
@@ -108,6 +109,8 @@
 		D8381E5C180D6B8A003C3166 /* WTSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSettingViewController.m; sourceTree = "<group>"; };
 		D883BDA2181A490000EC725D /* shop_no_photo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shop_no_photo@2x.png"; sourceTree = "<group>"; };
 		D883BDA3181A490000EC725D /* shop_no_photo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shop_no_photo.png; sourceTree = "<group>"; };
+		D883BDA6181AA4A900EC725D /* WTSharePostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSharePostViewController.h; sourceTree = "<group>"; };
+		D883BDA7181AA4A900EC725D /* WTSharePostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTSharePostViewController.m; sourceTree = "<group>"; };
 		D8BD9DD418052A9A00DC0F07 /* WTUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTUser.h; sourceTree = "<group>"; };
 		D8BD9DD518052A9A00DC0F07 /* WTUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTUser.m; sourceTree = "<group>"; };
 		D8BD9DD718052AB700DC0F07 /* WTSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTSettingManager.h; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 				D8CD93BA17FD5606002D5347 /* WTAboutMeViewController.m */,
 				D8381E5B180D6B8A003C3166 /* WTSettingViewController.h */,
 				D8381E5C180D6B8A003C3166 /* WTSettingViewController.m */,
+				D883BDA6181AA4A900EC725D /* WTSharePostViewController.h */,
+				D883BDA7181AA4A900EC725D /* WTSharePostViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -620,6 +625,7 @@
 				D8CD93B417FD4ACC002D5347 /* WTSearchViewController.m in Sources */,
 				D8BD9DE11809580700DC0F07 /* WTPost.m in Sources */,
 				D8CD93B817FD55E3002D5347 /* WTCaptureViewController.m in Sources */,
+				D883BDA8181AA4A900EC725D /* WTSharePostViewController.m in Sources */,
 				D8CD93A317FD4A91002D5347 /* WTAccountManager.m in Sources */,
 				D8C68EC117E19E66002BCFCC /* WTSegmentedControl.m in Sources */,
 			);

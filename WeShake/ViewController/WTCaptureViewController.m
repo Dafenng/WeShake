@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "WTHttpEngine.h"
 #import "WTUser.h"
+#import "WTSharePostViewController.h"
 
 @interface WTCaptureViewController ()
 
@@ -21,8 +22,6 @@
 @property (strong, nonatomic) AVCaptureStillImageOutput *output;
 @property (weak, nonatomic) IBOutlet UIButton *flashButton;
 @property (weak, nonatomic) IBOutlet UIView *capturePreviewView;
-@property (weak, nonatomic) IBOutlet UIView *sharingView;
-@property (weak, nonatomic) IBOutlet UIImageView *sharingImage;
 
 @end
 
@@ -41,9 +40,13 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    self.sharingView.hidden = YES;
+    self.navigationController.navigationBar.hidden = YES;
     [self setupCamera];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self switchToCamera];
 }
 
 - (void)didReceiveMemoryWarning
@@ -54,7 +57,7 @@
 
 - (BOOL)prefersStatusBarHidden
 {
-    return self.sharingView.hidden;
+    return YES;
 }
 
 - (void)setupCamera
@@ -118,8 +121,7 @@
                                                      NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
                                                      
                                                      UIImage *image = [[UIImage alloc] initWithData:imageData];
-                                                     self.sharingView.hidden = NO;
-                                                     self.sharingImage.image = image;
+                                                     [self gotoShare:image];
                                                      
                                                      //暂时关闭保存
 //                                                     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
@@ -129,6 +131,18 @@
                                                  }
                                                  
                                              }];
+}
+
+- (void)gotoShare:(UIImage *)image
+{
+    [self performSegueWithIdentifier:@"CaptureToShare" sender:image];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"CaptureToShare"]) {
+        [[segue destinationViewController] setShareImage:sender];
+    }
 }
 
 - (IBAction)captureImage:(id)sender {
@@ -181,41 +195,6 @@
     self.flashButton.selected = !self.flashButton.selected;
 }
 
-- (IBAction)retakeImage:(id)sender {
-    self.sharingView.hidden = YES;
-    [self switchToCamera];
-}
-
-- (IBAction)shareImage:(id)sender {
-    [self postWithMessage:@"This shop is excellent" photo:self.sharingImage.image progress:^(CGFloat progress) {
-        ;
-    } completion:^(BOOL success, NSError *error) {
-        ;
-    }];
-}
-
-- (void)postWithMessage:(NSString *)message photo:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success, NSError *error))completionBlock {
-    
-    NSString *path = [NSString stringWithFormat:@"/api/v1/users/%d/posts", [[[WTUser sharedInstance] userId] integerValue]];
-    NSDictionary *params = @{
-                             @"post[message]" : message,
-                             @"user_id"      : [[WTUser sharedInstance] userId],
-                             @"auth_token"  : [[WTUser sharedInstance] authToken]
-                             };
-    
-    NSDictionary *imageDic = @{@"image": image,
-                               @"name": @"post[photo]",
-                               @"filename": @"photo.jpg",
-                               @"mimetype": @"image/jpg"
-                               };
-    
-    [WTHttpEngine startHttpConnectionWithImageDic:imageDic path:path method:@"POST" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@", responseObject);
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        ;
-    }];
-}
 
 - (void)dealloc
 {
@@ -227,15 +206,13 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     UIImage* outputImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-    self.sharingView.hidden = NO;
-    self.sharingImage.image = outputImage;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [self gotoShare:outputImage];
+    }];
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self switchToCamera];
 }
 
 @end
