@@ -8,13 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-#define TestURL @"http://localhost:3000"
+//#define TEST_ENV
 
-#define BaseURL @"http://weshakeserver-env-kdmkxun8wi.elasticbeanstalk.com"
+#ifdef TEST_ENV
 
-#define ApiKeyTest @"6ae1d580123c3955b845ef010e0bbb7a"
+#define BaseURL @"http://localhost:3000"
+#define ApiKey @"6ae1d580123c3955b845ef010e0bbb7a"
 
-#define ApiKeyServer @"b37b05b0ad3697273489100a84f156da"
+#else
+
+#define BaseURL @"http://weshakeserver-env-fnaviqzav8.elasticbeanstalk.com/"
+#define ApiKey @"b37b05b0ad3697273489100a84f156da"
+
+#endif
+
 
 #define OS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 

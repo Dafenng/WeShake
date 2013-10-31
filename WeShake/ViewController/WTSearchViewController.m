@@ -22,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UIView *shopMenuCategoryContainer;
 @property (weak, nonatomic) IBOutlet WTSegmentedControl *shopMenuSegmentControl;
 @property (weak, nonatomic) IBOutlet UITableView *shopsTableView;
+@property (strong, nonatomic) UIView *shadowView;
+
 @property (strong, nonatomic) WTSearchMenuViewController *menuViewController;
 @property (strong, nonatomic) NSMutableArray *shopList;
 @property (assign, nonatomic) BOOL noMoreShops;
@@ -57,6 +59,12 @@
     CGRect frame = self.shopMenuSegmentControl.frame;
     frame.size.height = 28;
     self.shopMenuSegmentControl.frame = frame;
+    
+    self.shadowView = [[UIView alloc] initWithFrame:self.shopsTableView.frame];
+    self.shadowView.backgroundColor = [UIColor blackColor];
+    self.shadowView.alpha = 0.0f;
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissShopOptionMenu)];
+    [self.shadowView addGestureRecognizer:tapGesture];
     
     self.menuViewController = [[WTSearchMenuViewController alloc] init];
     self.menuViewController.delegate = self;
@@ -172,10 +180,13 @@
     if (_isShowingMenu) {
         [UIView animateWithDuration:0.2f animations:^{
             self.menuViewController.view.frame = [self frameForHiddenMenuViewController];
+            self.shadowView.alpha = 0.0f;
         } completion:^(BOOL finished) {
             [self.menuViewController willMoveToParentViewController:nil];
             [self.menuViewController.view removeFromSuperview];
             [self.menuViewController removeFromParentViewController];
+            
+            [self.shadowView removeFromSuperview];
             _isShowingMenu = NO;
         }];
     }
@@ -187,10 +198,12 @@
     [self addChildViewController:self.menuViewController];
     self.menuViewController.view.frame = [self frameForHiddenMenuViewController];
     [self.view insertSubview:self.menuViewController.view belowSubview:self.shopMenuCategoryContainer];
+    [self.view insertSubview:self.shadowView aboveSubview:self.shopsTableView];
     [self.menuViewController didMoveToParentViewController:self];
     
     [UIView animateWithDuration:0.2f animations:^{
         self.menuViewController.view.frame = [self frameForMenuViewController];
+        self.shadowView.alpha = 0.6f;
     } completion:^(BOOL finished) {
         _isShowingMenu = YES;
     }];
