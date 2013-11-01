@@ -32,9 +32,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZU-Wq-Xzm">
-                                <rect key="frame" x="128" y="252" width="64" height="64"/>
-                                <state key="normal" image="main_shake_button.png">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZU-Wq-Xzm">
+                                <rect key="frame" x="93" y="225" width="134" height="117"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="117" id="DNO-aS-0vX"/>
+                                    <constraint firstAttribute="width" constant="134" id="rfR-xz-ja2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" image="shakeable.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -427,11 +432,58 @@
                         <outlet property="nameLabel" destination="LBW-ZO-kew" id="u9r-fB-h8O"/>
                         <outlet property="priceLabel" destination="9Tw-pO-VIF" id="B26-cr-SIK"/>
                         <outlet property="shopPhotoScrollView" destination="nre-FJ-tET" id="pSD-Qi-b97"/>
+                        <segue destination="qNX-yc-Maw" kind="push" identifier="ShopViewToMapView" id="A5j-2x-Yai"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UgB-Un-dG4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2079" y="-1627"/>
+        </scene>
+        <!--Shop Map View Controller-->
+        <scene sceneID="qoe-b2-F3V">
+            <objects>
+                <viewController id="qNX-yc-Maw" customClass="WTShopMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="bMb-DI-Uou"/>
+                        <viewControllerLayoutGuide type="bottom" id="242-fV-PC5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vuZ-tz-Jti">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eSH-ba-HLe">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="K74-qH-W6L"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="qNX-yc-Maw" id="mgK-hV-ypZ"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="242-fV-PC5" firstAttribute="top" secondItem="eSH-ba-HLe" secondAttribute="bottom" id="3G4-Lk-Ca9"/>
+                            <constraint firstAttribute="centerX" secondItem="eSH-ba-HLe" secondAttribute="centerX" id="KeL-I8-wKK"/>
+                            <constraint firstItem="eSH-ba-HLe" firstAttribute="top" secondItem="bMb-DI-Uou" secondAttribute="bottom" id="axq-tW-5Wt"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="vbb-Gl-TCV">
+                        <barButtonItem key="rightBarButtonItem" title="Nav" id="jFW-ob-ckm">
+                            <connections>
+                                <action selector="getDirections:" destination="qNX-yc-Maw" id="2qO-Kq-nWX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="mapView" destination="eSH-ba-HLe" id="GgH-Sa-Hgx"/>
+                        <outlet property="openNav" destination="jFW-ob-ckm" id="du5-Tv-mNc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XY4-pj-5F1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2802" y="-1627"/>
         </scene>
         <!--Search View Controller-->
         <scene sceneID="KXA-8V-fpo">
@@ -737,7 +789,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="main_shake_button.png" width="64" height="64"/>
+        <image name="shakeable.png" width="134" height="117"/>
         <image name="shop_call.png" width="48" height="48"/>
         <image name="shop_favor.png" width="48" height="48"/>
         <image name="shop_location.png" width="48" height="48"/>

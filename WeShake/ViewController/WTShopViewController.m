@@ -71,26 +71,6 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telString]];
 }
 
-- (void)showMapByLatitude:(double)latitude longitude:(double)longitude {
-    // check if google map (first choice) is installed.
-    NSString *urlPrefix = nil;
-    BOOL canHandle = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"http://maps.google.com"]];
-    if (canHandle) {
-        urlPrefix = @"http://maps.google.com/maps?q=@%@";
-    }
-    else {
-        urlPrefix = @"maps.apple.com/maps?ll=%@";
-    }
-    
-    NSMutableString *latlong = [[NSMutableString alloc] init];
-    [latlong appendString:[NSString stringWithFormat:@"%f", latitude]];
-    [latlong appendString:@","];
-    [latlong appendString:[NSString stringWithFormat:@"%f", longitude]];
-    NSString *url = [NSString stringWithFormat:urlPrefix, [latlong stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
-    NSLog(@"url %@", url);
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]];
-}
-
 - (IBAction)callButtonClicked:(id)sender {
     NSArray *items = @[
                        [[RNGridMenuItem alloc] initWithImage:[UIImage imageNamed:@"yes"] title:@"Yes" action:^{
@@ -106,11 +86,20 @@
 }
 
 - (IBAction)locatButtonClicked:(id)sender {
-    [self showMapByLatitude:self.shop.latitude.doubleValue longitude:self.shop.longitude.doubleValue];
+//    [self showMapByLatitude:self.shop.latitude.doubleValue longitude:self.shop.longitude.doubleValue];
+    
+    [self performSegueWithIdentifier:@"ShopViewToMapView" sender:sender];
 }
 
 - (IBAction)favorButtonClicked:(id)sender {
     
     
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"ShopViewToMapView"]) {
+        [[segue destinationViewController] setShop:self.shop];
+    }
 }
 @end
