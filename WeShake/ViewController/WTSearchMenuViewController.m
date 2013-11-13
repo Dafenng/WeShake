@@ -12,14 +12,24 @@
 #define kSUBTABLEVIEWTAG 2002
 
 @interface WTSearchMenuViewController ()
-{
-    NSArray *_locationArr;
-    NSArray *_cuisineArr;
-    NSArray *_budgetArr;
-}
 
 @property (strong, nonatomic) UITableView *masterTableView;
 @property (strong, nonatomic) UITableView *subTableView;
+
+@property (strong, nonatomic) NSArray *regions;
+@property (strong, nonatomic) NSArray *allAreas;
+@property (strong, nonatomic) NSMutableArray *areas;
+@property (strong, nonatomic) NSMutableArray *districts;
+
+@property (strong, nonatomic) NSArray *genres;
+@property (strong, nonatomic) NSMutableArray *cuisines;
+
+@property (strong, nonatomic) NSArray *periods;
+@property (strong, nonatomic) NSMutableArray *budgets;
+
+@property (copy, nonatomic) NSString *tmpArea;
+@property (copy, nonatomic) NSString *tmpGenre;
+@property (copy, nonatomic) NSString *tmpPeriod;
 
 @end
 
@@ -30,6 +40,27 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         
+    }
+    return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+        _region = [[NSUserDefaults standardUserDefaults] valueForKey:@"region"];
+        if (!_region || [_region isEqualToString:@""]) {
+            _region = @"東京都";
+        }
+        _area = @"Around";
+        _district = @"1000";
+        
+        _genre = @"All";
+        _cuisine = @"";
+        
+        _period = @"All";
+        _budget = @"";
     }
     return self;
 }
@@ -53,9 +84,109 @@
     [self.view addSubview:self.masterTableView];
     [self.view addSubview:self.subTableView];
     
-    _locationArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ProvincesAndCities.plist" ofType:nil]];
-    _cuisineArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"ShopTypesAndCuisineTypes.plist" ofType:nil]];
-    _budgetArr = @[@"50", @"100", @"150", @"200"];
+    self.regions = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region_area.plist" ofType:nil]];
+    self.allAreas = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"area_district.plist" ofType:nil]];
+    self.genres = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"genre_cuisine.plist" ofType:nil]];
+    self.periods = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"period_budget.plist" ofType:nil]];
+    
+    self.areas = [NSMutableArray array];
+    self.districts = [NSMutableArray array];
+    self.cuisines = [NSMutableArray array];
+    self.budgets = [NSMutableArray array];
+    
+    //TODO: Region需要使用地理位置获取
+    
+    self.tmpArea = self.area;
+    self.tmpGenre = self.genre;
+    self.tmpPeriod = self.period;
+    
+    [self getAreasInRegion:self.region];
+    [self getDistrictsInArea:self.area];
+    [self getCuisinesInGenre:self.genre];
+    [self getBudgetsInPeriod:self.period];
+}
+
+- (NSDictionary *)areaAroundDict
+{
+    return @{@"1000m": @"1000",
+             @"2000m": @"2000",
+             @"3000m": @"3000",
+             @"4000m": @"4000",
+             @"5000m": @"5000",
+             @"6000m": @"6000"
+             };
+}
+
+- (NSDictionary *)budgetDict
+{
+    return @{@"~¥1000": @"500",
+             @"¥1000~¥2000": @"1500",
+             @"¥2000~¥3000": @"2500",
+             @"¥3000~¥4000": @"3500",
+             @"¥4000~¥5000": @"4500",
+             @"¥5000~¥6000": @"5500",
+             @"¥6000~¥7000": @"6500",
+             @"¥7000~¥8000": @"7500",
+             @"¥8000~¥9000": @"8500",
+             @"¥9000~¥10000": @"9500",
+             @"¥10000~": @"10500"
+             };
+}
+
+- (void)getAreasInRegion:(NSString *)region
+{
+    __block NSArray *areasArr;
+    [self.regions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[obj objectForKey:@"Prefecture"] isEqualToString:region]) {
+            areasArr = [obj objectForKey:@"Areas"];
+            *stop = YES;
+        }
+    }];
+    
+    [self.areas removeAllObjects];
+    [self.areas addObjectsFromArray:areasArr];
+}
+
+- (void)getDistrictsInArea:(NSString *)area
+{
+    __block NSArray *districtsArr;
+    [self.allAreas enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[obj objectForKey:@"Area"] isEqualToString:area]) {
+            districtsArr = [obj objectForKey:@"Districts"];
+            *stop = YES;
+        }
+    }];
+    
+    [self.districts removeAllObjects];
+    [self.districts addObjectsFromArray:districtsArr];
+}
+
+- (void)getCuisinesInGenre:(NSString *)genre
+{
+    __block NSArray *cuisinesArr;
+    [self.genres enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[obj objectForKey:@"Genre"] isEqualToString:genre]) {
+            cuisinesArr = [obj objectForKey:@"Cuisines"];
+            *stop = YES;
+        }
+    }];
+    
+    [self.cuisines removeAllObjects];
+    [self.cuisines addObjectsFromArray:cuisinesArr];
+}
+
+- (void)getBudgetsInPeriod:(NSString *)period
+{
+    __block NSArray *budgetsArr;
+    [self.periods enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([[obj objectForKey:@"Period"] isEqualToString:period]) {
+            budgetsArr = [obj objectForKey:@"Budget"];
+            *stop = YES;
+        }
+    }];
+    
+    [self.budgets removeAllObjects];
+    [self.budgets addObjectsFromArray:budgetsArr];
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,14 +197,8 @@
 
 - (void)didMoveToParentViewController:(UIViewController *)parent
 {
-    if (self.menuType == SHOP_MENU_BUDGET) {
-        self.masterTableView.hidden = YES;
-        [self.subTableView reloadData];
-    } else {
-        self.masterTableView.hidden = NO;
-        [self.masterTableView reloadData];
-        [self.subTableView reloadData];
-    }
+    [self.masterTableView reloadData];
+    [self.subTableView reloadData];
 }
 
 #pragma mark - Table view data source
@@ -89,23 +214,19 @@
     // Return the number of rows in the section.
     if (tableView.tag == kMASTERTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
-            return [_locationArr count];
+            return [self.areas count];
         } else if (self.menuType == SHOP_MENU_CUISINE) {
-            return [_cuisineArr count];
+            return [self.genres count];
+        } else if (self.menuType == SHOP_MENU_BUDGET) {
+            return [self.periods count];
         }
     } else if (tableView.tag == kSUBTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
-            NSInteger index = [self.masterTableView indexPathForSelectedRow].row;
-            NSDictionary *locDic = [_locationArr objectAtIndex:index];
-            NSArray *cities = [locDic objectForKey:@"Cities"];
-            return [cities count];
+            return [self.districts count];
         } else if (self.menuType == SHOP_MENU_CUISINE) {
-            NSInteger index = [self.masterTableView indexPathForSelectedRow].row;
-            NSDictionary *cuiDic = [_cuisineArr objectAtIndex:index];
-            NSArray *cuis = [cuiDic objectForKey:@"CuisineTypes"];
-            return [cuis count];
+            return [self.cuisines count];
         } else if (self.menuType == SHOP_MENU_BUDGET) {
-            return [_budgetArr count];
+            return [self.budgets count];
         }
     }
     return 0;
@@ -122,53 +243,70 @@
     
     if (tableView.tag == kMASTERTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
-            NSDictionary *stateDic = [_locationArr objectAtIndex:indexPath.row];
-            cell.textLabel.text = [stateDic objectForKey:@"State"];
+            cell.textLabel.text = ((NSDictionary *)self.areas[indexPath.row])[@"area"];
         } else if (self.menuType == SHOP_MENU_CUISINE) {
-            NSDictionary *shopDic = [_cuisineArr objectAtIndex:indexPath.row];
-            cell.textLabel.text = [shopDic objectForKey:@"ShopType"];
+            cell.textLabel.text =  ((NSDictionary *)self.genres[indexPath.row])[@"Genre"];
+        } else if (self.menuType == SHOP_MENU_BUDGET) {
+            cell.textLabel.text =  ((NSDictionary *)self.periods[indexPath.row])[@"Period"];
         }
     } else if (tableView.tag == kSUBTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
-            NSDictionary *stateDic = [_locationArr objectAtIndex:[self.masterTableView indexPathForSelectedRow].row];
-            NSArray *cities = [stateDic objectForKey:@"Cities"];
-            NSDictionary *cityDic = [cities objectAtIndex:indexPath.row];
-            cell.textLabel.text = [cityDic objectForKey:@"city"];
+            cell.textLabel.text =  ((NSDictionary *)self.districts[indexPath.row])[@"district"];
         } else if (self.menuType == SHOP_MENU_CUISINE) {
-            NSDictionary *shopDic = [_cuisineArr objectAtIndex:[self.masterTableView indexPathForSelectedRow].row];
-            NSArray *shops = [shopDic objectForKey:@"CuisineTypes"];
-            NSDictionary *cuiDic = [shops objectAtIndex:indexPath.row];
-            cell.textLabel.text = [cuiDic objectForKey:@"cuisineType"];
+            cell.textLabel.text =  ((NSDictionary *)self.cuisines[indexPath.row])[@"cuisine"];
         } else if (self.menuType == SHOP_MENU_BUDGET) {
-            cell.textLabel.text = [_budgetArr objectAtIndex:indexPath.row];
+            cell.textLabel.text =  self.budgets[indexPath.row];
         }
     }
     
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == kMASTERTABLEVIEWTAG) {
+        if (self.menuType == SHOP_MENU_LOCATION) {
+            self.tmpArea = ((NSDictionary *)self.areas[indexPath.row])[@"area"];
+            [self getDistrictsInArea:self.tmpArea];
+        } else if (self.menuType == SHOP_MENU_CUISINE) {
+            self.tmpGenre = ((NSDictionary *)self.genres[indexPath.row])[@"Genre"];
+            [self getCuisinesInGenre:self.tmpGenre];
+            if (indexPath.row == 0) {
+                self.genre = self.tmpGenre;
+                if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithRegion:area:district:genre:cuisine:period:budget:)]) {
+                    [self.delegate didSelectNewSearchConditionWithRegion:self.region area:self.area district:self.district genre:self.genre cuisine:self.cuisine period:self.period budget:self.budget];
+                }
+            }
+        } else if (self.menuType == SHOP_MENU_BUDGET) {
+            self.tmpPeriod = ((NSDictionary *)self.periods[indexPath.row])[@"Period"];
+            [self getBudgetsInPeriod:self.tmpPeriod];
+            if (indexPath.row == 0) {
+                self.period = self.tmpPeriod;
+                if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithRegion:area:district:genre:cuisine:period:budget:)]) {
+                    [self.delegate didSelectNewSearchConditionWithRegion:self.region area:self.area district:self.district genre:self.genre cuisine:self.cuisine period:self.period budget:self.budget];
+                }
+            }
+        }
         [self.subTableView reloadData];
     } else if (tableView.tag == kSUBTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
-            NSDictionary *stateDic = [_locationArr objectAtIndex:[self.masterTableView indexPathForSelectedRow].row];
-            NSArray *cities = [stateDic objectForKey:@"Cities"];
-            NSDictionary *cityDic = [cities objectAtIndex:indexPath.row];
-            
-            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithLatitude:longitude:)]) {
-                [self.delegate didSelectNewSearchConditionWithLatitude:[(NSNumber *)[cityDic objectForKey:@"lat"] doubleValue] longitude:[(NSNumber *)[cityDic objectForKey:@"lon"] doubleValue]];
+            self.area = self.tmpArea;
+            self.district = [self areaAroundDict][((NSDictionary *)self.districts[indexPath.row])[@"district"]];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithRegion:area:district:genre:cuisine:period:budget:)]) {
+                [self.delegate didSelectNewSearchConditionWithRegion:self.region area:self.area district:self.district genre:self.genre cuisine:self.cuisine period:self.period budget:self.budget];
             }
         } else if (self.menuType == SHOP_MENU_CUISINE) {
-            //TODO:暂未实现类型搜索
-            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionNotImplemented)]) {
-                [self.delegate didSelectNewSearchConditionNotImplemented];
+            self.genre = self.tmpGenre;
+            self.cuisine = ((NSDictionary *)self.cuisines[indexPath.row])[@"cuisine"];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithRegion:area:district:genre:cuisine:period:budget:)]) {
+                [self.delegate didSelectNewSearchConditionWithRegion:self.region area:self.area district:self.district genre:self.genre cuisine:self.cuisine period:self.period budget:self.budget];
             }
         } else if (self.menuType == SHOP_MENU_BUDGET) {
-            //TODO:暂未实现预算搜索
-            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionNotImplemented)]) {
-                [self.delegate didSelectNewSearchConditionNotImplemented];
+            self.period = self.tmpPeriod;
+            self.budget = [self budgetDict][self.budgets[indexPath.row]];
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithRegion:area:district:genre:cuisine:period:budget:)]) {
+                [self.delegate didSelectNewSearchConditionWithRegion:self.region area:self.area district:self.district genre:self.genre cuisine:self.cuisine period:self.period budget:self.budget];
             }
         }
     }

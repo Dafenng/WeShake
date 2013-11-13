@@ -13,6 +13,7 @@
 #import "WTHttpEngine.h"
 #import "WTUser.h"
 #import "WTSharePostViewController.h"
+#import "UIImage+ResizeAndCrop.h"
 
 @interface WTCaptureViewController ()
 
@@ -22,6 +23,7 @@
 @property (strong, nonatomic) AVCaptureStillImageOutput *output;
 @property (weak, nonatomic) IBOutlet UIButton *flashButton;
 @property (weak, nonatomic) IBOutlet UIView *capturePreviewView;
+@property (weak, nonatomic) IBOutlet UILabel *flashStatusLabel;
 
 @end
 
@@ -40,8 +42,14 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    self.navigationController.navigationBar.hidden = YES;
+    
     [self setupCamera];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = YES;
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -66,7 +74,7 @@
         // Has camera
         //Create an AVCaptureSession
         self.session = [[AVCaptureSession alloc] init];
-        self.session.sessionPreset = AVCaptureSessionPresetPhoto;
+        self.session.sessionPreset = AVCaptureSessionPreset640x480;
         
         //Find a suitable AVCaptureDevice
         self.device = [AVCaptureDevice
@@ -193,6 +201,7 @@
 
 - (IBAction)changeFlashMode:(id)sender {
     self.flashButton.selected = !self.flashButton.selected;
+    self.flashStatusLabel.text = self.flashButton.selected ? @"打开" : @"关闭";
 }
 
 
@@ -205,9 +214,11 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
-    UIImage* outputImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+    UIImage* outputImage = [info objectForKey:UIImagePickerControllerOriginalImage] ;
+    UIImage *image = [outputImage resizeToSize:CGSizeMake(480, 480) thenCropWithRect:CGRectMake(0, 0, 480, 480)];
+    
     [self dismissViewControllerAnimated:YES completion:^{
-        [self gotoShare:outputImage];
+        [self gotoShare:image];
     }];
 }
 

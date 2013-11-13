@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WTShop.h"
 
 @interface WTToastView : UIView
 
 + (id)toastviewFromNib;
 - (void)setupWithMessage:(NSString *)message title:(NSString *)title image:(UIImage *)image;
-
+- (void)setupWithShop:(WTShop *)aShop;
 @end

@@ -49,7 +49,8 @@
 
 - (void)revealShop
 {
-    CLLocationCoordinate2D shopLocation = CLLocationCoordinate2DMake(30.222000, 120.222000);
+//    CLLocationCoordinate2D shopLocation = CLLocationCoordinate2DMake(30.222000, 120.222000);
+    CLLocationCoordinate2D shopLocation = CLLocationCoordinate2DMake(self.shop.latitude.doubleValue, self.shop.longitude.doubleValue);
     
     //TODO:根据用户与商家距离决定distance
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(shopLocation, 3000, 3000);

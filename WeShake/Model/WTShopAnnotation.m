@@ -15,8 +15,8 @@
     self = [super init];
     if (self) {
         _title = shop.name;
-        _coordinate = CLLocationCoordinate2DMake(30.222000, 120.222000);
-//        _coordinate = CLLocationCoordinate2DMake(shop.latitude.doubleValue, shop.longitude.doubleValue);
+//        _coordinate = CLLocationCoordinate2DMake(30.222000, 120.222000);
+        _coordinate = CLLocationCoordinate2DMake(shop.latitude.doubleValue, shop.longitude.doubleValue);
     }
     
     return self;

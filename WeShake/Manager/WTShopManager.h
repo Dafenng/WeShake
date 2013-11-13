@@ -21,4 +21,15 @@
                    success:(void (^)(NSArray *shops))successBlock
                    failure:(void (^)(ErrorType errorCode))failureBlock;
 
+- (void)getSearchShopsWithRegion:(NSString *)aRegion
+                            area:(NSString *)anArea
+                        district:(NSString *)aDistrict
+                           genre:(NSString *)aGenre
+                         cuisine:(NSString *)aCuisine
+                          period:(NSString *)aPeriod
+                          budget:(NSString *)aBudget
+                            from:(NSInteger)start
+                           count:(NSInteger)aCount
+                         sucsess:(void (^)(NSArray *shops))successBlock
+                         failure:(void (^)(ErrorType errorCode))failureBlock;
 @end

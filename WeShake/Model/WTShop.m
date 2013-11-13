@@ -14,9 +14,13 @@
 {
     return @{@"shopId": @"id",
              @"externId": @"extern_id",
+             @"genreInfo": @"genre_info",
+             @"openTime": @"open_time",
+             @"lunchBudget": @"lunch_budget",
+             @"lunchBudgetAverage": @"lunch_budget_average",
+             @"dinnerBudget": @"dinner_budget",
+             @"dinnerBudgetAverage": @"dinner_budget_average",
              @"shopType": @"shop_type",
-             @"cuisineType": @"cuisine_type",
-             @"adjustedAddr": @"adjusted_addr",
              @"shopPhotos": @"shop_photos"
              };
 }
@@ -26,10 +30,10 @@
     return [NSValueTransformer mtl_JSONArrayTransformerWithModelClass:WTShopPhoto.class];
 }
 
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"ShopID:%@, Name:%@, Addr:%@, Tel:%@, Region:%@, Location:%@, Access:%@, Budget:%@, Shoptype:%@, Cuisinetype:%@, Station:%@", self.shopId, self.name, self.addr, self.tel, self.region, self.location, self.access, self.budget, self.shopType, self.cuisineType, self.station];
-}
+//- (NSString *)description
+//{
+//    return [NSString stringWithFormat:@"ShopID:%@, Name:%@, Addr:%@, Tel:%@, Region:%@, Location:%@, Access:%@, Budget:%@, Shoptype:%@, Cuisinetype:%@, Station:%@", self.shopId, self.name, self.addr, self.tel, self.region, self.location, self.access, self.budget, self.shopType, self.cuisineType, self.station];
+//}
 
 
 @end

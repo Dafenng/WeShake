@@ -14,13 +14,21 @@
 #import "WTAccountManager.h"
 #import "WTLocationManager.h"
 #import "WTShop.h"
+#import <QuartzCore/QuartzCore.h>
+#import "WTPlaceHolderTextView.h"
 
 @interface WTSharePostViewController ()
 
+
+@property (weak, nonatomic) IBOutlet UIView *mainContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *shareImageView;
-@property (weak, nonatomic) IBOutlet UISwitch *facebookSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *twitterSwitch;
 @property (weak, nonatomic) IBOutlet UITableView *shopTableView;
+@property (weak, nonatomic) IBOutlet EDStarRating *starRating;
+
+@property (weak, nonatomic) IBOutlet UIView *shareContainerView;
+@property (weak, nonatomic) IBOutlet UIButton *facebookButton;
+@property (weak, nonatomic) IBOutlet UIButton *twitterButton;
+@property (weak, nonatomic) IBOutlet WTPlaceHolderTextView *commentTextView;
 
 @property (strong, nonatomic) NSMutableArray *nearShops;
 @end
@@ -50,7 +58,23 @@
 	// Do any additional setup after loading the view.
     [self.shareImageView setImage:self.shareImage];
     
+    [self setupStarRating];
     [self getNearShops];
+    
+    self.mainContainerView.layer.cornerRadius = 10.f;
+    self.shareImageView.layer.cornerRadius = 5.f;
+    
+    self.shareContainerView.layer.borderWidth = 0.4f;
+    self.shareContainerView.layer.borderColor = [UIColor grayColor].CGColor;
+    
+    self.commentTextView.layer.borderWidth = 0.4f;
+    self.commentTextView.layer.borderColor = [UIColor grayColor].CGColor;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 - (void)didReceiveMemoryWarning
@@ -59,10 +83,26 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)retakeImage:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
+- (BOOL)prefersStatusBarHidden
+{
+    return NO;
 }
 
+- (void)setupStarRating
+{
+    _starRating.backgroundColor  = [UIColor colorWithWhite:0.9 alpha:1.0];
+    _starRating.starImage = [UIImage imageNamed:@"grey_star.png"];
+    _starRating.starHighlightedImage = [UIImage imageNamed:@"star.png"];
+    _starRating.maxRating = 5.0;
+    _starRating.delegate = self;
+    _starRating.horizontalMargin = 15.0;
+    _starRating.editable=YES;
+    _starRating.rating= 2.5;
+    _starRating.displayMode=EDStarRatingDisplayHalf;
+    [_starRating  setNeedsDisplay];
+    [self starsSelectionChanged:_starRating rating:2.5];
+}
+     
 - (IBAction)shareImage:(id)sender {
     [self postWithMessage:@"This shop is excellent" photo:self.shareImage progress:^(CGFloat progress) {
         ;
@@ -70,13 +110,13 @@
         ;
     }];
     
-//    if (self.twitterSwitch.on) {
+//    if (self.twitterButton.selected) {
 //        [self shareInTwitterWithImage:self.shareImage withStatus:@"Test"];
 //    }
-    
-    if (self.facebookSwitch.on) {
-        [self shareInFacebookWithImage:self.shareImage withStatus:@"Test"];
-    }
+//    
+//    if (self.facebookButton.selected) {
+//        [self shareInFacebookWithImage:self.shareImage withStatus:@"Test"];
+//    }
 }
 
 - (void)postWithMessage:(NSString *)message photo:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success, NSError *error))completionBlock {
@@ -253,7 +293,7 @@
     
     WTShop *shop = self.nearShops[indexPath.row];
     cell.textLabel.text = shop.name;
-    cell.textLabel.font = [UIFont systemFontOfSize:14];
+    cell.textLabel.font = [UIFont systemFontOfSize:12];
     return cell;
 }
 
@@ -261,15 +301,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 44;
+    return 36;
 }
 
-- (IBAction)facebookSwitchChanged:(id)sender {
-    
+-(void)starsSelectionChanged:(EDStarRating *)control rating:(float)rating
+{
+    NSString *ratingString = [NSString stringWithFormat:@"Rating: %.1f", rating];
+    NSLog(@"%@", ratingString);
 }
 
-- (IBAction)twitterSwitchChanged:(id)sender {
-    
+- (IBAction)handleTap:(id)sender {
+    [self.commentTextView resignFirstResponder];
 }
 
 @end

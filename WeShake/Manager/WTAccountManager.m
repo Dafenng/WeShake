@@ -65,11 +65,7 @@
 - (NSString *)userName
 {
     if ([self.account.accountType.identifier isEqualToString:ACAccountTypeIdentifierFacebook]) {
-        if (OS7) {
-            [self.account valueForKeyPath:@"properties.ACPropertyFullName"];
-        } else {
-            return [self.account valueForKeyPath:@"properties.fullname"];
-        }
+        return [self.account valueForKeyPath:@"properties.fullname"];
     }
     return self.account.username;
 }

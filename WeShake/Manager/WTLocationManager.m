@@ -7,6 +7,8 @@
 //
 
 #import "WTLocationManager.h"
+#import <MapKit/MapKit.h>
+#import "WTDataDef.h"
 
 @interface WTLocationManager ()
 
@@ -53,7 +55,7 @@
 - (void)setupWithBaseSettings
 {
     self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     self.locationManager.delegate = self;
     
     self.currentCoordinate = CLLocationCoordinate2DMake(kBaseLatitude, kBaseLongitude);
@@ -63,7 +65,6 @@
 - (void)startUpdatingLocation
 {
     [self.locationManager startUpdatingLocation];
-    [self performSelector:@selector(stopUpdatingLocation:) withObject:@"Timed Out" afterDelay:30.0];
 }
 
 - (void)stopUpdatingLocation:(NSString *)state {
@@ -114,24 +115,32 @@
     return round(distance);
 }
 
-
 #pragma mark Location Manager Interactions
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
+    
     CLLocation *newLocation = [locations lastObject];
-    if (newLocation.horizontalAccuracy < 0) {
-        return;
-    }
-    NSTimeInterval interval = -[newLocation.timestamp timeIntervalSinceNow];
-    if (interval > 30) {
-        return;
-    }
+    [self updateCurrentCoordinate];
+    
+    CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
+    [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
+        for (CLPlacemark * placemark in placemarks) {
+            NSString *region = [placemark administrativeArea];
+            NSString *city = [placemark locality];
+            if (region && ![region isEqualToString:@""]) {
+                NSLog(@"%@", region);
+                [[NSUserDefaults standardUserDefaults] setObject:region forKey:@"region"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [[NSUserDefaults standardUserDefaults] setObject:region forKey:@"regionAndCity"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+                [[NSNotificationCenter defaultCenter] postNotificationName:Region_Update_Notification object:[NSString stringWithFormat:@"%@%@", region, city]];
+                [self.locationManager stopUpdatingLocation];
+            }
+        }
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-    // The location "unknown" error simply means the manager is currently unable to get the location.
-    // We can ignore this error for the scenario of getting a single location fix, because we already have a
-    // timeout that will stop the location manager to save power.
     if ([error code] != kCLErrorLocationUnknown) {
         [self.locationManager stopUpdatingLocation];
     }

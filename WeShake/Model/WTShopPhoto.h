@@ -11,9 +11,11 @@
 
 @interface WTShopPhoto : MTLModel <MTLJSONSerializing>
 
-@property (nonatomic, copy) NSString *numId;
 @property (nonatomic, copy) NSNumber *shopPhotoId;
+@property (nonatomic, copy) NSString *photoType;
+@property (nonatomic, copy) NSString *sizeType;
 @property (nonatomic, copy) NSString *photoUrl;
 @property (nonatomic, copy) NSNumber *shopId;
+@property (nonatomic, copy) NSString *desc;
 
 @end

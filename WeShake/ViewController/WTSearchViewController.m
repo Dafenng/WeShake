@@ -55,6 +55,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
     _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     CGRect frame = self.shopMenuSegmentControl.frame;
     frame.size.height = 28;
@@ -69,7 +70,15 @@
     self.menuViewController = [[WTSearchMenuViewController alloc] init];
     self.menuViewController.delegate = self;
     
-    [self getSearchShops];
+    [self getSearchShopsWithRegion:self.menuViewController.region area:self.menuViewController.area district:self.menuViewController.district genre:self.menuViewController.genre cuisine:self.menuViewController.cuisine period:self.menuViewController.period budget:self.menuViewController.budget];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+//    [self.shopMenuCategoryContainer removeFromSuperview];
+//    [self.view insertSubview:self.shopMenuCategoryContainer aboveSubview:self.shopsTableView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -78,33 +87,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)getSearchShops
+- (void)getSearchShopsWithRegion:(NSString *)aRegion
+                            area:(NSString *)anArea
+                        district:(NSString *)aDistrict
+                           genre:(NSString *)aGenre
+                         cuisine:(NSString *)aCuisine
+                          period:(NSString *)aPeriod
+                          budget:(NSString *)aBudget
 {
-    [[WTShopManager sharedInstance] getSearchShopsFrom:[self.shopList count] count:CountPerRequest success:^(NSArray *shops) {
-//        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"distance" ascending:YES];
-//        NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-//        self.shopList = [NSMutableArray arrayWithArray:[shops sortedArrayUsingDescriptors:sortDescriptors]];
+    [[WTShopManager sharedInstance] getSearchShopsWithRegion:aRegion area:anArea district:aDistrict genre:aGenre cuisine:aCuisine period:aPeriod budget:aBudget from:[self.shopList count] count:CountPerRequest sucsess:^(NSArray *shops) {
         if ([shops count] == 0) {
-            if ([self.shopList count] == 0) {
-                //当前半径太小，用更大半径尝试
-                if ([[WTLocationManager sharedInstance] increaseRadius]) {
-                    [self getSearchShops];
-                } else {
-                    [self showNoShops];
-                }
-            } else {
-                //刚好加载完所有
-                self.noMoreShops = YES;
-                [self.shopsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.shopList count] inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            }
+            //刚好加载完所有
+            self.noMoreShops = YES;
+            [self.shopsTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.shopList count] inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         } else {
+            if ([shops count] < CountPerRequest) {
+                self.noMoreShops = YES;
+            }
             if ([self.shopList count] == 0) {
                 [self.shopList addObjectsFromArray:shops];
                 [self.shopsTableView reloadData];
             } else {
-                if ([shops count] < CountPerRequest) {
-                    self.noMoreShops = YES;
-                }
                 [self.shopList addObjectsFromArray:shops];
                 NSMutableArray *insertIndexPaths = [NSMutableArray array];
                 for (NSInteger i = [self.shopList count] - [shops count]; i < [self.shopList count]; i++) {
@@ -214,7 +217,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return [self.shopList count] == 0 ? 0 : [self.shopList count] + 1;
+    return [self.shopList count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -238,7 +241,7 @@
             ((WTLoadMoreCell *)cell).indicator.hidden = NO;
             [((WTLoadMoreCell *)cell).indicator startAnimating];
             ((WTLoadMoreCell *)cell).status.text = @"Loading";
-            [self getSearchShops];
+            [self getSearchShopsWithRegion:self.menuViewController.region area:self.menuViewController.area district:self.menuViewController.district genre:self.menuViewController.genre cuisine:self.menuViewController.cuisine period:self.menuViewController.period budget:self.menuViewController.budget];
         }
     } else {
         cell = (WTSearchViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -257,7 +260,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return indexPath.row == [self.shopList count] ? 44 : 95;
+    return indexPath.row == [self.shopList count] ? 44 : 105;
 }
 
 #pragma mark - Navigation
@@ -267,22 +270,27 @@
 {
 // Get the new view controller using [segue destinationViewController].
 // Pass the selected object to the new view controller.
-    NSIndexPath *selectedRowIndex = [self.shopsTableView indexPathForSelectedRow];
-    WTShopViewController *shopViewController = [segue destinationViewController];
-    shopViewController.shop = [self.shopList objectAtIndex:selectedRowIndex.row];
+    if ([segue.identifier isEqualToString:@"SearchViewToShopView"]) {
+        NSIndexPath *selectedRowIndex = [self.shopsTableView indexPathForSelectedRow];
+        [[segue destinationViewController] setShop:[self.shopList objectAtIndex:selectedRowIndex.row]];
+    }
 }
-
-
 
 #pragma mark - WTSearchMenuViewDelegate
 
-- (void)didSelectNewSearchConditionWithLatitude:(double)latitude longitude:(double)longitude
+- (void)didSelectNewSearchConditionWithRegion:(NSString *)aRegion
+                                         area:(NSString *)anArea
+                                     district:(NSString *)aDistrict
+                                        genre:(NSString *)aGenre
+                                      cuisine:(NSString *)aCuisine
+                                       period:(NSString *)aPeriod
+                                       budget:(NSString *)aBudget
 {
     _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     [self dismissShopOptionMenu];
     [self.shopList removeAllObjects];
-    self.noMoreShops = YES;
-    [self getSearchShops];
+    [self.shopsTableView reloadData];
+    [self getSearchShopsWithRegion:aRegion area:anArea district:aDistrict genre:aGenre cuisine:aCuisine period:aPeriod budget:aBudget];
 }
 
 - (void)didSelectNewSearchConditionNotImplemented

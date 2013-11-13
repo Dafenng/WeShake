@@ -105,6 +105,51 @@
 
 }
 
+
+- (void)getSearchShopsWithRegion:(NSString *)aRegion
+                             area:(NSString *)anArea
+                         district:(NSString *)aDistrict
+                           genre:(NSString *)aGenre
+                         cuisine:(NSString *)aCuisine
+                          period:(NSString *)aPeriod
+                          budget:(NSString *)aBudget
+                             from:(NSInteger)start
+                            count:(NSInteger)aCount
+                          sucsess:(void (^)(NSArray *shops))successBlock
+                          failure:(void (^)(ErrorType errorCode))failureBlock
+{
+    NSString *path = [NSString stringWithFormat:@"/api/v1/shops"];
+    NSDictionary *params = @{
+                             @"process": @"search",
+                             @"latitude": @([[WTLocationManager sharedInstance] latitude]),
+                             @"longitude": @([[WTLocationManager sharedInstance] longitude]),
+                             @"region": aRegion,
+                             @"area": anArea,
+                             @"district": aDistrict,
+                             @"genre": aGenre,
+                             @"cuisine": aCuisine,
+                             @"period": aPeriod,
+                             @"budget": aBudget,
+                             @"start" : @(start),
+                             @"count" : @(aCount)
+                             };
+    
+    [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSMutableArray *searchShopList = [NSMutableArray array];
+        [(NSArray *)[responseObject objectForKey:@"shops"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            WTShop *shop = [MTLJSONAdapter modelOfClass:WTShop.class fromJSONDictionary:obj error:nil];
+            shop.distance = [[WTLocationManager sharedInstance] getDistanceTo:CLLocationCoordinate2DMake(shop.latitude.doubleValue, shop.longitude.doubleValue)];
+            [searchShopList addObject:shop];
+        }];
+        
+        successBlock(searchShopList);
+    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        failureBlock(NetworkError);
+    }];
+
+}
+
 - (void)getSearchShopsFrom:(NSInteger)start
                      count:(NSInteger)count
                    success:(void (^)(NSArray *shops))successBlock

@@ -8,6 +8,7 @@
 
 #import "WTLoginViewController.h"
 #import "WTAccountManager.h"
+#import "SVProgressHUD.h"
 
 @interface WTLoginViewController()
 
@@ -38,18 +39,30 @@
 
 - (IBAction)loginWithTwitter
 {
+    [SVProgressHUD showWithStatus:@"Logging" maskType:SVProgressHUDMaskTypeBlack];
     [[WTAccountManager sharedInstance] getTwitterAccountInformationWithCompletion:^(BOOL success) {
         if (success) {
+            [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showErrorWithStatus:@"Auth Error"];
+            });
         }
     }];
 }
 
 - (IBAction)loginWithFacebook
 {
+    [SVProgressHUD showWithStatus:@"Logging" maskType:SVProgressHUDMaskTypeBlack];
     [[WTAccountManager sharedInstance] getFacebookAccountInformationWithCompletion:^(BOOL success) {
         if (success) {
+            [SVProgressHUD dismiss];
             [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD showErrorWithStatus:@"Auth Error"];
+            });
         }
     }];
 }

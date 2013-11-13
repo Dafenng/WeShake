@@ -10,7 +10,7 @@
 #import "WTShop.h"
 #import "RNGridMenu.h"
 
-@interface WTShopViewController : UIViewController <RNGridMenuDelegate>
+@interface WTShopViewController : UIViewController <RNGridMenuDelegate, UIScrollViewDelegate>
 
 @property (strong, nonatomic) WTShop *shop;
 

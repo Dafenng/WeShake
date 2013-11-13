@@ -8,16 +8,25 @@
 
 #import "WTAppDelegate.h"
 #import <NewRelicAgent/NewRelicAgent.h>
+#import "WTDataDef.h"
 
 @implementation WTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [NewRelicAgent startWithApplicationToken:@"AAc726768b5a5ba197a276308d74c079399322cf5d"];
+//    [NewRelicAgent startWithApplicationToken:@"AAc726768b5a5ba197a276308d74c079399322cf5d"];
+    if (OS7) {
+        [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xf4565a)];
+        [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    } else {
+        [[UINavigationBar appearance] setTintColor:UIColorFromRGB(0xf4565a)];
+    }
+    
+    [[UINavigationBar appearance] setTitleTextAttributes:@{UITextAttributeTextColor: [UIColor whiteColor]}];
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

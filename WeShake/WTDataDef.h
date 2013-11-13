@@ -8,12 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-//#define TEST_ENV
+#define TEST_ENV
 
 #ifdef TEST_ENV
 
 #define BaseURL @"http://localhost:3000"
-#define ApiKey @"6ae1d580123c3955b845ef010e0bbb7a"
+#define ApiKey @"03faedf399ff6f3cea109f64bdc8403b"
 
 #else
 
@@ -25,6 +25,8 @@
 
 #define OS7 [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
 
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 typedef enum {
     
     NetworkError = 1,
@@ -35,6 +37,8 @@ typedef enum {
 }ErrorType;
 
 #define CountPerRequest 20
+
+#define Region_Update_Notification @"RegionUpdateNotification"
 
 @interface WTDataDef : NSObject
 

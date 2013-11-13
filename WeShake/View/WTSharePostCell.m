@@ -10,11 +10,13 @@
 #import "UIImageView+AFNetworking.h"
 #import "WTUser.h"
 #import "WTDataDef.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface WTSharePostCell ()
 
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
+@property (weak, nonatomic) IBOutlet UIView *photoContainerView;
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
@@ -46,6 +48,16 @@
 {
 	NSArray *nibs = [[NSBundle mainBundle] loadNibNamed:@"WTSharePostCell" owner:nil options:nil];
 	return [nibs objectAtIndex:0];
+}
+
+- (void)awakeFromNib
+{
+    self.headImageView.layer.cornerRadius = 24.f;
+    self.headImageView.layer.masksToBounds = YES;
+    self.photoContainerView.layer.cornerRadius = 10.f;
+    self.shareShopImageView.layer.cornerRadius = 5.f;
+    self.shareShopImageView.layer.masksToBounds = YES;
+    
 }
 
 - (NSDateFormatter *)dateFormatter

@@ -1,27 +1,30 @@
 PODS:
   - AFNetworking (1.3.3)
+  - EDStarRating (1.1)
   - FlatUIKit (1.2)
   - JSONKit (1.5pre)
   - Mantle (1.3):
     - Mantle/extobjc
   - Mantle/extobjc (1.3)
-  - MBProgressHUD (0.8)
   - RNGridMenu (0.1.3)
+  - SVProgressHUD (1.0)
 
 DEPENDENCIES:
   - AFNetworking (~> 1.3.2)
+  - EDStarRating
   - FlatUIKit
-  - JSONKit (~> 1.4)
+  - JSONKit
   - Mantle
-  - MBProgressHUD (~> 0.8)
   - RNGridMenu (~> 0.1.2)
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   AFNetworking: 0700ec7a58c36ad217173e167f6e4df7270df66b
+  EDStarRating: 6761f41fd040f1cde155e2885dddc96461620f67
   FlatUIKit: 43b2acaa6f4ef57539b51b00e4ce62d506e33e11
   JSONKit: 409734ab3407fce90ef7eaa95d7168f38d9a6601
   Mantle: c3e963daaad6f1418feacce974d789b2d0465539
-  MBProgressHUD: 2bbc6f470111daf7f3eaa4eb12b8cbf01c4c0622
   RNGridMenu: 8aed69538abb8280f496a88fb24e0cf7dd180caf
+  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
 
 COCOAPODS: 0.27.1

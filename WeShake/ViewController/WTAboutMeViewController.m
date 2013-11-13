@@ -14,6 +14,7 @@
 #import "WTHttpEngine.h"
 #import "WTDataDef.h"
 #import "WTLoadMoreCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface WTAboutMeViewController ()
 
@@ -52,7 +53,10 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.usernameLabel.text = [[WTUser sharedInstance] username];
-    [self.avatarImageview setImageWithURL:[NSURL URLWithString:[[WTUser sharedInstance] avatar]] placeholderImage:nil];
+    [self.avatarImageview setImageWithURL:[NSURL URLWithString:[[WTUser sharedInstance] avatar]] placeholderImage:[UIImage imageNamed:@"default_profile_male.png"]];
+    
+    self.avatarImageview.layer.cornerRadius = 32.f;
+    self.avatarImageview.layer.masksToBounds = YES;
     
     [self getSharePosts];
 }
@@ -83,6 +87,7 @@
         NSInteger postCount = [(NSArray *)[responseObject objectForKey:@"posts"] count];
         if (postCount == 0) {
             if ([self.posts count] != 0) {
+                self.noMorePost = YES;
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.posts count] inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
             } else {
                 [self showNoPosts];
@@ -163,7 +168,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return indexPath.row == [self.posts count] ? 44 : 320;;
+    return indexPath.row == [self.posts count] ? 44 : 270;;
 }
 
 @end
