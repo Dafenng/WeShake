@@ -292,7 +292,11 @@
     } else if (tableView.tag == kSUBTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
             self.area = self.tmpArea;
-            self.district = [self areaAroundDict][((NSDictionary *)self.districts[indexPath.row])[@"district"]];
+            if ([self.area isEqualToString:@"Around"]) {
+                self.district = [self areaAroundDict][((NSDictionary *)self.districts[indexPath.row])[@"district"]];
+            } else {
+                self.district = ((NSDictionary *)self.districts[indexPath.row])[@"district"];
+            }
             if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectNewSearchConditionWithRegion:area:district:genre:cuisine:period:budget:)]) {
                 [self.delegate didSelectNewSearchConditionWithRegion:self.region area:self.area district:self.district genre:self.genre cuisine:self.cuisine period:self.period budget:self.budget];
             }

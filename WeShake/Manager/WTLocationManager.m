@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign, nonatomic) CLLocationCoordinate2D currentCoordinate;
+@property (copy, nonatomic) NSString *region;
+@property (copy, nonatomic) NSString *city;
 @property (assign, nonatomic) double radius;
 
 @end
@@ -58,7 +60,7 @@
     self.locationManager.desiredAccuracy = kCLLocationAccuracyKilometer;
     self.locationManager.delegate = self;
     
-    self.currentCoordinate = CLLocationCoordinate2DMake(kBaseLatitude, kBaseLongitude);
+    [self recoverLocation];
     self.radius = kBaseRadius;
 }
 
@@ -74,7 +76,7 @@
 
 - (BOOL)increaseRadius
 {
-    if ([[WTLocationManager sharedInstance] radius] > 4.0) {
+    if ([[WTLocationManager sharedInstance] radius] > kBaseRadiusMax) {
         return NO;
     }
     
@@ -120,20 +122,18 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     
     CLLocation *newLocation = [locations lastObject];
+    
+#ifdef REAL_LOCATION
     [self updateCurrentCoordinate];
+#endif
     
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark * placemark in placemarks) {
-            NSString *region = [placemark administrativeArea];
-            NSString *city = [placemark locality];
-            if (region && ![region isEqualToString:@""]) {
-                NSLog(@"%@", region);
-                [[NSUserDefaults standardUserDefaults] setObject:region forKey:@"region"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [[NSUserDefaults standardUserDefaults] setObject:region forKey:@"regionAndCity"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-                [[NSNotificationCenter defaultCenter] postNotificationName:Region_Update_Notification object:[NSString stringWithFormat:@"%@%@", region, city]];
+            self.region = [placemark administrativeArea];
+            self.city = [placemark locality];
+            if (self.region && ![self.region isEqualToString:@""]) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:Region_Update_Notification object:[NSString stringWithFormat:@"%@ %@", self.region, self.city]];
                 [self.locationManager stopUpdatingLocation];
             }
         }
@@ -144,6 +144,31 @@
     if ([error code] != kCLErrorLocationUnknown) {
         [self.locationManager stopUpdatingLocation];
     }
+}
+
+- (void)recoverLocation
+{
+    NSString *aRegion = [[NSUserDefaults standardUserDefaults] valueForKey:@"region"];
+    self.region = aRegion ? aRegion : kBaseRegion;
+    NSString *aCity = [[NSUserDefaults standardUserDefaults] valueForKey:@"city"];
+    self.city = aCity ? aCity : kBaseCity;
+    
+    double aLatitude = [(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"] doubleValue];
+    double aLongitude = [(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"] doubleValue];
+    if (aLatitude && aLongitude) {
+        self.currentCoordinate = CLLocationCoordinate2DMake(aLatitude, aLongitude);
+    } else {
+        self.currentCoordinate = CLLocationCoordinate2DMake(kBaseLatitude, kBaseLongitude);
+    }
+}
+
+- (void)saveLocation
+{
+    [[NSUserDefaults standardUserDefaults] setObject:self.region forKey:@"region"];
+    [[NSUserDefaults standardUserDefaults] setObject:self.city forKey:@"city"];
+    [[NSUserDefaults standardUserDefaults] setObject:@(self.latitude) forKey:@"latitude"];
+    [[NSUserDefaults standardUserDefaults] setObject:@(self.longitude) forKey:@"longitude"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end

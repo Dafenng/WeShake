@@ -13,6 +13,7 @@
 #import "WTShopViewController.h"
 #import "WTLocationManager.h"
 #import "WTLoadMoreCell.h"
+#import "SVProgressHUD.h"
 
 @interface WTSearchViewController () {
     BOOL _isShowingMenu;
@@ -130,14 +131,9 @@
     }];
 }
 
-- (void)showNoShops
-{
-    
-}
-
 - (void)showNetworkError
 {
-    
+    [SVProgressHUD showErrorWithStatus:@"网络出错了"];
 }
 
 - (IBAction)shopMenuSegmentControlValueChanged:(id)sender {
@@ -162,7 +158,7 @@
             [self dismissShopOptionMenu];
             break;
         default:
-            NSLog(@"No option for: %d", [segmentedControl selectedSegmentIndex]);
+            NSLog(@"No option for: %ld", (long)[segmentedControl selectedSegmentIndex]);
     }
 }
 
@@ -289,8 +285,9 @@
     _selectedSegmentIndex = self.shopMenuSegmentControl.selectedSegmentIndex = UISegmentedControlNoSegment;
     [self dismissShopOptionMenu];
     [self.shopList removeAllObjects];
+    self.noMoreShops = NO;
     [self.shopsTableView reloadData];
-    [self getSearchShopsWithRegion:aRegion area:anArea district:aDistrict genre:aGenre cuisine:aCuisine period:aPeriod budget:aBudget];
+//    [self getSearchShopsWithRegion:aRegion area:anArea district:aDistrict genre:aGenre cuisine:aCuisine period:aPeriod budget:aBudget];
 }
 
 - (void)didSelectNewSearchConditionNotImplemented

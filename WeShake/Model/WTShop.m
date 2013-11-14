@@ -10,6 +10,15 @@
 
 @implementation WTShop
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        _shopPhotos = [NSMutableArray array];
+    }
+    return self;
+}
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
     return @{@"shopId": @"id",
@@ -21,7 +30,7 @@
              @"dinnerBudget": @"dinner_budget",
              @"dinnerBudgetAverage": @"dinner_budget_average",
              @"shopType": @"shop_type",
-             @"shopPhotos": @"shop_photos"
+             @"defaultSquareImage": @"default_square_image"
              };
 }
 

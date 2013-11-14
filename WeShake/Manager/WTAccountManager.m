@@ -13,6 +13,7 @@
 #import "WTUser.h"
 #import "WTHttpEngine.h"
 #import "WTDataDef.h"
+#import "SVProgressHUD.h"
 
 @interface WTAccountManager ()
 
@@ -64,10 +65,64 @@
 
 - (NSString *)userName
 {
-    if ([self.account.accountType.identifier isEqualToString:ACAccountTypeIdentifierFacebook]) {
-        return [self.account valueForKeyPath:@"properties.fullname"];
+    NSString *username = [self.account valueForKeyPath:@"properties.ACPropertyFullName"];
+    
+    if (!username) {
+        username = [self.account valueForKeyPath:@"properties.fullname"];
     }
-    return self.account.username;
+    
+    if (!username) {
+        username = self.account.username;
+    }
+    
+    return username;
+}
+
+- (void)requestForTwitterAccessWithComplition:(void (^)())successBlock fail:(void (^)())failureBlock
+{
+    ACAccountType *twitterType =
+    [[[WTAccountManager sharedInstance] accountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+    NSArray *accounts = [[[WTAccountManager sharedInstance] accountStore] accountsWithAccountType:twitterType];
+    if ([accounts count] > 0) {
+        successBlock();
+    } else {
+        [SVProgressHUD showWithStatus:@"账户关联中" maskType:SVProgressHUDMaskTypeBlack];
+        ACAccountType *twitterAccountType = [self.accountStore
+                                             accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
+        [self.accountStore requestAccessToAccountsWithType:twitterAccountType options:nil completion:^(BOOL granted, NSError *error) {
+            if (granted) {
+                successBlock();
+            } else {
+                failureBlock();
+            }
+        }];
+    }
+}
+
+- (void)requestForFacebookAccessWithComplition:(void (^)())successBlock fail:(void (^)())failureBlock
+{
+    ACAccountType *facebookType =
+    [[[WTAccountManager sharedInstance] accountStore] accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    NSArray *accounts = [[[WTAccountManager sharedInstance] accountStore] accountsWithAccountType:facebookType];
+    if ([accounts count] > 0) {
+        successBlock();
+    } else {
+        [SVProgressHUD showWithStatus:@"账户关联中" maskType:SVProgressHUDMaskTypeBlack];
+        ACAccountType *facebookAccountType = [self.accountStore
+                                              accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+        NSDictionary *options = @{
+                                  @"ACFacebookAppIdKey" : @"727920337234915",
+                                  @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me", @"publish_stream", @"publish_actions"],
+                                  @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
+        
+        [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
+            if (granted) {
+                successBlock();
+            } else {
+                failureBlock();
+            }
+        }];
+    }
 }
 
 - (void)getTwitterAccountInformationWithCompletion:(UserRegisterBlock)completion
@@ -99,7 +154,7 @@
                                           accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSDictionary *options = @{
                               @"ACFacebookAppIdKey" : @"727920337234915",
-                              @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me"],
+                              @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me", @"publish_stream", @"publish_actions"],
                               @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
     
     [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {

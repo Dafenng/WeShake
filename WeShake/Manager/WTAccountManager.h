@@ -18,6 +18,8 @@ typedef void (^UserRegisterBlock)(BOOL success);
 - (ACAccountStore *)accountStore;
 - (NSString *)userName;
 
+- (void)requestForTwitterAccessWithComplition:(void (^)())successBlock fail:(void (^)())failureBlock;
+- (void)requestForFacebookAccessWithComplition:(void (^)())successBlock fail:(void (^)())failureBlock;
 
 - (void)getTwitterAccountInformationWithCompletion:(UserRegisterBlock)completion;
 - (void)getFacebookAccountInformationWithCompletion:(UserRegisterBlock)completion;

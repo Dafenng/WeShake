@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WTLoginViewController : UIViewController
+@interface WTLoginViewController : UIViewController <UIAlertViewDelegate>
 
 @end

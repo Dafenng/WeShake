@@ -54,7 +54,7 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //地址
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
@@ -66,7 +66,7 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //餐饮风格
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
@@ -78,7 +78,7 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //电话
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
@@ -90,19 +90,29 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //附近
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth, baseHeight)];
+    
+    NSString *access = aShop.access;
+    NSString *accessText = [access stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
+    
+    CGSize accessSize = [access sizeWithFont:[UIFont systemFontOfSize:17] forWidth:rightWidtth lineBreakMode:NSLineBreakByWordWrapping];
+    
+    CGRect newFrame = rightLabel.frame;
+    newFrame.size.height = accessSize.height;
+    rightLabel.frame = newFrame;
+    
     rightLabel.numberOfLines = 0;
     leftLabel.text = @"Access";
-    rightLabel.text = aShop.access;
+    rightLabel.text = accessText;
     [rightLabel sizeToFit];
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //营业时间
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
@@ -111,10 +121,10 @@
     NSString *openTime = aShop.openTime;
     NSString *openTimeText = [openTime stringByReplacingOccurrencesOfString:@"<br />" withString:@"\n"];
     
-    CGSize size = [openTime sizeWithFont:[UIFont systemFontOfSize:17] forWidth:rightWidtth lineBreakMode:NSLineBreakByWordWrapping];
+    CGSize openSize = [openTime sizeWithFont:[UIFont systemFontOfSize:17] forWidth:rightWidtth lineBreakMode:NSLineBreakByWordWrapping];
     
-    CGRect newFrame = rightLabel.frame;
-    newFrame.size.height = size.height;
+    newFrame = rightLabel.frame;
+    newFrame.size.height = openSize.height;
     rightLabel.frame = newFrame;
     
     rightLabel.numberOfLines = 0;
@@ -124,19 +134,19 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //定休日
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth, baseHeight)];
     rightLabel.numberOfLines = 0;
     leftLabel.text = @"定休日";
-    rightLabel.text = aShop.holiday;
+    rightLabel.text = aShop.holiday ? aShop.holiday : @"無";
     [rightLabel sizeToFit];
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //午餐价位
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
@@ -148,7 +158,7 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     //晚餐价位
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
@@ -160,7 +170,7 @@
     
     [self addSubview:leftLabel];
     [self addSubview:rightLabel];
-    yOffset += rightLabel.frame.size.height + 5.f;
+    yOffset += rightLabel.frame.size.height > leftLabel.frame.size.height ? rightLabel.frame.size.height + 5.f: leftLabel.frame.size.height + 5.f;
     
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     EDStarRating * ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth / 2, baseHeight)];

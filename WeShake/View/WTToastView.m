@@ -75,23 +75,13 @@
     self.layer.cornerRadius = 10.f;
     self.backgroundColor = UIColorFromRGB(0xf4565a);
     
-    __block WTShopPhoto *shopPhoto;
-    [aShop.shopPhotos enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([((WTShopPhoto *)obj).photoType isEqualToString:@"outside"] &&
-            [((WTShopPhoto *)obj).sizeType isEqualToString:@"square"])
-        {
-            shopPhoto = obj;
-            *stop = YES;
-        }
-    }];
-    
-    [self.shopImageView setImageWithURL:[NSURL URLWithString:shopPhoto.photoUrl] placeholderImage:[UIImage imageNamed:@"shop_toast_image.png"]];
+    [self.shopImageView setImageWithURL:[NSURL URLWithString:aShop.defaultSquareImage] placeholderImage:[UIImage imageNamed:@"cell_shop_profile_default.png"]];
     self.shopInfoLabel.text = aShop.name;
     [self setupStarRatingSatrWithRating:aShop.rating.floatValue];
     if (aShop.lunchBudgetAverage.integerValue == 0) {
         self.budgetLabel.text = @"¥未知";
     } else {
-        self.budgetLabel.text = [NSString stringWithFormat:@"¥%d", aShop.lunchBudgetAverage.integerValue];
+        self.budgetLabel.text = [NSString stringWithFormat:@"¥%ld", (long)aShop.lunchBudgetAverage.integerValue];
     }
     self.genreLabel.text = aShop.shopType;
     self.shopDistanceLabel.text = [NSString stringWithFormat:@"%dm", aShop.distance];

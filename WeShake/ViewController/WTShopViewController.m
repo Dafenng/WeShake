@@ -44,9 +44,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    [self setupPhotoView];
+    [self getShopPhotos];
     [self setupInfoView];
     [self checkFavorStatus];
+    
+    self.shopPhotoScrollView.layer.cornerRadius = 5.f;
+    self.shopPhotoContainerView.layer.cornerRadius = 10.f;
 }
 
 - (void)viewDidLayoutSubviews
@@ -69,14 +72,17 @@
     
     NSInteger shopPhotoCount = [photoArray count];
     
+    self.pageControl.numberOfPages = shopPhotoCount;
+    self.pageControl.currentPage = 0;
+    
     if (shopPhotoCount > 0) {
-        self.pageControl.numberOfPages = shopPhotoCount;
-        self.pageControl.currentPage = 0;
         
         self.shopPhotoScrollView.contentSize = CGSizeMake(shopPhotoCount * self.shopPhotoScrollView.frame.size.width, 1);
         for (NSInteger i = 0; i < shopPhotoCount; i++) {
             WTShopPhoto *shopPhoto = photoArray[i];
             UIImageView *photoImageView = [[UIImageView alloc] initWithFrame:CGRectMake(i * self.shopPhotoScrollView.frame.size.width, 0, self.shopPhotoScrollView.frame.size.width, self.shopPhotoScrollView.frame.size.height)];
+            photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+            photoImageView.clipsToBounds = YES;
             [photoImageView setImageWithURL:[NSURL URLWithString:shopPhoto.photoUrl] placeholderImage:[UIImage imageNamed:@"default_shop_pic.png"]];
             [self.shopPhotoScrollView addSubview:photoImageView];
             
@@ -98,9 +104,6 @@
         photoImageView.image = [UIImage imageNamed:@"default_shop_pic.png"];
         [self.shopPhotoScrollView addSubview:photoImageView];
     }
-    
-    self.shopPhotoScrollView.layer.cornerRadius = 5.f;
-    self.shopPhotoContainerView.layer.cornerRadius = 10.f;
 }
 
 - (void)setupInfoView
@@ -123,7 +126,7 @@
     NSString *path = [NSString stringWithFormat:@"/api/v1/favors"];
     NSDictionary *params = @{
                              @"favor[user_id]" : [[WTUser sharedInstance] userId],
-                             @"favor[shop_id]" : self.shop.shopId,
+                             @"favor[shop_id]" : self.shop.shopId
                              };
     
     [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -136,7 +139,29 @@
         }
         
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"用户注册失败");
+        NSLog(@"Fav检查失败");
+    }];
+}
+
+- (void)getShopPhotos
+{
+    NSString *path = [NSString stringWithFormat:@"/api/v1/shop_photos"];
+    NSDictionary *params = @{
+                             @"shop_id" : self.shop.shopId
+                             };
+    
+    [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@", responseObject);
+        [self.shop.shopPhotos removeAllObjects];
+        [(NSArray *)[responseObject objectForKey:@"shop_photos"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            WTShopPhoto *shopPhoto = [MTLJSONAdapter modelOfClass:WTShopPhoto.class fromJSONDictionary:obj error:nil];
+            [self.shop.shopPhotos addObject:shopPhoto];
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setupPhotoView];
+        });
+    } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"get shopPhotos 失败");
     }];
 }
 

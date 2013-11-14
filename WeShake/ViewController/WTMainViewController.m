@@ -22,6 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *shakeButton;
 @property (weak, nonatomic) IBOutlet UILabel *regionLabel;
+@property (strong, nonatomic) NSTimer *timer;
 
 @end
 
@@ -31,6 +32,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:Application_Become_Active object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResignActive) name:Application_Resign_Active object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegion:) name:Region_Update_Notification object:nil];
     self.regionLabel.text =  [[NSUserDefaults standardUserDefaults] valueForKey:@"regionAndCity"];
 }
@@ -38,21 +42,76 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [self setupShakeAnimation];
-    [[WTLocationManager sharedInstance] startUpdatingLocation];
     if (![[WTAccountManager sharedInstance] accountLogged]) {
         [self performSegueWithIdentifier:@"MainToUserLogin" sender:nil];
+    }
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    if ([self.shakeButton.layer animationForKey:@"iconShake"]) {
+        [self.shakeButton.layer removeAnimationForKey:@"iconShake"];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self startUpdateLocation];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self stopUpdateLocation];
+    
+#ifdef REAL_LOCATION
+    [[WTLocationManager sharedInstance] saveLocation];
+#endif
+}
+
+- (void)didBecomeActive
+{
+    [self startUpdateLocation];
+    [self setupShakeAnimation];
+}
+
+- (void)didResignActive
+{
+    [self stopUpdateLocation];
+    if ([self.shakeButton.layer animationForKey:@"iconShake"]) {
+        [self.shakeButton.layer removeAnimationForKey:@"iconShake"];
     }
 }
 
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:Region_Update_Notification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:Application_Become_Active object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:Application_Resign_Active object:nil];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)startUpdateLocation
+{
+    [self updateLocation];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(updateLocation) userInfo:nil repeats:YES];
+}
+
+- (void)stopUpdateLocation
+{
+    [_timer invalidate];
+    _timer = nil;
+}
+
+- (void)updateLocation
+{
+    [[WTLocationManager sharedInstance] startUpdatingLocation];
 }
 
 - (void)setupShakeAnimation
@@ -64,7 +123,9 @@
     [anim setRepeatCount:NSUIntegerMax];
     [anim setAutoreverses:YES];
     
-    [self.shakeButton.layer addAnimation:anim forKey:@"iconShake"];
+    if (![self.shakeButton.layer animationForKey:@"iconShake"]) {
+        [self.shakeButton.layer addAnimation:anim forKey:@"iconShake"];
+    }
 }
 
 - (IBAction)shake:(id)sender {
@@ -114,13 +175,12 @@
 
 - (void)showNoShop
 {
-    
-    
+    [SVProgressHUD showErrorWithStatus:@"不在服务范围"];
 }
 
 - (void)showNetworkError
 {
-    
+    [SVProgressHUD showErrorWithStatus:@"网络出错了"];
 }
 
 - (void)dismissToastView:(UITapGestureRecognizer *)tapGesture

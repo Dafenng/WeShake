@@ -58,24 +58,14 @@
 - (void)setupSearchViewCellWithShop:(WTShop *)shop
 {
     self.containerView.layer.cornerRadius = 5.f;
-    //TODO: 换图
-    __block WTShopPhoto *shopPhoto = nil;
-    [shop.shopPhotos enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        if ([((WTShopPhoto *)obj).photoType isEqualToString:@"outside"] &&
-            [((WTShopPhoto *)obj).sizeType isEqualToString:@"square"])
-        {
-            shopPhoto = obj;
-            *stop = YES;
-        }
-    }];
     
-    [self.shopImageView setImageWithURL:[NSURL URLWithString:shopPhoto ? shopPhoto.photoUrl : @""] placeholderImage:[UIImage imageNamed:@"avatar.png"]];
+    [self.shopImageView setImageWithURL:[NSURL URLWithString:shop.defaultSquareImage] placeholderImage:[UIImage imageNamed:@"cell_shop_profile_default.png"]];
     self.shopNameLabel.text = shop.name;
     [self setupStarRatingViewWithRating:shop.rating.floatValue];
     if (shop.lunchBudgetAverage.integerValue == 0) {
         self.shopBudgetLabel.text = @"¥未知";
     } else {
-        self.shopBudgetLabel.text = [NSString stringWithFormat:@"Average: ¥%d", shop.lunchBudgetAverage.integerValue];
+        self.shopBudgetLabel.text = [NSString stringWithFormat:@"Average: ¥%ld", (long)shop.lunchBudgetAverage.integerValue];
     }
     
     self.shopCuisineLabel.text = shop.shopType;

@@ -58,7 +58,7 @@
     self.avatarImageview.layer.cornerRadius = 32.f;
     self.avatarImageview.layer.masksToBounds = YES;
     
-    [self getSharePosts];
+//    [self getSharePosts];
 }
 
 - (void)didReceiveMemoryWarning
@@ -74,7 +74,7 @@
 
 - (void)getSharePosts
 {
-    NSString *path = [NSString stringWithFormat:@"/api/v1/users/%d/posts", [[[WTUser sharedInstance] userId] integerValue]];
+    NSString *path = [NSString stringWithFormat:@"/api/v1/users/%ld/posts", (long)[[[WTUser sharedInstance] userId] integerValue]];
     NSDictionary *params = @{
                              @"start": @([self.posts count]),
                              @"count": @(CountPerRequest),
@@ -125,7 +125,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.posts count] == 0 ? 0 : [self.posts count] + 1;
+    return [self.posts count] + 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

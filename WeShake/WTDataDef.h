@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#define TEST_ENV
+//#define TEST_ENV
+//#define REAL_LOCATION 
 
 #ifdef TEST_ENV
 
@@ -36,9 +37,11 @@ typedef enum {
     
 }ErrorType;
 
-#define CountPerRequest 20
+#define CountPerRequest 10
 
 #define Region_Update_Notification @"RegionUpdateNotification"
+#define Application_Become_Active @"ApplicationBecomeActive"
+#define Application_Resign_Active @"ApplicationResignActive"
 
 @interface WTDataDef : NSObject
 

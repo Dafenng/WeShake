@@ -7,15 +7,20 @@
 //
 
 #import "WTAppDelegate.h"
-#import <NewRelicAgent/NewRelicAgent.h>
 #import "WTDataDef.h"
+#import "Flurry.h"
 
 @implementation WTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-//    [NewRelicAgent startWithApplicationToken:@"AAc726768b5a5ba197a276308d74c079399322cf5d"];
+//    [NewRelicAgent startWithApplicationToken:@"AAd0f71dfb12c36b8725f1d7dde239886de0a557a2"];
+    
+    [Flurry setCrashReportingEnabled:YES];
+    //note: iOS only allows one crash reporting tool per app; if using another, set to: NO
+    [Flurry startSession:@"T9CQHMBNZ58JKG5QZ8CK"];
+    
     if (OS7) {
         [[UINavigationBar appearance] setBarTintColor:UIColorFromRGB(0xf4565a)];
         [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
@@ -31,6 +36,7 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+    [[NSNotificationCenter defaultCenter] postNotificationName:Application_Resign_Active object:nil];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -47,6 +53,7 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [[NSNotificationCenter defaultCenter] postNotificationName:Application_Become_Active object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

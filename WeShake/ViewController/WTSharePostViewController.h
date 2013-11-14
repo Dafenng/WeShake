@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EDStarRating.h"
 
-@interface WTSharePostViewController : UIViewController <EDStarRatingProtocol>
+@interface WTSharePostViewController : UIViewController <EDStarRatingProtocol, UITableViewDelegate, UITableViewDataSource>
 
 @property (strong, nonatomic) UIImage *shareImage;
 

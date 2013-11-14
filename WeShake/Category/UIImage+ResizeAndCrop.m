@@ -34,6 +34,10 @@
     UIGraphicsBeginImageContext( newSize );
     
     context = UIGraphicsGetCurrentContext();
+    
+    CGContextTranslateCTM(context, 0, newSize.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
     CGContextDrawImage( context, CGRectMake( 0, 0, newSize.width, newSize.height ), self.CGImage );
     outputImage = UIGraphicsGetImageFromCurrentImageContext();
     

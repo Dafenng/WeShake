@@ -34,7 +34,8 @@
 @property (copy, nonatomic) NSString *shopType;
 @property (copy, nonatomic) NSString *genre;
 @property (copy, nonatomic) NSString *cuisine;
-@property (strong, nonatomic) NSArray *shopPhotos;
+@property (copy, nonatomic) NSString *defaultSquareImage;
+@property (strong, nonatomic) NSMutableArray *shopPhotos;
 
 @property (assign, nonatomic) int distance;
 

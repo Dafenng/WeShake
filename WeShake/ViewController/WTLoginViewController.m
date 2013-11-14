@@ -9,6 +9,7 @@
 #import "WTLoginViewController.h"
 #import "WTAccountManager.h"
 #import "SVProgressHUD.h"
+#import <Social/Social.h>
 
 @interface WTLoginViewController()
 
@@ -39,6 +40,12 @@
 
 - (IBAction)loginWithTwitter
 {
+    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机未关联Twitter账户，请前往设置关联" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     [SVProgressHUD showWithStatus:@"Logging" maskType:SVProgressHUDMaskTypeBlack];
     [[WTAccountManager sharedInstance] getTwitterAccountInformationWithCompletion:^(BOOL success) {
         if (success) {
@@ -54,6 +61,12 @@
 
 - (IBAction)loginWithFacebook
 {
+    if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机未关联Facebook账户，请前往设置关联" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [alertView show];
+        return;
+    }
+    
     [SVProgressHUD showWithStatus:@"Logging" maskType:SVProgressHUDMaskTypeBlack];
     [[WTAccountManager sharedInstance] getFacebookAccountInformationWithCompletion:^(BOOL success) {
         if (success) {
@@ -65,6 +78,11 @@
             });
         }
     }];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
 }
 
 @end
