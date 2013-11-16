@@ -19,6 +19,9 @@
 
 @interface WTLocationManager : NSObject <CLLocationManagerDelegate>
 
+@property (copy, nonatomic) NSString *region;
+@property (copy, nonatomic) NSString *gpsRegion;
+
 + (WTLocationManager *)sharedInstance;
 
 - (double)latitude;
@@ -35,4 +38,6 @@
 - (int)getDistanceFrom:(CLLocationCoordinate2D)coordinate1  to:(CLLocationCoordinate2D)coordinate2;
 
 - (void)saveLocation;
+- (void)updateRegion:(NSString *)aRegion;
+- (BOOL)regionIsGPSRegion;
 @end

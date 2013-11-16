@@ -112,12 +112,23 @@
                                               accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
         NSDictionary *options = @{
                                   @"ACFacebookAppIdKey" : @"727920337234915",
-                                  @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me", @"publish_stream", @"publish_actions"],
+                                  @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me"],
                                   @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
         
         [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
             if (granted) {
-                successBlock();
+                NSDictionary *options = @{
+                                          @"ACFacebookAppIdKey" : @"727920337234915",
+                                          @"ACFacebookPermissionsKey" : @[@"publish_stream", @"publish_actions"],
+                                          @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
+                
+                [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
+                    if (granted) {
+                        successBlock();
+                    } else {
+                        failureBlock();
+                    }
+                }];
             } else {
                 failureBlock();
             }
@@ -154,7 +165,7 @@
                                           accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
     NSDictionary *options = @{
                               @"ACFacebookAppIdKey" : @"727920337234915",
-                              @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me", @"publish_stream", @"publish_actions"],
+                              @"ACFacebookPermissionsKey" : @[@"email", @"user_about_me"],
                               @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
     
     [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
@@ -177,7 +188,20 @@
 
 - (void)getFacebookAccountDetail
 {
-    [self getProfileImage:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=128&height=128", [self.account valueForKeyPath:@"properties.uid"]]];
+    ACAccountType *facebookAccountType = [self.accountStore
+                                          accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
+    NSDictionary *options = @{
+                              @"ACFacebookAppIdKey" : @"727920337234915",
+                              @"ACFacebookPermissionsKey" : @[@"publish_stream", @"publish_actions"],
+                              @"ACFacebookAudienceKey" : ACFacebookAudienceEveryone};
+    
+    [self.accountStore requestAccessToAccountsWithType:facebookAccountType options:options completion:^(BOOL granted, NSError *error) {
+        if (granted) {
+            [self getProfileImage:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?width=128&height=128", [self.account valueForKeyPath:@"properties.uid"]]];
+        } else {
+            self.userRegisterBlock(NO);
+        }
+    }];
 }
 
 - (void)getTwitterAccountDetail

@@ -35,6 +35,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-sT-zzj">
                                 <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgD-zY-whM">
+                                        <rect key="frame" x="117" y="7" width="85" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" backgroundImage="main_home_region.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <segue destination="H64-WO-vH3" kind="modal" identifier="MainToRegionView" id="XfY-oR-ZdJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
                                 <color key="backgroundColor" red="0.95686274510000002" green="0.33725490200000002" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="FJB-2P-mu5"/>
@@ -99,14 +112,6 @@
                                     <constraint firstAttribute="height" constant="60" id="l4D-4c-L1F"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgD-zY-whM">
-                                <rect key="frame" x="118" y="71" width="85" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.87843137250000003" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -120,12 +125,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="检索区域" id="u0C-Sb-daW"/>
                     <connections>
+                        <outlet property="regionButton" destination="mgD-zY-whM" id="D2l-rF-ZXO"/>
                         <outlet property="shakeButton" destination="fZU-Wq-Xzm" id="tnf-2R-XMn"/>
                         <segue destination="zfS-uL-shb" kind="push" identifier="MainViewToShopView" id="iNV-fj-0qu"/>
                         <segue destination="7Dh-v6-Jvq" kind="push" identifier="MainViewToSearchView" id="YuM-bV-wP4"/>
                         <segue destination="1dJ-z2-0dn" kind="modal" identifier="MainToUserLogin" id="E2M-rT-wd0"/>
                         <segue destination="0B0-qW-L2F" kind="push" identifier="MainToAboutMe" id="m62-sy-sh9"/>
-                        <segue destination="Eke-SB-MDV" kind="push" identifier="MainToSetting" id="PC6-gr-82T"/>
                         <segue destination="9jT-kv-3Sz" kind="modal" identifier="MainToCapture" id="pQK-Jo-3YF"/>
                     </connections>
                 </viewController>
@@ -180,15 +185,15 @@
                                     <constraint firstAttribute="width" constant="320" id="Qiv-Y9-hmc"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SharePostCell" rowHeight="270" id="CUU-U0-XTJ" customClass="WTSharePostCell">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="270"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SharePostCell" rowHeight="290" id="CUU-U0-XTJ" customClass="WTSharePostCell">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="290"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CUU-U0-XTJ" id="u0C-47-23h">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="290"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UCk-m6-rQ4">
-                                                    <rect key="frame" x="14" y="10" width="48" height="49"/>
+                                                    <rect key="frame" x="14" y="10" width="48" height="48"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </imageView>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nU-6I-CzT">
@@ -206,15 +211,15 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pfh-kO-VOF">
-                                                    <rect key="frame" x="10" y="66" width="300" height="194"/>
+                                                    <rect key="frame" x="10" y="66" width="300" height="214"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Vl-S5-abB">
                                                             <rect key="frame" x="10" y="10" width="280" height="160"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         </imageView>
-                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4lH-Ic-pMJ">
-                                                            <rect key="frame" x="10" y="170" width="280" height="21"/>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="4lH-Ic-pMJ">
+                                                            <rect key="frame" x="10" y="170" width="280" height="41"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="highlightedColor"/>
@@ -223,7 +228,7 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cell_seperate_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="lwH-mE-6Le">
-                                                    <rect key="frame" x="0.0" y="267" width="320" height="2"/>
+                                                    <rect key="frame" x="0.0" y="288" width="320" height="2"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
@@ -384,34 +389,77 @@
             </objects>
             <point key="canvasLocation" x="2659" y="905"/>
         </scene>
-        <!--Setting View Controller-->
-        <scene sceneID="fXl-fn-2bJ">
+        <!--Custom Navigation Controller-->
+        <scene sceneID="o0p-e5-I4i">
             <objects>
-                <tableViewController id="Eke-SB-MDV" customClass="WTSettingViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="wBl-X3-d9x">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="do3-S0-Eai">
-                                <rect key="frame" x="0.0" y="119" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="do3-S0-Eai" id="QQ7-bF-QAs">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="Eke-SB-MDV" id="yoZ-f9-HhS"/>
-                            <outlet property="delegate" destination="Eke-SB-MDV" id="c0S-RO-OTL"/>
-                        </connections>
-                    </tableView>
-                    <navigationItem key="navigationItem" id="SDA-yw-bbo"/>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OyP-uq-C3h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hb6-Do-3mQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController definesPresentationContext="YES" id="H64-WO-vH3" customClass="WTCustomNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UwP-wd-p5l">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="sYR-zg-y7L" kind="relationship" relationship="rootViewController" id="bqZ-4w-gFO"/>
+                    </connections>
+                </navigationController>
             </objects>
-            <point key="canvasLocation" x="564" y="-1751"/>
+            <point key="canvasLocation" x="-389" y="-1824"/>
+        </scene>
+        <!--Region View Controller - 区域选择-->
+        <scene sceneID="gxs-cz-GMe">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="sYR-zg-y7L" customClass="WTRegionViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Xac-MC-7XH"/>
+                        <viewControllerLayoutGuide type="bottom" id="hqM-yB-Dcy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MEn-BH-lFy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="jOy-Bs-fzf">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="320" id="P1u-3f-kf5"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RegionCell" id="JNr-fc-vuS">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JNr-fc-vuS" id="cOu-1Z-5fT">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="sYR-zg-y7L" id="VbE-8x-MA1"/>
+                                    <outlet property="delegate" destination="sYR-zg-y7L" id="54j-Yl-8aU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="jOy-Bs-fzf" secondAttribute="centerX" id="QKb-U7-h8L"/>
+                            <constraint firstItem="jOy-Bs-fzf" firstAttribute="top" secondItem="Xac-MC-7XH" secondAttribute="bottom" id="RBV-4E-qnC"/>
+                            <constraint firstItem="hqM-yB-Dcy" firstAttribute="top" secondItem="jOy-Bs-fzf" secondAttribute="bottom" id="t3s-Av-HNP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="区域选择" id="HU3-8d-Iof">
+                        <barButtonItem key="rightBarButtonItem" title="取消" id="kUm-bO-hLe">
+                            <connections>
+                                <action selector="cancel:" destination="sYR-zg-y7L" id="odX-iL-vOi"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="regionTableView" destination="jOy-Bs-fzf" id="Vs0-2j-W3r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8Rj-2k-gG9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="170" y="-1825"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="uHV-h8-ZJZ">
@@ -425,7 +473,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KR1-uy-ouj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_app_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KR1-uy-ouj">
                                 <rect key="frame" x="105" y="110" width="110" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -501,6 +549,12 @@
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2000" contentMode="scaleToFill" fixedFrame="YES" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nre-FJ-tET">
                                                 <rect key="frame" x="10" y="10" width="280" height="160"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Vw7-Dy-Rf2">
+                                                        <rect key="frame" x="130" y="70" width="20" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    </activityIndicatorView>
+                                                </subviews>
                                                 <connections>
                                                     <outlet property="delegate" destination="zfS-uL-shb" id="K5L-fG-0SZ"/>
                                                 </connections>
@@ -579,6 +633,7 @@
                     <navigationItem key="navigationItem" title="商家信息" id="KG6-4o-aDU"/>
                     <connections>
                         <outlet property="favorButton" destination="yI1-lh-Akf" id="W3w-cL-Hmg"/>
+                        <outlet property="imageIndicator" destination="Vw7-Dy-Rf2" id="pak-bv-TA4"/>
                         <outlet property="mainScrollView" destination="o4q-Fy-fgU" id="49d-gL-VGM"/>
                         <outlet property="pageControl" destination="bVC-7R-asU" id="xnN-gw-rlz"/>
                         <outlet property="shopPhotoContainerView" destination="1F7-rT-4NM" id="m5g-1n-d2A"/>
@@ -1080,7 +1135,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="app_logo.png" width="110" height="110"/>
         <image name="camera_gleam.png" width="18" height="30"/>
         <image name="camera_shutter.png" width="61" height="61"/>
         <image name="cell_seperate_line.png" width="320" height="2"/>
@@ -1093,6 +1147,8 @@
         <image name="home_profile_highligh.png" width="54" height="41"/>
         <image name="like_button.png" width="44" height="44"/>
         <image name="liked_button.png" width="43" height="44"/>
+        <image name="login_app_logo.png" width="110" height="110"/>
+        <image name="main_home_region.png" width="85" height="30"/>
         <image name="main_shake_button.png" width="316" height="316"/>
         <image name="map_button.png" width="44" height="44"/>
         <image name="phone_button.png" width="44" height="44"/>

@@ -14,8 +14,6 @@
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign, nonatomic) CLLocationCoordinate2D currentCoordinate;
-@property (copy, nonatomic) NSString *region;
-@property (copy, nonatomic) NSString *city;
 @property (assign, nonatomic) double radius;
 
 @end
@@ -47,6 +45,16 @@
 - (double)radius
 {
     return _radius;
+}
+
+- (void)updateRegion:(NSString *)aRegion
+{
+    self.region = aRegion;
+}
+
+- (BOOL)regionIsGPSRegion
+{
+    return [self.region isEqualToString:self.gpsRegion];
 }
 
 - (CLLocationCoordinate2D)coordinate
@@ -130,12 +138,13 @@
     CLGeocoder * geoCoder = [[CLGeocoder alloc] init];
     [geoCoder reverseGeocodeLocation:newLocation completionHandler:^(NSArray *placemarks, NSError *error) {
         for (CLPlacemark * placemark in placemarks) {
-            self.region = [placemark administrativeArea];
-            self.city = [placemark locality];
-            if (self.region && ![self.region isEqualToString:@""]) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:Region_Update_Notification object:[NSString stringWithFormat:@"%@ %@", self.region, self.city]];
-                [self.locationManager stopUpdatingLocation];
-            }
+#ifdef REAL_LOCATION
+            self.gpsRegion = [placemark administrativeArea];
+#else
+            self.gpsRegion = @"東京都";
+#endif
+            [[NSNotificationCenter defaultCenter] postNotificationName:Region_Update_Notification object:self.gpsRegion];
+            [self.locationManager stopUpdatingLocation];
         }
     }];
 }
@@ -150,8 +159,6 @@
 {
     NSString *aRegion = [[NSUserDefaults standardUserDefaults] valueForKey:@"region"];
     self.region = aRegion ? aRegion : kBaseRegion;
-    NSString *aCity = [[NSUserDefaults standardUserDefaults] valueForKey:@"city"];
-    self.city = aCity ? aCity : kBaseCity;
     
     double aLatitude = [(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"latitude"] doubleValue];
     double aLongitude = [(NSNumber *)[[NSUserDefaults standardUserDefaults] valueForKey:@"longitude"] doubleValue];
@@ -165,7 +172,6 @@
 - (void)saveLocation
 {
     [[NSUserDefaults standardUserDefaults] setObject:self.region forKey:@"region"];
-    [[NSUserDefaults standardUserDefaults] setObject:self.city forKey:@"city"];
     [[NSUserDefaults standardUserDefaults] setObject:@(self.latitude) forKey:@"latitude"];
     [[NSUserDefaults standardUserDefaults] setObject:@(self.longitude) forKey:@"longitude"];
     [[NSUserDefaults standardUserDefaults] synchronize];

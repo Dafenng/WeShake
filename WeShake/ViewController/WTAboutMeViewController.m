@@ -15,6 +15,7 @@
 #import "WTDataDef.h"
 #import "WTLoadMoreCell.h"
 #import <QuartzCore/QuartzCore.h>
+#import "SVProgressHUD.h"
 
 @interface WTAboutMeViewController ()
 
@@ -86,12 +87,8 @@
         
         NSInteger postCount = [(NSArray *)[responseObject objectForKey:@"posts"] count];
         if (postCount == 0) {
-            if ([self.posts count] != 0) {
-                self.noMorePost = YES;
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.posts count] inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            } else {
-                [self showNoPosts];
-            }
+            self.noMorePost = YES;
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:[self.posts count] inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         } else {
             [(NSArray *)[responseObject objectForKey:@"posts"] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                 WTPost *post = [MTLJSONAdapter modelOfClass:WTPost.class fromJSONDictionary:obj error:nil];
@@ -117,7 +114,7 @@
         
         
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"获取SharePost列表失败");
+        [SVProgressHUD showErrorWithStatus:@"获取失败"];
     }];
 }
 
@@ -168,7 +165,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return indexPath.row == [self.posts count] ? 44 : 270;;
+    return indexPath.row == [self.posts count] ? 44 : 290;;
 }
 
 @end

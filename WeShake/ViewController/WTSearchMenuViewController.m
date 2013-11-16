@@ -7,6 +7,7 @@
 //
 
 #import "WTSearchMenuViewController.h"
+#import "WTLocationManager.h"
 
 #define kMASTERTABLEVIEWTAG 1001
 #define kSUBTABLEVIEWTAG 2002
@@ -49,11 +50,12 @@
     self = [super init];
     if (self) {
         
-        _region = [[NSUserDefaults standardUserDefaults] valueForKey:@"region"];
-        if (!_region || [_region isEqualToString:@""]) {
-            _region = @"東京都";
+        _region = [[WTLocationManager sharedInstance] region];
+        _area = @"All";
+        if ([[WTLocationManager sharedInstance] regionIsGPSRegion]) {
+            _area = @"Around";
         }
-        _area = @"Around";
+        
         _district = @"1000";
         
         _genre = @"All";

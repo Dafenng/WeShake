@@ -72,7 +72,7 @@
 
 - (void)initWithPost:(WTPost *)post
 {
-    [self.headImageView setImageWithURL:[NSURL URLWithString:[[WTUser sharedInstance] avatar]] placeholderImage:nil];
+    [self.headImageView setImageWithURL:[NSURL URLWithString:[[WTUser sharedInstance] avatar]] placeholderImage:[UIImage imageNamed:@"default_profile_male.png"]];
     self.nameLabel.text = [[WTUser sharedInstance] username];
     self.dateLabel.text = [self.dateFormatter stringFromDate:post.createTime];
     self.messageLabel.text = post.message;

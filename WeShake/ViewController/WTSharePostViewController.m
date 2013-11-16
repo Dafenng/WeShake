@@ -68,7 +68,6 @@
     [self.shareImageView setImage:self.shareImage];
     self.shopTableView.allowsSelection = YES;
     
-    [self setupStarRating];
 //    [self getNearShops];
     
     self.mainContainerView.layer.cornerRadius = 10.f;
@@ -85,6 +84,8 @@
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBar.hidden = NO;
+    
+    [self setupStarRating];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,7 +111,6 @@
     _starRating.rating= 0.0;
     _starRating.displayMode=EDStarRatingDisplayHalf;
     [_starRating  setNeedsDisplay];
-    [self starsSelectionChanged:_starRating rating:2.5];
 }
      
 - (IBAction)shareImage:(id)sender {
@@ -120,22 +120,28 @@
         return;
     }
     
-    [self postWithMessage:[NSString stringWithFormat:@"%@  我这家叫 %@ 的店，我评分为 %.1f", self.commentTextView.text, self.selectShop.name, self.ratingFloat] photo:self.shareImage progress:^(CGFloat progress) {
+    [SVProgressHUD showWithStatus:@"分享中..." maskType:SVProgressHUDMaskTypeBlack];
+    [self postWithMessage:[NSString stringWithFormat:@"%@ 我在这家叫 %@ 的店，我评分为 %.1f", self.commentTextView.text, self.selectShop.name, self.starRating.rating] photo:self.shareImage progress:^(CGFloat progress) {
         ;
-    } completion:^(BOOL success, NSError *error) {
-        ;
+    } completion:^(BOOL success) {
+        if (success) {
+            [SVProgressHUD showSuccessWithStatus:@"分享成功"];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else {
+            [SVProgressHUD showErrorWithStatus:@"分享失败"];
+        }
     }];
     
     if (self.twitterButton.selected) {
-        [self shareInTwitterWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@  我这家叫 %@ 的店，我评分为 %f", self.commentTextView.text, self.selectShop.name, self.ratingFloat]];
+        [self shareInTwitterWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@  我在这家叫 %@ 的店，我评分为 %f", self.commentTextView.text, self.selectShop.name, self.ratingFloat]];
     }
 
     if (self.facebookButton.selected) {
-        [self shareInFacebookWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@  我这家叫 %@ 的店，我评分为 %f", self.commentTextView.text, self.selectShop.name, self.ratingFloat]];
+        [self shareInFacebookWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@  我在这家叫 %@ 的店，我评分为 %f", self.commentTextView.text, self.selectShop.name, self.ratingFloat]];
     }
 }
 
-- (void)postWithMessage:(NSString *)message photo:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success, NSError *error))completionBlock {
+- (void)postWithMessage:(NSString *)message photo:(UIImage *)image progress:(void (^)(CGFloat progress))progressBlock completion:(void (^)(BOOL success))completionBlock {
     
     NSString *path = [NSString stringWithFormat:@"/api/v1/users/%ld/posts", (long)[[[WTUser sharedInstance] userId] integerValue]];
     NSDictionary *params = @{
@@ -152,8 +158,9 @@
     
     [WTHttpEngine startHttpConnectionWithImageDic:imageDic path:path method:@"POST" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
-        [self dismissViewControllerAnimated:YES completion:nil];
+        completionBlock(YES);
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
+        completionBlock(NO);
     }];
 }
 

@@ -61,16 +61,23 @@
                           failure:(void (^)(ErrorType errorCode))failureBlock
 {
     NSString *path = [NSString stringWithFormat:@"/api/v1/shops"];
-    NSDictionary *params = @{
-                             @"process": @"suggest",
-                             @"latitude": @([[WTLocationManager sharedInstance] latitude]),
-                             @"longitude": @([[WTLocationManager sharedInstance] longitude]),
-                             @"radius": @([[WTLocationManager sharedInstance] radius])
-                             };
-    
+    NSDictionary *params;
+    if ([[WTLocationManager sharedInstance] regionIsGPSRegion]) {
+        params = @{
+                 @"process": @"suggest",
+                 @"latitude": @([[WTLocationManager sharedInstance] latitude]),
+                 @"longitude": @([[WTLocationManager sharedInstance] longitude]),
+                 @"radius": @([[WTLocationManager sharedInstance] radius])
+                 };
+    } else {
+        params = @{
+                   @"process": @"suggest",
+                   @"region": [[WTLocationManager sharedInstance] region]
+                   };
+    }
     
     [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
-        self.suggestShopCount = (NSInteger)[responseObject valueForKeyPath:@"result.total"];
+        self.suggestShopCount = (NSInteger)[[responseObject valueForKeyPath:@"result.total"] integerValue];
         
         //当前位置，当前半径下无可推荐shop，返回去扩大半径范围
         if (self.suggestShopCount == 0) {
@@ -81,21 +88,21 @@
         WTShop *shop = [MTLJSONAdapter modelOfClass:WTShop.class fromJSONDictionary:[responseObject objectForKey:@"shop"] error:nil];
         shop.distance = [[WTLocationManager sharedInstance] getDistanceTo:CLLocationCoordinate2DMake(shop.latitude.doubleValue, shop.longitude.doubleValue)];
         
-        //当前半径下均已经推荐过，返回扩大半径再推荐，需调整
-        if (self.suggestShopCount == [self.suggestShopIds count]) {
-            failureBlock(TotalUsedError);
-            return;
-        }
+//        //当前半径下均已经推荐过，返回扩大半径再推荐，需调整
+//        if (self.suggestShopCount == [self.suggestShopIds count]) {
+//            failureBlock(TotalUsedError);
+//            return;
+//        }
         
         //和上一次推荐相同，返回重新推荐
-        if (shop.shopId.integerValue == self.preSuggestShopId) {
-            failureBlock(PreSameError);
-            return;
-        }
+//        if (shop.shopId.integerValue == self.preSuggestShopId) {
+//            failureBlock(PreSameError);
+//            return;
+//        }
         
-        if (![self shopIdExist:shop.shopId.integerValue]) {
-            [self.suggestShopIds addObject:shop.shopId];
-        }
+//        if (![self shopIdExist:shop.shopId.integerValue]) {
+//            [self.suggestShopIds addObject:shop.shopId];
+//        }
         
         self.preSuggestShopId = shop.shopId.integerValue;
         successBlock(shop);

@@ -13,6 +13,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "WTHttpEngine.h"
 #import "WTUser.h"
+#import "SVProgressHUD.h"
 
 #define PhotoContainerScrollViewTag 2000
 
@@ -25,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) WTShopInfoView *shopInfoView;
 @property (weak, nonatomic) IBOutlet UIButton *favorButton;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *imageIndicator;
 
 @end
 
@@ -139,12 +141,13 @@
         }
         
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Fav检查失败");
+        
     }];
 }
 
 - (void)getShopPhotos
 {
+    [self.imageIndicator startAnimating];
     NSString *path = [NSString stringWithFormat:@"/api/v1/shop_photos"];
     NSDictionary *params = @{
                              @"shop_id" : self.shop.shopId
@@ -158,10 +161,11 @@
             [self.shop.shopPhotos addObject:shopPhoto];
         }];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [self.imageIndicator stopAnimating];
             [self setupPhotoView];
         });
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"get shopPhotos 失败");
+        
     }];
 }
 
@@ -210,7 +214,7 @@
         }
         
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"用户注册失败");
+        [SVProgressHUD showErrorWithStatus:@"收藏失败"];
     }];
 }
 

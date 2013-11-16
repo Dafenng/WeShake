@@ -130,6 +130,11 @@
 		D8F0F48C1834D3F200289C54 /* home_profile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F4801834D3F200289C54 /* home_profile@2x.png */; };
 		D8F0F48F1834E9F600289C54 /* main_place_arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F48D1834E9F600289C54 /* main_place_arrow.png */; };
 		D8F0F4901834E9F600289C54 /* main_place_arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F48E1834E9F600289C54 /* main_place_arrow@2x.png */; };
+		D8F0F4931834FD9E00289C54 /* WTRegionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F0F4921834FD9E00289C54 /* WTRegionViewController.m */; };
+		D8F0F4961835BC9F00289C54 /* main_home_region.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F4941835BC9F00289C54 /* main_home_region.png */; };
+		D8F0F4971835BC9F00289C54 /* main_home_region@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F4951835BC9F00289C54 /* main_home_region@2x.png */; };
+		D8F0F49A18360AE200289C54 /* login_app_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F49818360AE200289C54 /* login_app_logo.png */; };
+		D8F0F49B18360AE200289C54 /* login_app_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F0F49918360AE200289C54 /* login_app_logo@2x.png */; };
 		D8F59CB218278DF500452799 /* home_config.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F59CA818278DF500452799 /* home_config.png */; };
 		D8F59CB318278DF500452799 /* home_config@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F59CA918278DF500452799 /* home_config@2x.png */; };
 		D8F59CC018279FD500452799 /* camera_gleam.png in Resources */ = {isa = PBXBuildFile; fileRef = D8F59CBC18279FD500452799 /* camera_gleam.png */; };
@@ -315,6 +320,12 @@
 		D8F0F4801834D3F200289C54 /* home_profile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_profile@2x.png"; sourceTree = "<group>"; };
 		D8F0F48D1834E9F600289C54 /* main_place_arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_place_arrow.png; sourceTree = "<group>"; };
 		D8F0F48E1834E9F600289C54 /* main_place_arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_place_arrow@2x.png"; sourceTree = "<group>"; };
+		D8F0F4911834FD9E00289C54 /* WTRegionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WTRegionViewController.h; sourceTree = "<group>"; };
+		D8F0F4921834FD9E00289C54 /* WTRegionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTRegionViewController.m; sourceTree = "<group>"; };
+		D8F0F4941835BC9F00289C54 /* main_home_region.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_home_region.png; sourceTree = "<group>"; };
+		D8F0F4951835BC9F00289C54 /* main_home_region@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "main_home_region@2x.png"; sourceTree = "<group>"; };
+		D8F0F49818360AE200289C54 /* login_app_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_app_logo.png; sourceTree = "<group>"; };
+		D8F0F49918360AE200289C54 /* login_app_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login_app_logo@2x.png"; sourceTree = "<group>"; };
 		D8F59CA818278DF500452799 /* home_config.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home_config.png; sourceTree = "<group>"; };
 		D8F59CA918278DF500452799 /* home_config@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home_config@2x.png"; sourceTree = "<group>"; };
 		D8F59CBC18279FD500452799 /* camera_gleam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera_gleam.png; sourceTree = "<group>"; };
@@ -495,6 +506,10 @@
 		D8C68E7217E0785F002BCFCC /* image */ = {
 			isa = PBXGroup;
 			children = (
+				D8F0F49818360AE200289C54 /* login_app_logo.png */,
+				D8F0F49918360AE200289C54 /* login_app_logo@2x.png */,
+				D8F0F4941835BC9F00289C54 /* main_home_region.png */,
+				D8F0F4951835BC9F00289C54 /* main_home_region@2x.png */,
 				D8F0F48D1834E9F600289C54 /* main_place_arrow.png */,
 				D8F0F48E1834E9F600289C54 /* main_place_arrow@2x.png */,
 				D8F0F4751834D3F200289C54 /* home_camera_highlight.png */,
@@ -649,6 +664,8 @@
 				D8AFFC5B182F810E001F045F /* WTCustomNavigationController.m */,
 				D8AFFC66182FD42E001F045F /* WTFavorViewController.h */,
 				D8AFFC67182FD42E001F045F /* WTFavorViewController.m */,
+				D8F0F4911834FD9E00289C54 /* WTRegionViewController.h */,
+				D8F0F4921834FD9E00289C54 /* WTRegionViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -777,6 +794,7 @@
 				BBE5983517E59CE200C1A33F /* WTToastView.xib in Resources */,
 				D8AFFC90183077B4001F045F /* phone_button@2x.png in Resources */,
 				D8F0F4821834D3F200289C54 /* home_camera_highlight@2x.png in Resources */,
+				D8F0F49B18360AE200289C54 /* login_app_logo@2x.png in Resources */,
 				D81BEA1A182F50CC008963BD /* cell_seperate_line@2x.png in Resources */,
 				D86097DC182285B500779B24 /* star.png in Resources */,
 				D8609801182285C900779B24 /* list_checkmark@2x.png in Resources */,
@@ -818,9 +836,12 @@
 				D8F0F4901834E9F600289C54 /* main_place_arrow@2x.png in Resources */,
 				D8AFFC8B183077B4001F045F /* liked_button.png in Resources */,
 				D822FB7418337E3800EA59EF /* cell_shop_profile_default.png in Resources */,
+				D8F0F4971835BC9F00289C54 /* main_home_region@2x.png in Resources */,
 				D8F0F4831834D3F200289C54 /* home_camera.png in Resources */,
 				D883BDA4181A490000EC725D /* shop_no_photo@2x.png in Resources */,
 				D8F59CC81827A77F00452799 /* share_fb_botton.png in Resources */,
+				D8F0F49A18360AE200289C54 /* login_app_logo.png in Resources */,
+				D8F0F4961835BC9F00289C54 /* main_home_region.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -889,6 +910,7 @@
 				D8C68E4B17E0775E002BCFCC /* WTAppDelegate.m in Sources */,
 				D8C68EB217E0785F002BCFCC /* WTShop.m in Sources */,
 				D8CD93BB17FD5606002D5347 /* WTAboutMeViewController.m in Sources */,
+				D8F0F4931834FD9E00289C54 /* WTRegionViewController.m in Sources */,
 				D8BD9DD618052A9A00DC0F07 /* WTUser.m in Sources */,
 				D825D1A0181A3ECB00E11E68 /* WTShopPhoto.m in Sources */,
 				D8F0F464183485D200289C54 /* WTSharePostShopCell.m in Sources */,
@@ -1034,35 +1056,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Dong Huo (LY79M4PQV2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dong Huo (LY79M4PQV2)";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/keywind/Documents/WeShake,
-					/Users/jindafeng/Documents/WeShake,
-					/Users/jindafeng/Documents/FacebookSDK,
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WeShake/WeShake-Prefix.pch";
-				INFOPLIST_FILE = "WeShake/WeShake-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					/Users/jindafeng/Documents/WeShake/WeShake/Flurry,
-				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BD2A11AB-99CF-49DA-9589-175819DA25A5";
-				WRAPPER_EXTENSION = app;
-			};
-			name = Debug;
-		};
-		D8C68E6B17E0775E002BCFCC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65AADFE6DD0F4336B004DD2A /* Pods.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Dong Huo (N2UEFM6YGY)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dong Huo (N2UEFM6YGY)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1079,7 +1073,35 @@
 					/Users/jindafeng/Documents/WeShake/WeShake/Flurry,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "BD2A11AB-99CF-49DA-9589-175819DA25A5";
+				PROVISIONING_PROFILE = "F8321FFC-8D8D-45C3-9980-AE8CB32BA0DD";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D8C68E6B17E0775E002BCFCC /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65AADFE6DD0F4336B004DD2A /* Pods.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Dong Huo (N2UEFM6YGY)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/keywind/Documents/WeShake,
+					/Users/jindafeng/Documents/WeShake,
+					/Users/jindafeng/Documents/FacebookSDK,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "WeShake/WeShake-Prefix.pch";
+				INFOPLIST_FILE = "WeShake/WeShake-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/jindafeng/Documents/WeShake/WeShake/Flurry,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "F8321FFC-8D8D-45C3-9980-AE8CB32BA0DD";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

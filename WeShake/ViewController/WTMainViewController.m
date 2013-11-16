@@ -21,7 +21,8 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *shakeButton;
-@property (weak, nonatomic) IBOutlet UILabel *regionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *regionButton;
+
 @property (strong, nonatomic) NSTimer *timer;
 
 @end
@@ -35,8 +36,9 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActive) name:Application_Become_Active object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResignActive) name:Application_Resign_Active object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegion:) name:Region_Update_Notification object:nil];
-    self.regionLabel.text =  [[NSUserDefaults standardUserDefaults] valueForKey:@"regionAndCity"];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegion:) name:Region_Update_Notification object:nil];
+    
+    [self.regionButton setTitle:[[WTLocationManager sharedInstance] region] forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -65,9 +67,7 @@
     [super viewWillDisappear:animated];
     [self stopUpdateLocation];
     
-#ifdef REAL_LOCATION
     [[WTLocationManager sharedInstance] saveLocation];
-#endif
 }
 
 - (void)didBecomeActive
@@ -82,11 +82,12 @@
     if ([self.shakeButton.layer animationForKey:@"iconShake"]) {
         [self.shakeButton.layer removeAnimationForKey:@"iconShake"];
     }
+    [[WTLocationManager sharedInstance] saveLocation];
 }
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:Region_Update_Notification object:nil];
+//    [[NSNotificationCenter defaultCenter] removeObserver:self name:Region_Update_Notification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:Application_Become_Active object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:Application_Resign_Active object:nil];
 }
@@ -224,18 +225,7 @@
         
         switch (errorCode) {
             case ZeroCountError:
-                if ([[WTLocationManager sharedInstance] increaseRadius]) {
-                    [self getSuggestShop];
-                } else {
-                    [self showNoShop];
-                }
-                break;
-            case TotalUsedError:
-                if ([[WTLocationManager sharedInstance] increaseRadius]) {
-                    [self getSuggestShop];
-                } else {
-                    [self showNoShop];
-                }
+                [self showNoShop];
                 break;
             case PreSameError:
                 [self getSuggestShop];
@@ -253,6 +243,8 @@
 {
     if ([segue.identifier isEqualToString:@"MainViewToShopView"]) {
         [[segue destinationViewController] setShop:sender];
+    } else if ([segue.identifier isEqualToString:@"MainToRegionView"]) {
+        ((WTRegionViewController *)[(UINavigationController *)[segue destinationViewController] viewControllers][0]).delegate = self;
     }
 }
 
@@ -276,15 +268,11 @@
     [self performSegueWithIdentifier:@"MainToAboutMe" sender:sender];
 }
 
-- (IBAction)setting:(id)sender {
-    [self performSegueWithIdentifier:@"MainToSetting" sender:sender];
-}
+#pragma mark - region delegate
 
-#pragma mark - Notification
-
-- (void)updateRegion:(NSNotification *)aNotification
+- (void)didSelectRegion:(NSString *)aRegion
 {
-    self.regionLabel.text = aNotification.object;
+    [self.regionButton setTitle:[[WTLocationManager sharedInstance] region] forState:UIControlStateNormal];
 }
 
 @end
