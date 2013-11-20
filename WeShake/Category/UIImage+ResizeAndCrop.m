@@ -13,7 +13,7 @@
 - (UIImage *)resizeToSize:(CGSize)newSize thenCropWithRect:(CGRect)cropRect {
     
     CGContextRef                context;
-    CGImageRef                  imageRef;
+//    CGImageRef                  imageRef;
     CGSize                      inputSize;
     UIImage                     *outputImage = nil;
     CGFloat                     scaleFactor, width;
@@ -31,37 +31,35 @@
         newSize.width = width;
     }
     
-    UIGraphicsBeginImageContext( newSize );
+    //create drawing context
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0f);
     
-    context = UIGraphicsGetCurrentContext();
+    //draw
+    [self drawInRect:CGRectMake(0.0f, 0.0f, newSize.width, newSize.height)];
     
-    CGContextTranslateCTM(context, 0, newSize.height);
-    CGContextScaleCTM(context, 1.0, -1.0);
-    
-    CGContextDrawImage( context, CGRectMake( 0, 0, newSize.width, newSize.height ), self.CGImage );
+    //capture resultant image
     outputImage = UIGraphicsGetImageFromCurrentImageContext();
-    
     UIGraphicsEndImageContext();
     
-    inputSize = newSize;
+//    inputSize = newSize;
     
-    // constrain crop rect to legitimate bounds
-    if ( cropRect.origin.x >= inputSize.width || cropRect.origin.y >= inputSize.height ) {
-        return outputImage;
-    }
-    
-    if ( cropRect.origin.x + cropRect.size.width >= inputSize.width ) {
-        cropRect.size.width = inputSize.width - cropRect.origin.x;
-    }
-    if ( cropRect.origin.y + cropRect.size.height >= inputSize.height ) {
-        cropRect.size.height = inputSize.height - cropRect.origin.y;
-    }
-    
-    // crop
-    if ( (imageRef = CGImageCreateWithImageInRect(outputImage.CGImage, cropRect))) {
-        outputImage = [[UIImage alloc] initWithCGImage: imageRef];
-        CGImageRelease( imageRef );
-    }
+//    // constrain crop rect to legitimate bounds
+//    if ( cropRect.origin.x >= inputSize.width || cropRect.origin.y >= inputSize.height ) {
+//        return outputImage;
+//    }
+//    
+//    if ( cropRect.origin.x + cropRect.size.width >= inputSize.width ) {
+//        cropRect.size.width = inputSize.width - cropRect.origin.x;
+//    }
+//    if ( cropRect.origin.y + cropRect.size.height >= inputSize.height ) {
+//        cropRect.size.height = inputSize.height - cropRect.origin.y;
+//    }
+//    
+//    // crop
+//    if ( (imageRef = CGImageCreateWithImageInRect(outputImage.CGImage, cropRect))) {
+//        outputImage = [[UIImage alloc] initWithCGImage: imageRef];
+//        CGImageRelease( imageRef );
+//    }
     
     return outputImage;
 }

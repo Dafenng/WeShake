@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "WTSearchMenuViewController.h"
+#import "WTRegionViewController.h"
 
 @interface WTSearchViewController : UIViewController
-<UITableViewDataSource, UITableViewDelegate, WTSearchMenuViewDelagate>
+<UITableViewDataSource, UITableViewDelegate, WTSearchMenuViewDelagate, WTRegionViewDelegate>
 
 @end

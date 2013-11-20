@@ -139,6 +139,9 @@
                                                  }
                                                  
                                              }];
+    
+    [self.device unlockForConfiguration];
+    [self.session stopRunning];
 }
 
 - (void)gotoShare:(UIImage *)image
@@ -163,9 +166,6 @@
     } else {
         [self capture];
     }
-    
-    [self.device unlockForConfiguration];
-    [self.session stopRunning];
 }
 
 - (IBAction)done:(id)sender {
@@ -201,7 +201,7 @@
 
 - (IBAction)changeFlashMode:(id)sender {
     self.flashButton.selected = !self.flashButton.selected;
-    self.flashStatusLabel.text = self.flashButton.selected ? @"打开" : @"关闭";
+    self.flashStatusLabel.text = self.flashButton.selected ? @"オン" : @"オフ";
 }
 
 

@@ -63,9 +63,9 @@
     self.shopNameLabel.text = shop.name;
     [self setupStarRatingViewWithRating:shop.rating.floatValue];
     if (shop.lunchBudgetAverage.integerValue == 0) {
-        self.shopBudgetLabel.text = @"¥未知";
+        self.shopBudgetLabel.text = @"¥不明";
     } else {
-        self.shopBudgetLabel.text = [NSString stringWithFormat:@"Average: ¥%ld", (long)shop.lunchBudgetAverage.integerValue];
+        self.shopBudgetLabel.text = [NSString stringWithFormat:@"予算: ¥%ld", (long)shop.lunchBudgetAverage.integerValue];
     }
     
     self.shopCuisineLabel.text = shop.shopType;

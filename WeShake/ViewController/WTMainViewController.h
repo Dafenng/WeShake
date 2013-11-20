@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WTRegionViewController.h"
 
-@interface WTMainViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate, WTRegionViewDelegate>
+
+@interface WTMainViewController : UIViewController <UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 @end

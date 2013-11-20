@@ -72,7 +72,7 @@
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth, baseHeight)];
     rightLabel.numberOfLines = 0;
-    leftLabel.text = @"餐饮风格";
+    leftLabel.text = @"ジャンル";
     rightLabel.text = aShop.genreInfo;
     [rightLabel sizeToFit];
     
@@ -106,7 +106,7 @@
     rightLabel.frame = newFrame;
     
     rightLabel.numberOfLines = 0;
-    leftLabel.text = @"Access";
+    leftLabel.text = @"アクセス";
     rightLabel.text = accessText;
     [rightLabel sizeToFit];
     
@@ -128,7 +128,7 @@
     rightLabel.frame = newFrame;
     
     rightLabel.numberOfLines = 0;
-    leftLabel.text = @"营业时间";
+    leftLabel.text = @"営業時間";
     rightLabel.text = openTimeText;
     [rightLabel sizeToFit];
     
@@ -152,7 +152,7 @@
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth, baseHeight)];
     rightLabel.numberOfLines = 0;
-    leftLabel.text = @"午餐价位";
+    leftLabel.text = @"ランチ";
     rightLabel.text = aShop.lunchBudget;
     [rightLabel sizeToFit];
     
@@ -164,7 +164,7 @@
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth, baseHeight)];
     rightLabel.numberOfLines = 0;
-    leftLabel.text = @"晚餐价位";
+    leftLabel.text = @"ディナー";
     rightLabel.text = aShop.dinnerBudget;
     [rightLabel sizeToFit];
     
@@ -174,7 +174,7 @@
     
     leftLabel = [[UILabel alloc] initWithFrame:CGRectMake(leftXOffset, yOffset, leftWidth, baseHeight)];
     EDStarRating * ratingView = [[EDStarRating alloc] initWithFrame:CGRectMake(rightXOffset, yOffset, rightWidtth / 2, baseHeight)];
-    leftLabel.text = @"评价";
+    leftLabel.text = @"評価";
 
     ratingView.backgroundColor  = [UIColor clearColor];
     ratingView.starImage = [UIImage imageNamed:@"grey_star.png"];

@@ -62,19 +62,19 @@
 {
     NSString *path = [NSString stringWithFormat:@"/api/v1/shops"];
     NSDictionary *params;
-    if ([[WTLocationManager sharedInstance] regionIsGPSRegion]) {
+//    if ([[WTLocationManager sharedInstance] regionIsGPSRegion]) {
         params = @{
                  @"process": @"suggest",
                  @"latitude": @([[WTLocationManager sharedInstance] latitude]),
                  @"longitude": @([[WTLocationManager sharedInstance] longitude]),
                  @"radius": @([[WTLocationManager sharedInstance] radius])
                  };
-    } else {
-        params = @{
-                   @"process": @"suggest",
-                   @"region": [[WTLocationManager sharedInstance] region]
-                   };
-    }
+//    } else {
+//        params = @{
+//                   @"process": @"suggest",
+//                   @"region": [[WTLocationManager sharedInstance] region]
+//                   };
+//    }
     
     [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
         self.suggestShopCount = (NSInteger)[[responseObject valueForKeyPath:@"result.total"] integerValue];

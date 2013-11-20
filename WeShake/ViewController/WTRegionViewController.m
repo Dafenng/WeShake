@@ -41,7 +41,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegion:) name:Region_Update_Notification object:nil];
     
     self.gpsRegion = [[WTLocationManager sharedInstance] gpsRegion];
-    self.gpsRegion = self.gpsRegion ? self.gpsRegion : @"定位中...";
+    self.gpsRegion = self.gpsRegion ? self.gpsRegion : @"GPS追跡中...";
     [self.displayRegions addObject: self.gpsRegion];
     NSArray *regions = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region_area.plist" ofType:nil]];
     [regions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -81,7 +81,7 @@
     
     // Configure the cell...
     if (indexPath.row == 0) {
-        cell.textLabel.text = [NSString stringWithFormat:@"GPS定位：%@", self.gpsRegion];
+        cell.textLabel.text = [NSString stringWithFormat:@"現在地：%@", self.gpsRegion];
     } else {
         cell.textLabel.text = self.displayRegions[indexPath.row];
     }
@@ -91,13 +91,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[WTLocationManager sharedInstance] updateRegion:self.displayRegions[indexPath.row]];
-    [[WTLocationManager sharedInstance] saveLocation];
+//    [[WTLocationManager sharedInstance] updateRegion:self.displayRegions[indexPath.row]];
+//    [[WTLocationManager sharedInstance] saveLocation];
     
     if ([self.delegate respondsToSelector:@selector(didSelectRegion:)]) {
         [self.delegate didSelectRegion:self.displayRegions[indexPath.row]];
     }
-    
+     
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 

@@ -4,9 +4,17 @@
 <array>
 	<dict>
 		<key>Area</key>
-		<string>Around</string>
+		<string>検索距離</string>
 		<key>Districts</key>
 		<array>
+			<dict>
+				<key>district</key>
+				<string>200m</string>
+			</dict>
+			<dict>
+				<key>district</key>
+				<string>500m</string>
+			</dict>
 			<dict>
 				<key>district</key>
 				<string>1000m</string>
@@ -21,15 +29,7 @@
 			</dict>
 			<dict>
 				<key>district</key>
-				<string>4000m</string>
-			</dict>
-			<dict>
-				<key>district</key>
 				<string>5000m</string>
-			</dict>
-			<dict>
-				<key>district</key>
-				<string>6000m</string>
 			</dict>
 		</array>
 	</dict>

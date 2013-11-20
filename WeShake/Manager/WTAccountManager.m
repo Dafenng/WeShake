@@ -65,6 +65,11 @@
 
 - (NSString *)userName
 {
+    if ([self.account.accountType.identifier isEqualToString:ACAccountTypeIdentifierTwitter]) {
+        NSString *accountDesc = self.account.accountDescription;
+        return [accountDesc substringFromIndex:1];
+    }
+    
     NSString *username = [self.account valueForKeyPath:@"properties.ACPropertyFullName"];
     
     if (!username) {
@@ -86,7 +91,7 @@
     if ([accounts count] > 0) {
         successBlock();
     } else {
-        [SVProgressHUD showWithStatus:@"账户关联中" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showWithStatus:@"アカウントに接続中" maskType:SVProgressHUDMaskTypeBlack];
         ACAccountType *twitterAccountType = [self.accountStore
                                              accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierTwitter];
         [self.accountStore requestAccessToAccountsWithType:twitterAccountType options:nil completion:^(BOOL granted, NSError *error) {
@@ -107,7 +112,7 @@
     if ([accounts count] > 0) {
         successBlock();
     } else {
-        [SVProgressHUD showWithStatus:@"账户关联中" maskType:SVProgressHUDMaskTypeBlack];
+        [SVProgressHUD showWithStatus:@"アカウントに接続中" maskType:SVProgressHUDMaskTypeBlack];
         ACAccountType *facebookAccountType = [self.accountStore
                                               accountTypeWithAccountTypeIdentifier:ACAccountTypeIdentifierFacebook];
         NSDictionary *options = @{
@@ -206,13 +211,14 @@
 
 - (void)getTwitterAccountDetail
 {
-    SLRequest *twitterInfoRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/users/show.json"] parameters:@{@"screen_name": self.account.username}];
+    SLRequest *twitterInfoRequest = [SLRequest requestForServiceType:SLServiceTypeTwitter requestMethod:SLRequestMethodGET URL:[NSURL URLWithString:@"https://api.twitter.com/1.1/users/show.json"] parameters:@{@"screen_name": [self userName]}];
     twitterInfoRequest.account = self.account;
     
     [twitterInfoRequest performRequestWithHandler:^(NSData *responseData, NSHTTPURLResponse *urlResponse, NSError *error) {
 
         if (error) {
             NSLog(@"Error: %@", error.localizedDescription);
+            self.userRegisterBlock(NO);
             return;
         }
         
@@ -220,7 +226,11 @@
             NSDictionary *dict = [responseData objectFromJSONData];
             //默认头像太小，获取稍大图
             NSString *profileImageUrl = [dict objectForKey:@"profile_image_url"];
-            [self getProfileImage:[NSString stringWithFormat:@"%@%@", [profileImageUrl substringToIndex:[profileImageUrl length] - 10], @"bigger.png"]];
+            if (!profileImageUrl) {
+                self.userRegisterBlock(NO);
+            } else {
+                 [self getProfileImage:[profileImageUrl stringByReplacingOccurrencesOfString:@"normal" withString:@"bigger"]];
+            }
         }
     }];
     
@@ -239,7 +249,7 @@
             }];
         }
         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
-
+            self.userRegisterBlock(NO);
         }];
     
     [operation start];
@@ -279,7 +289,9 @@
             self.userRegisterBlock(YES);
         }
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"用户注册失败");
+        if (self.userRegisterBlock) {
+            self.userRegisterBlock(NO);
+        };
     }];
 }
 

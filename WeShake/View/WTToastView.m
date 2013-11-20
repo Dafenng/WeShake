@@ -79,7 +79,7 @@
     self.shopInfoLabel.text = aShop.name;
     [self setupStarRatingSatrWithRating:aShop.rating.floatValue];
     if (aShop.lunchBudgetAverage.integerValue == 0) {
-        self.budgetLabel.text = @"¥未知";
+        self.budgetLabel.text = @"¥不明";
     } else {
         self.budgetLabel.text = [NSString stringWithFormat:@"¥%ld", (long)aShop.lunchBudgetAverage.integerValue];
     }

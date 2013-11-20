@@ -68,8 +68,6 @@
     [self.shareImageView setImage:self.shareImage];
     self.shopTableView.allowsSelection = YES;
     
-//    [self getNearShops];
-    
     self.mainContainerView.layer.cornerRadius = 10.f;
 //    self.shareImageView.layer.cornerRadius = 5.f;
     
@@ -116,28 +114,28 @@
 - (IBAction)shareImage:(id)sender {
     
     if (!self.selectShop) {
-        [SVProgressHUD showErrorWithStatus:@"请选择商家"];
+        [SVProgressHUD showErrorWithStatus:@"お店を選んでください"];
         return;
     }
     
-    [SVProgressHUD showWithStatus:@"分享中..." maskType:SVProgressHUDMaskTypeBlack];
-    [self postWithMessage:[NSString stringWithFormat:@"%@ 我在这家叫 %@ 的店，我评分为 %.1f", self.commentTextView.text, self.selectShop.name, self.starRating.rating] photo:self.shareImage progress:^(CGFloat progress) {
+    [SVProgressHUD showWithStatus:@"シェア中..." maskType:SVProgressHUDMaskTypeBlack];
+    [self postWithMessage:[NSString stringWithFormat:@"%@ 私は %@ にいます。評価は %.1f", self.commentTextView.text, self.selectShop.name, self.starRating.rating] photo:self.shareImage progress:^(CGFloat progress) {
         ;
     } completion:^(BOOL success) {
         if (success) {
-            [SVProgressHUD showSuccessWithStatus:@"分享成功"];
+            [SVProgressHUD showSuccessWithStatus:@"シェアしました"];
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {
-            [SVProgressHUD showErrorWithStatus:@"分享失败"];
+            [SVProgressHUD showErrorWithStatus:@"シェアが失敗しました"];
         }
     }];
     
     if (self.twitterButton.selected) {
-        [self shareInTwitterWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@  我在这家叫 %@ 的店，我评分为 %f", self.commentTextView.text, self.selectShop.name, self.ratingFloat]];
+        [self shareInTwitterWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@ 私は %@ にいます。評価は %.1f", self.commentTextView.text, self.selectShop.name, self.starRating.rating]];
     }
 
     if (self.facebookButton.selected) {
-        [self shareInFacebookWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@  我在这家叫 %@ 的店，我评分为 %f", self.commentTextView.text, self.selectShop.name, self.ratingFloat]];
+        [self shareInFacebookWithImage:self.shareImage withStatus:[NSString stringWithFormat:@"%@ 私は %@ にいます。評価は %.1f", self.commentTextView.text, self.selectShop.name, self.starRating.rating]];
     }
 }
 
@@ -301,7 +299,7 @@
 
 - (void)showNetworkError
 {
-    [SVProgressHUD showErrorWithStatus:@"网络出错了"];
+    [SVProgressHUD showErrorWithStatus:@"ネットワークエラー"];
 }
 
 #pragma mark - UITableView Datasource
@@ -327,11 +325,11 @@
         if (self.noMoreShops) {
             ((WTLoadMoreCell *)cell).indicator.hidden = YES;
             [((WTLoadMoreCell *)cell).indicator stopAnimating];
-            ((WTLoadMoreCell *)cell).status.text = @"No More";
+            ((WTLoadMoreCell *)cell).status.text = @"データがありません";
         } else {
             ((WTLoadMoreCell *)cell).indicator.hidden = NO;
             [((WTLoadMoreCell *)cell).indicator startAnimating];
-            ((WTLoadMoreCell *)cell).status.text = @"Loading";
+            ((WTLoadMoreCell *)cell).status.text = @"      ローディング";
             [self getNearShops];
         }
     } else {
@@ -372,7 +370,7 @@
 - (IBAction)facebookButtonClicked:(id)sender {
     if (!self.facebookButton.selected) {
         if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机未关联Facebook账户，请前往设置关联" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"ご注意ください" message:@"このiPhoneは、Facebookアカウントが設定されていまん。iPhoneの設定にしてください。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
             return;
         }
@@ -381,7 +379,7 @@
             [SVProgressHUD dismiss];
             self.facebookButton.selected = YES;
         } fail:^{
-            [SVProgressHUD showErrorWithStatus:@"授权失败"];
+            [SVProgressHUD showErrorWithStatus:@"承認に失敗しました"];
             self.facebookButton.selected = NO;
         }];
     } else {
@@ -392,7 +390,7 @@
 - (IBAction)twitterButtonClicked:(id)sender {
     if (!self.twitterButton.selected) {
         if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机未关联Twitter账户，请前往设置关联" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"ご注意ください" message:@"このiPhoneは、Twitterアカウントが設定されていまん。iPhoneの設定にしてください。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [alertView show];
             return;
         }
@@ -401,7 +399,7 @@
             [SVProgressHUD dismiss];
             self.twitterButton.selected = YES;
         } fail:^{
-            [SVProgressHUD showErrorWithStatus:@"授权失败"];
+            [SVProgressHUD showErrorWithStatus:@"承認に失敗しました"];
             self.twitterButton.selected = NO;
         }];
     } else {

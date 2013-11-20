@@ -53,15 +53,15 @@
         _region = [[WTLocationManager sharedInstance] region];
         _area = @"All";
         if ([[WTLocationManager sharedInstance] regionIsGPSRegion]) {
-            _area = @"Around";
+            _area = @"検索距離";
         }
         
         _district = @"1000";
         
-        _genre = @"All";
+        _genre = @"全部";
         _cuisine = @"";
         
-        _period = @"All";
+        _period = @"全部";
         _budget = @"";
     }
     return self;
@@ -110,12 +110,12 @@
 
 - (NSDictionary *)areaAroundDict
 {
-    return @{@"1000m": @"1000",
-             @"2000m": @"2000",
+    return @{@"200m": @"200",
+             @"500m": @"500",
+             @"1000m": @"1000",
+             @"200m": @"2000",
              @"3000m": @"3000",
-             @"4000m": @"4000",
-             @"5000m": @"5000",
-             @"6000m": @"6000"
+             @"5000m": @"5000"
              };
 }
 
@@ -294,7 +294,7 @@
     } else if (tableView.tag == kSUBTABLEVIEWTAG) {
         if (self.menuType == SHOP_MENU_LOCATION) {
             self.area = self.tmpArea;
-            if ([self.area isEqualToString:@"Around"]) {
+            if ([self.area isEqualToString:@"検索距離"]) {
                 self.district = [self areaAroundDict][((NSDictionary *)self.districts[indexPath.row])[@"district"]];
             } else {
                 self.district = ((NSDictionary *)self.districts[indexPath.row])[@"district"];

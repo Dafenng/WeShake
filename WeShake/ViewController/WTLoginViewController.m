@@ -10,8 +10,11 @@
 #import "WTAccountManager.h"
 #import "SVProgressHUD.h"
 #import <Social/Social.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface WTLoginViewController()
+
+@property (weak, nonatomic) IBOutlet UIImageView *logoImageView;
 
 @end
 
@@ -30,6 +33,9 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.logoImageView.layer.cornerRadius = 20.f;
+    self.logoImageView.layer.masksToBounds = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,19 +47,19 @@
 - (IBAction)loginWithTwitter
 {
     if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机未关联Twitter账户，请前往设置关联" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"ご注意ください" message:@"このiPhoneは、Twitterアカウントが設定されていまん。iPhoneの設定にしてください。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
     
-    [SVProgressHUD showWithStatus:@"Logging" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"ログイン中" maskType:SVProgressHUDMaskTypeBlack];
     [[WTAccountManager sharedInstance] getTwitterAccountInformationWithCompletion:^(BOOL success) {
         if (success) {
             [SVProgressHUD dismiss];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showErrorWithStatus:@"Auth Error"];
+                [SVProgressHUD showErrorWithStatus:@"承認エラー"];
             });
         }
     }];
@@ -62,19 +68,19 @@
 - (IBAction)loginWithFacebook
 {
     if (![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]) {
-        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您的手机未关联Facebook账户，请前往设置关联" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"ご注意ください" message:@"このiPhoneは、Facebookアカウントが設定されていまん。iPhoneの設定にしてください。" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [alertView show];
         return;
     }
     
-    [SVProgressHUD showWithStatus:@"Logging" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"ログイン中" maskType:SVProgressHUDMaskTypeBlack];
     [[WTAccountManager sharedInstance] getFacebookAccountInformationWithCompletion:^(BOOL success) {
         if (success) {
             [SVProgressHUD dismiss];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
         } else {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD showErrorWithStatus:@"Auth Error"];
+                [SVProgressHUD showErrorWithStatus:@"承認エラー"];
             });
         }
     }];

@@ -1073,7 +1073,7 @@
 					/Users/jindafeng/Documents/WeShake/WeShake/Flurry,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F8321FFC-8D8D-45C3-9980-AE8CB32BA0DD";
+				PROVISIONING_PROFILE = "B176D757-AB30-4A2F-970C-62B27D6E509E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1101,7 +1101,7 @@
 					/Users/jindafeng/Documents/WeShake/WeShake/Flurry,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "F8321FFC-8D8D-45C3-9980-AE8CB32BA0DD";
+				PROVISIONING_PROFILE = "B176D757-AB30-4A2F-970C-62B27D6E509E";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

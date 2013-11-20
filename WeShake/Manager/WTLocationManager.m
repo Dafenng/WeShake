@@ -15,6 +15,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager;
 @property (assign, nonatomic) CLLocationCoordinate2D currentCoordinate;
 @property (assign, nonatomic) double radius;
+@property (strong, nonatomic) NSMutableArray *regions;
 
 @end
 
@@ -70,6 +71,28 @@
     
     [self recoverLocation];
     self.radius = kBaseRadius;
+    
+    NSArray *regionsPlist = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"region_area.plist" ofType:nil]];
+    __block NSMutableArray *areasArr;
+    [regionsPlist enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [areasArr addObject:[obj objectForKey:@"Prefecture"]];
+    }];
+    
+    self.regions = [NSMutableArray array];
+    [self.regions addObjectsFromArray:areasArr];
+}
+
+- (BOOL)regionExist:(NSString *)region
+{
+    __block BOOL exist = NO;
+    [self.regions enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        if ([obj isEqualToString:region]) {
+            exist = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return exist;
 }
 
 - (void)startUpdatingLocation
@@ -143,6 +166,10 @@
 #else
             self.gpsRegion = @"東京都";
 #endif
+            if ([self regionExist:self.gpsRegion]) {
+                self.region = self.gpsRegion;
+                [self saveLocation];
+            }
             [[NSNotificationCenter defaultCenter] postNotificationName:Region_Update_Notification object:self.gpsRegion];
             [self.locationManager stopUpdatingLocation];
         }

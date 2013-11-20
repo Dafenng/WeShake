@@ -21,7 +21,6 @@
 }
 
 @property (weak, nonatomic) IBOutlet UIButton *shakeButton;
-@property (weak, nonatomic) IBOutlet UIButton *regionButton;
 
 @property (strong, nonatomic) NSTimer *timer;
 
@@ -38,7 +37,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didResignActive) name:Application_Resign_Active object:nil];
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateRegion:) name:Region_Update_Notification object:nil];
     
-    [self.regionButton setTitle:[[WTLocationManager sharedInstance] region] forState:UIControlStateNormal];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -118,8 +116,8 @@
 - (void)setupShakeAnimation
 {
     CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
-    [anim setToValue:[NSNumber numberWithFloat:0.0f]];
-    [anim setFromValue:[NSNumber numberWithDouble:M_PI/16]];
+    [anim setToValue:[NSNumber numberWithFloat:-M_PI/32]];
+    [anim setFromValue:[NSNumber numberWithDouble:M_PI/32]];
     [anim setDuration:0.15];
     [anim setRepeatCount:NSUIntegerMax];
     [anim setAutoreverses:YES];
@@ -176,12 +174,12 @@
 
 - (void)showNoShop
 {
-    [SVProgressHUD showErrorWithStatus:@"不在服务范围"];
+    [SVProgressHUD showErrorWithStatus:@"データサービス範囲外"];
 }
 
 - (void)showNetworkError
 {
-    [SVProgressHUD showErrorWithStatus:@"网络出错了"];
+    [SVProgressHUD showErrorWithStatus:@"ネットワークエラー"];
 }
 
 - (void)dismissToastView:(UITapGestureRecognizer *)tapGesture
@@ -216,7 +214,7 @@
 - (void)getSuggestShop
 {
     [self dismissToastView:nil];
-    [SVProgressHUD showWithStatus:@"Searching" maskType:SVProgressHUDMaskTypeBlack];
+    [SVProgressHUD showWithStatus:@"検索中" maskType:SVProgressHUDMaskTypeBlack];
     [[WTShopManager sharedInstance] getSuggestShopWithSuccess:^(WTShop *shop) {
         [SVProgressHUD dismiss];
         [self showShopInfo:shop];
@@ -243,9 +241,7 @@
 {
     if ([segue.identifier isEqualToString:@"MainViewToShopView"]) {
         [[segue destinationViewController] setShop:sender];
-    } else if ([segue.identifier isEqualToString:@"MainToRegionView"]) {
-        ((WTRegionViewController *)[(UINavigationController *)[segue destinationViewController] viewControllers][0]).delegate = self;
-    }
+    } 
 }
 
 - (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event
@@ -266,13 +262,6 @@
 
 - (IBAction)profile:(id)sender {
     [self performSegueWithIdentifier:@"MainToAboutMe" sender:sender];
-}
-
-#pragma mark - region delegate
-
-- (void)didSelectRegion:(NSString *)aRegion
-{
-    [self.regionButton setTitle:[[WTLocationManager sharedInstance] region] forState:UIControlStateNormal];
 }
 
 @end

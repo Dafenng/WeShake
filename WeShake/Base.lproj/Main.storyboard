@@ -20,7 +20,7 @@
             </objects>
             <point key="canvasLocation" x="-619" y="-586"/>
         </scene>
-        <!--Main View Controller - 检索区域-->
+        <!--Main View Controller - Gourr-->
         <scene sceneID="3DV-NU-13j">
             <objects>
                 <viewController id="qhc-S5-pn6" customClass="WTMainViewController" sceneMemberID="viewController">
@@ -32,28 +32,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gpk-sT-zzj">
-                                <rect key="frame" x="0.0" y="64" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgD-zY-whM">
-                                        <rect key="frame" x="117" y="7" width="85" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" backgroundImage="main_home_region.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <segue destination="H64-WO-vH3" kind="modal" identifier="MainToRegionView" id="XfY-oR-ZdJ"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.95686274510000002" green="0.33725490200000002" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="FJB-2P-mu5"/>
-                                    <constraint firstAttribute="width" constant="320" id="pDH-Kc-4bv"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fZU-Wq-Xzm">
                                 <rect key="frame" x="60" y="184" width="200" height="200"/>
                                 <constraints>
@@ -115,30 +93,27 @@
                         </subviews>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.87843137250000003" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="Gpk-sT-zzj" firstAttribute="top" secondItem="0td-Ju-3hP" secondAttribute="bottom" id="73w-bw-s5k"/>
                             <constraint firstAttribute="centerX" secondItem="fZU-Wq-Xzm" secondAttribute="centerX" id="75P-s3-li8"/>
                             <constraint firstAttribute="centerY" secondItem="fZU-Wq-Xzm" secondAttribute="centerY" id="XvV-LF-G35"/>
-                            <constraint firstAttribute="centerX" secondItem="Gpk-sT-zzj" secondAttribute="centerX" id="aRc-Eb-FWd"/>
                             <constraint firstItem="Vxo-f6-3cw" firstAttribute="top" secondItem="TCp-Ry-jti" secondAttribute="bottom" id="sVt-DU-Vbz"/>
                             <constraint firstAttribute="centerX" secondItem="TCp-Ry-jti" secondAttribute="centerX" id="yEh-tZ-XaH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="检索区域" id="u0C-Sb-daW"/>
+                    <navigationItem key="navigationItem" title="Gourr" id="u0C-Sb-daW"/>
                     <connections>
-                        <outlet property="regionButton" destination="mgD-zY-whM" id="D2l-rF-ZXO"/>
                         <outlet property="shakeButton" destination="fZU-Wq-Xzm" id="tnf-2R-XMn"/>
                         <segue destination="zfS-uL-shb" kind="push" identifier="MainViewToShopView" id="iNV-fj-0qu"/>
                         <segue destination="7Dh-v6-Jvq" kind="push" identifier="MainViewToSearchView" id="YuM-bV-wP4"/>
-                        <segue destination="1dJ-z2-0dn" kind="modal" identifier="MainToUserLogin" id="E2M-rT-wd0"/>
                         <segue destination="0B0-qW-L2F" kind="push" identifier="MainToAboutMe" id="m62-sy-sh9"/>
                         <segue destination="9jT-kv-3Sz" kind="modal" identifier="MainToCapture" id="pQK-Jo-3YF"/>
+                        <segue destination="KdW-jY-Fi8" kind="modal" identifier="MainToUserLogin" id="Pqg-Eo-aXg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WLn-T2-KTs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="591" y="-602"/>
         </scene>
-        <!--About Me View Controller - 我的信息-->
+        <!--About Me View Controller - プロフィール-->
         <scene sceneID="WGt-1q-o8k">
             <objects>
                 <viewController id="0B0-qW-L2F" customClass="WTAboutMeViewController" sceneMemberID="viewController">
@@ -264,8 +239,8 @@
                             <constraint firstItem="KjO-tI-GGN" firstAttribute="top" secondItem="Wgb-N0-7ud" secondAttribute="bottom" constant="10" id="rOk-td-VTg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="我的信息" id="cLQ-AN-Q62">
-                        <barButtonItem key="rightBarButtonItem" title="Fav" id="0FT-Up-9l2">
+                    <navigationItem key="navigationItem" title="プロフィール" id="cLQ-AN-Q62">
+                        <barButtonItem key="rightBarButtonItem" title="ハート" id="0FT-Up-9l2">
                             <connections>
                                 <segue destination="eX6-cI-k42" kind="push" id="TvL-H2-Ilr"/>
                             </connections>
@@ -281,7 +256,7 @@
             </objects>
             <point key="canvasLocation" x="972" y="905"/>
         </scene>
-        <!--Favor View Controller - 我的收藏-->
+        <!--Favor View Controller - お気に入り-->
         <scene sceneID="nBD-WY-MoA">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="eX6-cI-k42" customClass="WTFavorViewController" sceneMemberID="viewController">
@@ -380,7 +355,7 @@
                             <constraint firstItem="nKT-kt-VRf" firstAttribute="top" secondItem="cym-xP-O1m" secondAttribute="bottom" id="ajn-62-DZE"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="我的收藏" id="Uvt-Nx-ipO"/>
+                    <navigationItem key="navigationItem" title="お気に入り" id="Uvt-Nx-ipO"/>
                     <connections>
                         <outlet property="shopTableView" destination="cym-xP-O1m" id="D8X-8c-Axv"/>
                     </connections>
@@ -392,7 +367,6 @@
         <!--Custom Navigation Controller-->
         <scene sceneID="o0p-e5-I4i">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hb6-Do-3mQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="H64-WO-vH3" customClass="WTCustomNavigationController" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UwP-wd-p5l">
                         <autoresizingMask key="autoresizingMask"/>
@@ -401,10 +375,11 @@
                         <segue destination="sYR-zg-y7L" kind="relationship" relationship="rootViewController" id="bqZ-4w-gFO"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hb6-Do-3mQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-389" y="-1824"/>
         </scene>
-        <!--Region View Controller - 区域选择-->
+        <!--Region View Controller - エリアを選択-->
         <scene sceneID="gxs-cz-GMe">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="sYR-zg-y7L" customClass="WTRegionViewController" sceneMemberID="viewController">
@@ -446,8 +421,8 @@
                             <constraint firstItem="hqM-yB-Dcy" firstAttribute="top" secondItem="jOy-Bs-fzf" secondAttribute="bottom" id="t3s-Av-HNP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="区域选择" id="HU3-8d-Iof">
-                        <barButtonItem key="rightBarButtonItem" title="取消" id="kUm-bO-hLe">
+                    <navigationItem key="navigationItem" title="エリアを選択" id="HU3-8d-Iof">
+                        <barButtonItem key="rightBarButtonItem" title="キャンセル" id="kUm-bO-hLe">
                             <connections>
                                 <action selector="cancel:" destination="sYR-zg-y7L" id="odX-iL-vOi"/>
                             </connections>
@@ -461,7 +436,7 @@
             </objects>
             <point key="canvasLocation" x="170" y="-1825"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Login View Controller - ユーザー登録-->
         <scene sceneID="uHV-h8-ZJZ">
             <objects>
                 <viewController id="1dJ-z2-0dn" customClass="WTLoginViewController" sceneMemberID="viewController">
@@ -474,7 +449,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_app_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="KR1-uy-ouj">
-                                <rect key="frame" x="105" y="110" width="110" height="110"/>
+                                <rect key="frame" x="105" y="197" width="110" height="110"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="110" id="50i-db-GcV"/>
@@ -482,7 +457,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sr4-au-bJo">
-                                <rect key="frame" x="65" y="353" width="191" height="34"/>
+                                <rect key="frame" x="65" y="375" width="191" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="191" id="K4O-Rm-kth"/>
@@ -512,21 +487,40 @@
                         </subviews>
                         <color key="backgroundColor" red="0.90196078430000004" green="0.87843137250000003" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="sr4-au-bJo" firstAttribute="top" secondItem="KR1-uy-ouj" secondAttribute="bottom" constant="68" id="6mS-xd-RL1"/>
                             <constraint firstAttribute="centerX" secondItem="KR1-uy-ouj" secondAttribute="centerX" id="7Xf-Uu-AGa"/>
-                            <constraint firstItem="fwz-3i-U0Y" firstAttribute="top" secondItem="sr4-au-bJo" secondAttribute="bottom" constant="51" id="LHb-b5-bZ8"/>
+                            <constraint firstItem="fwz-3i-U0Y" firstAttribute="top" secondItem="sr4-au-bJo" secondAttribute="bottom" constant="29" id="LHb-b5-bZ8"/>
                             <constraint firstAttribute="centerX" secondItem="sr4-au-bJo" secondAttribute="centerX" constant="-0.5" id="bBJ-Gf-11W"/>
                             <constraint firstAttribute="centerX" secondItem="fwz-3i-U0Y" secondAttribute="centerX" constant="-0.5" id="jks-UI-hz0"/>
-                            <constraint firstItem="KR1-uy-ouj" firstAttribute="top" secondItem="aKx-Nl-GwS" secondAttribute="bottom" constant="90" id="rMi-gc-m06"/>
                             <constraint firstItem="4lw-ND-3EH" firstAttribute="top" secondItem="fwz-3i-U0Y" secondAttribute="bottom" constant="96" id="xoi-VB-hic"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ncj-eS-bcV"/>
+                    <navigationItem key="navigationItem" title="ユーザー登録" id="ncj-eS-bcV"/>
+                    <connections>
+                        <outlet property="logoImageView" destination="KR1-uy-ouj" id="0jC-pR-Nxr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YZa-ic-nJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1280" y="-1824"/>
+            <point key="canvasLocation" x="1588" y="-2048"/>
         </scene>
-        <!--Shop View Controller - 商家信息-->
+        <!--Custom Navigation Controller-->
+        <scene sceneID="gf3-Gv-iPW">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="KdW-jY-Fi8" customClass="WTCustomNavigationController" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="BR8-In-q1u"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9Nk-L7-BMQ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="1dJ-z2-0dn" kind="relationship" relationship="rootViewController" id="7tX-xI-ync"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eJH-ve-5Rc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076" y="-2048"/>
+        </scene>
+        <!--Shop View Controller - お店の情報-->
         <scene sceneID="MPG-Q6-CKR">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="zfS-uL-shb" customClass="WTShopViewController" sceneMemberID="viewController">
@@ -630,7 +624,7 @@
                             <constraint firstItem="BZa-r1-aBp" firstAttribute="top" secondItem="o4q-Fy-fgU" secondAttribute="bottom" id="wih-qV-LXj"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="商家信息" id="KG6-4o-aDU"/>
+                    <navigationItem key="navigationItem" title="お店の情報" id="KG6-4o-aDU"/>
                     <connections>
                         <outlet property="favorButton" destination="yI1-lh-Akf" id="W3w-cL-Hmg"/>
                         <outlet property="imageIndicator" destination="Vw7-Dy-Rf2" id="pak-bv-TA4"/>
@@ -645,7 +639,7 @@
             </objects>
             <point key="canvasLocation" x="3407" y="-379"/>
         </scene>
-        <!--Shop Map View Controller - 商家位置-->
+        <!--Shop Map View Controller - お店の場所-->
         <scene sceneID="qoe-b2-F3V">
             <objects>
                 <viewController id="qNX-yc-Maw" customClass="WTShopMapViewController" sceneMemberID="viewController">
@@ -675,8 +669,8 @@
                             <constraint firstItem="eSH-ba-HLe" firstAttribute="top" secondItem="bMb-DI-Uou" secondAttribute="bottom" id="axq-tW-5Wt"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="商家位置" id="vbb-Gl-TCV">
-                        <barButtonItem key="rightBarButtonItem" title="Nav" id="jFW-ob-ckm">
+                    <navigationItem key="navigationItem" title="お店の場所" id="vbb-Gl-TCV">
+                        <barButtonItem key="rightBarButtonItem" title="ナビ" id="jFW-ob-ckm">
                             <connections>
                                 <action selector="getDirections:" destination="qNX-yc-Maw" id="2qO-Kq-nWX"/>
                             </connections>
@@ -691,7 +685,7 @@
             </objects>
             <point key="canvasLocation" x="4290" y="-395"/>
         </scene>
-        <!--Search View Controller - 搜索-->
+        <!--Search View Controller - 検索-->
         <scene sceneID="KXA-8V-fpo">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="7Dh-v6-Jvq" customClass="WTSearchViewController" sceneMemberID="viewController">
@@ -794,9 +788,9 @@
                                             <constraint firstAttribute="height" constant="28" id="jDL-3R-5ce"/>
                                         </constraints>
                                         <segments>
-                                            <segment title="Location"/>
-                                            <segment title="Cuisine"/>
-                                            <segment title="Budget"/>
+                                            <segment title="エリア"/>
+                                            <segment title="ジャンル"/>
+                                            <segment title="予算"/>
                                         </segments>
                                         <connections>
                                             <action selector="shopMenuSegmentControlValueChanged:" destination="7Dh-v6-Jvq" eventType="valueChanged" id="Dsn-PE-eUQ"/>
@@ -821,8 +815,15 @@
                             <constraint firstAttribute="centerX" secondItem="MMk-eU-vZX" secondAttribute="centerX" id="pA9-Ud-hIs"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="搜索" id="J21-YL-yOi"/>
+                    <navigationItem key="navigationItem" title="検索" id="J21-YL-yOi">
+                        <barButtonItem key="rightBarButtonItem" id="T62-9j-YQF">
+                            <connections>
+                                <segue destination="H64-WO-vH3" kind="modal" identifier="SearchToRegionView" id="t0A-0t-bxo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="regionButton" destination="T62-9j-YQF" id="eTM-M7-Inc"/>
                         <outlet property="shopMenuCategoryContainer" destination="MMk-eU-vZX" id="77F-2B-d9E"/>
                         <outlet property="shopMenuSegmentControl" destination="7TU-7D-EIm" id="aRQ-TU-vGp"/>
                         <outlet property="shopsTableView" destination="NDT-Gx-N7O" id="6yZ-ty-Lbd"/>
@@ -868,8 +869,8 @@
                                             <action selector="changeFlashMode:" destination="d0W-ky-ohk" eventType="touchUpInside" id="5JV-KW-XMO"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="关闭" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Go6-l0-qCQ">
-                                        <rect key="frame" x="46" y="12" width="46" height="21"/>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="オフ" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Go6-l0-qCQ">
+                                        <rect key="frame" x="46" y="12" width="48" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -901,7 +902,7 @@
                                         <rect key="frame" x="232" y="22" width="73" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Library">
+                                        <state key="normal" title="アルバム">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -909,10 +910,10 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x3E-Uo-WX1">
-                                        <rect key="frame" x="13" y="22" width="70" height="44"/>
+                                        <rect key="frame" x="13" y="22" width="75" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="Done">
+                                        <state key="normal" title="キャンセル">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -950,7 +951,7 @@
             </objects>
             <point key="canvasLocation" x="2380" y="-1271"/>
         </scene>
-        <!--Share Post View Controller - 商家分享-->
+        <!--Share Post View Controller - お店をシェア-->
         <scene sceneID="RK0-rM-KrK">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="ipw-7x-Psi" customClass="WTSharePostViewController" sceneMemberID="viewController">
@@ -986,7 +987,7 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Add your comment !"/>
+                                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="口コミ !"/>
                                                 </userDefinedRuntimeAttributes>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NtX-fw-dsA">
@@ -1033,7 +1034,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select shop: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tl6-dQ-2uI">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="お店を選ぶ：" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tl6-dQ-2uI">
                                 <rect key="frame" x="20" y="313" width="85" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <constraints>
@@ -1090,8 +1091,8 @@
                             <constraint firstItem="tl6-dQ-2uI" firstAttribute="top" secondItem="mnn-Ut-qat" secondAttribute="bottom" constant="3" id="uT3-1w-BIQ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="商家分享" id="ycQ-Yt-73L">
-                        <barButtonItem key="rightBarButtonItem" title="share" id="uty-Ps-Yxy">
+                    <navigationItem key="navigationItem" title="お店をシェア" id="ycQ-Yt-73L">
+                        <barButtonItem key="rightBarButtonItem" title="シェア" id="uty-Ps-Yxy">
                             <connections>
                                 <action selector="shareImage:" destination="ipw-7x-Psi" id="Wk0-BQ-xls"/>
                             </connections>
@@ -1148,7 +1149,6 @@
         <image name="like_button.png" width="44" height="44"/>
         <image name="liked_button.png" width="43" height="44"/>
         <image name="login_app_logo.png" width="110" height="110"/>
-        <image name="main_home_region.png" width="85" height="30"/>
         <image name="main_shake_button.png" width="316" height="316"/>
         <image name="map_button.png" width="44" height="44"/>
         <image name="phone_button.png" width="44" height="44"/>
@@ -1164,6 +1164,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="iNV-fj-0qu"/>
+        <segue reference="mcl-Pc-M4W"/>
     </inferredMetricsTieBreakers>
 </document>

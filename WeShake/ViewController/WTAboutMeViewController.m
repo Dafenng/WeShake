@@ -141,11 +141,11 @@
         if (self.noMorePost) {
             ((WTLoadMoreCell *)cell).indicator.hidden = YES;
             [((WTLoadMoreCell *)cell).indicator stopAnimating];
-            ((WTLoadMoreCell *)cell).status.text = @"No More";
+            ((WTLoadMoreCell *)cell).status.text = @"データがありません";
         } else {
             ((WTLoadMoreCell *)cell).indicator.hidden = NO;
             [((WTLoadMoreCell *)cell).indicator startAnimating];
-            ((WTLoadMoreCell *)cell).status.text = @"Loading";
+            ((WTLoadMoreCell *)cell).status.text = @"      ローディング";
             [self getSharePosts];
         }
     } else {

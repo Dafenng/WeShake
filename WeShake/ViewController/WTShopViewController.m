@@ -214,7 +214,7 @@
         }
         
     } failureBlock:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [SVProgressHUD showErrorWithStatus:@"收藏失败"];
+        [SVProgressHUD showErrorWithStatus:@"お気に入りに失敗しました"];
     }];
 }
 

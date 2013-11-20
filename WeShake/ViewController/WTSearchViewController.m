@@ -28,6 +28,7 @@
 @property (strong, nonatomic) WTSearchMenuViewController *menuViewController;
 @property (strong, nonatomic) NSMutableArray *shopList;
 @property (assign, nonatomic) BOOL noMoreShops;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *regionButton;
 
 @end
 
@@ -71,7 +72,7 @@
     self.menuViewController = [[WTSearchMenuViewController alloc] init];
     self.menuViewController.delegate = self;
     
-    [self getSearchShopsWithRegion:self.menuViewController.region area:self.menuViewController.area district:self.menuViewController.district genre:self.menuViewController.genre cuisine:self.menuViewController.cuisine period:self.menuViewController.period budget:self.menuViewController.budget];
+    [self.regionButton setTitle:[[WTLocationManager sharedInstance] region]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -133,7 +134,7 @@
 
 - (void)showNetworkError
 {
-    [SVProgressHUD showErrorWithStatus:@"网络出错了"];
+    [SVProgressHUD showErrorWithStatus:@"ネットワークエラー"];
 }
 
 - (IBAction)shopMenuSegmentControlValueChanged:(id)sender {
@@ -232,12 +233,14 @@
         if (self.noMoreShops) {
             ((WTLoadMoreCell *)cell).indicator.hidden = YES;
             [((WTLoadMoreCell *)cell).indicator stopAnimating];
-            ((WTLoadMoreCell *)cell).status.text = @"No More";
+            ((WTLoadMoreCell *)cell).status.text = @"データがありません";
         } else {
             ((WTLoadMoreCell *)cell).indicator.hidden = NO;
             [((WTLoadMoreCell *)cell).indicator startAnimating];
-            ((WTLoadMoreCell *)cell).status.text = @"Loading";
-            [self getSearchShopsWithRegion:self.menuViewController.region area:self.menuViewController.area district:self.menuViewController.district genre:self.menuViewController.genre cuisine:self.menuViewController.cuisine period:self.menuViewController.period budget:self.menuViewController.budget];
+            ((WTLoadMoreCell *)cell).status.text = @"      ローディング";
+            NSString *area = [self.menuViewController.area isEqualToString:@"検索距離"] ? @"Around" : self.menuViewController.area;
+            NSString *genre = [self.menuViewController.genre isEqualToString:@"全部"] ? @"All" : self.menuViewController.genre;
+            [self getSearchShopsWithRegion:self.menuViewController.region area:area district:self.menuViewController.district genre:genre cuisine:self.menuViewController.cuisine period:self.menuViewController.period budget:self.menuViewController.budget];
         }
     } else {
         cell = (WTSearchViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
@@ -269,6 +272,8 @@
     if ([segue.identifier isEqualToString:@"SearchViewToShopView"]) {
         NSIndexPath *selectedRowIndex = [self.shopsTableView indexPathForSelectedRow];
         [[segue destinationViewController] setShop:[self.shopList objectAtIndex:selectedRowIndex.row]];
+    } else if ([segue.identifier isEqualToString:@"SearchToRegionView"]) {
+        ((WTRegionViewController *)[(UINavigationController *)[segue destinationViewController] viewControllers][0]).delegate = self;
     }
 }
 
@@ -293,6 +298,20 @@
 - (void)didSelectNewSearchConditionNotImplemented
 {
     [self dismissShopOptionMenu];
+}
+
+
+#pragma mark - region delegate
+
+- (void)didSelectRegion:(NSString *)aRegion
+{
+    [self.regionButton setTitle:aRegion];
+    [self.menuViewController setRegion:aRegion];
+    [self.menuViewController setArea:@"All"];
+    
+    [self.shopList removeAllObjects];
+    self.noMoreShops = NO;
+    [self.shopsTableView reloadData];
 }
 
 @end
