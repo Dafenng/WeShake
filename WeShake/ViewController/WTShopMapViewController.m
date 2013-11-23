@@ -53,7 +53,7 @@
     CLLocationCoordinate2D shopLocation = CLLocationCoordinate2DMake(self.shop.latitude.doubleValue, self.shop.longitude.doubleValue);
     
     //TODO:根据用户与商家距离决定distance
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(shopLocation, 3000, 3000);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(shopLocation, 10000, 10000);
     MKCoordinateRegion adjustedRegion =  [self.mapView regionThatFits:viewRegion];
     [self.mapView setRegion:adjustedRegion animated:YES];
     
@@ -90,14 +90,23 @@
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
     CLLocationCoordinate2D shopLocation = CLLocationCoordinate2DMake(self.shop.latitude.doubleValue, self.shop.longitude.doubleValue);
-    CLLocationCoordinate2D centerLocation = CLLocationCoordinate2DMake((shopLocation.latitude + userLocation.location.coordinate.latitude) / 2, (shopLocation.longitude + userLocation.location.coordinate.longitude) / 2);
+    
+    double userLatitude = userLocation.location.coordinate.latitude;
+    double userLongitude = userLocation.location.coordinate.longitude;
+    
+    CLLocationCoordinate2D centerLocation = CLLocationCoordinate2DMake((shopLocation.latitude + userLatitude) / 2, (shopLocation.longitude + userLongitude) / 2);
     
     double latitudeOffset = fabsf(userLocation.location.coordinate.latitude - shopLocation.latitude);
     double longitudeOffset = fabsf(userLocation.location.coordinate.longitude - shopLocation.longitude);
+    if (longitudeOffset > 180) {
+        longitudeOffset = 360.0 - longitudeOffset;
+    }
     
     //按照经度差一度，距离差85km，纬度差一度，距离差110km算
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(centerLocation, latitudeOffset * 85000 * 2, longitudeOffset * 110000 * 2);
-    [mapView setRegion:region animated:YES];
+    if (longitudeOffset < 30) {
+        MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(centerLocation, latitudeOffset * 85000 * 2, longitudeOffset * 110000 * 2);
+        [mapView setRegion:region animated:YES];
+    }
 }
 
 @end

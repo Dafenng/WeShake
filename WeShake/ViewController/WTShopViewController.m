@@ -147,12 +147,17 @@
 
 - (void)getShopPhotos
 {
+    if (!self.shop.defaultSquareImage) {
+        [self setupPhotoView];
+        return;
+    }
+    
     [self.imageIndicator startAnimating];
     NSString *path = [NSString stringWithFormat:@"/api/v1/shop_photos"];
     NSDictionary *params = @{
                              @"shop_id" : self.shop.shopId
                              };
-    
+
     [WTHttpEngine startHttpConnectionWithPath:path method:@"GET" usingParams:params andSuccessBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@", responseObject);
         [self.shop.shopPhotos removeAllObjects];

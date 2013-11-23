@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 //#define TEST_ENV
-//#define REAL_LOCATION
+#define REAL_LOCATION
 
 #ifdef TEST_ENV
 
